@@ -1,0 +1,393 @@
+/*
+	NOTE:
+	This pen is an ongoing collection of hover ideas. Leave me a comment if you have any suggestions!
+*/
+
+/* BASE TEMPLATE STYLES ========== */
+
+.page_title {
+	color: #0af;
+	border-bottom: 1px solid rgba(0,0,0,.05);
+	font-weight: 300;
+	margin: 0;
+	padding: 20px 0;
+	text-shadow: 0 1px 1px rgba(0,0,0,.1);
+	text-transform: uppercase;
+}
+
+/* PEN STYLES ========== */
+.menu,
+.menu .menu_title,
+.menu ul li a,
+.menu ul li a:after,
+.menu ul li a:before {
+	-webkit-transition: all 300ms ease-in-out;
+	transition: all 300ms ease-in-out;
+}
+.menu {
+	border-bottom: 1px solid rgba(0,0,0,.05);
+	border-top: 1px solid #fff;
+	margin: 0;
+	padding: 60px 0;
+}
+.menu:hover {
+	background: #fff;
+	border-bottom: 1px solid rgba(0,0,0,.2);
+}
+.menu .menu_title {
+	color: #ccc;
+	font-size: 1.5em;
+	font-weight: 300;
+	margin: 0 0 20px;
+}
+.menu:hover .menu_title {
+	color: #0af;
+	text-shadow: 0 1px 1px rgba(0,0,0,.1);	
+}
+.menu ul {
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.menu ul li {
+	display: inline-block;
+}
+.menu ul li a {
+	color: #555;
+	display: block;
+	line-height: 50px;
+	padding: 0 30px;
+	text-decoration: none;
+}
+
+/* HOVER STYLE PER CLASS ========== */
+
+/* ----- EFFECT 01 - Simple BG Fade */
+	.menu.effect-01 ul li a:hover {
+		background: rgba(0,255,170,.2);
+	}
+
+/* ----- EFFECT 02 - Shape Transform */
+	.menu.effect-02 ul li a:hover {
+		background: rgba(136,0,68,.2);
+		border-radius: 25px;
+	}
+
+/* ----- EFFECT 03 - Side Brackets */
+	.menu.effect-03 ul li a {
+		position: relative;
+	}
+	.menu.effect-03 ul li a:before {
+		color: #fa0;
+		content: '[';
+		display: block;
+		font-size: 1.5em;
+		left: 30px;
+		opacity: 0;
+		position: absolute;
+		top: 0;
+	}
+	.menu.effect-03 ul li a:after {
+		color: #fa0;
+		content: ']';
+		display: block;
+		font-size: 1.5em;
+		opacity: 0;
+		position: absolute;
+		right: 30px;
+		top: 0;
+	}
+	.menu.effect-03 ul li a:hover:before {
+		left: 15px;
+		opacity: 1;
+	}
+	.menu.effect-03 ul li a:hover:after {
+		opacity: 1;
+		right: 15px;
+	}	
+	.menu.effect-03 ul li a:hover {
+		background: trasnparent;
+	}
+
+/* ----- EFFECT 04 - Realistic */
+	.menu.effect-04 ul li a {
+		border-radius: 5px;
+		border: 1px solid rgba(0,0,0,0);
+		margin: 5px 10px;
+	}	
+	.menu.effect-04 ul li a:hover {
+		background: rgba(0,0,0,.05);
+		border-bottom: 1px solid rgba(0,0,0,.2);
+		border-top: 1px solid rgba(255,255,255,.5);
+		box-shadow: 0 2px 2px rgba(0,0,0,.1);
+		position: relative;
+		text-shadow: 1px 1px 1px rgba(255,255,255,.5);
+	}
+	.menu.effect-04 ul li a:active {
+		background: rgba(100,100,100,.05);
+		border-bottom-color: rgba(0,0,0,0);
+		box-shadow: 0 2px 2px rgba(0,0,0,.1) inset;
+		text-shadow: none;
+		top: 1px;
+	}
+
+/* ----- EFFECT 05 - 3D Anaglyph */
+	.menu.effect-05 ul li a:hover {
+		background: rgba(0,0,0,.4);
+		box-shadow: inset 0 1px 2px rgba(0,0,0,.2);
+		color: #fff;
+		text-shadow: 4px 0 1px rgba(255,0,0,.5), -4px 0 1px rgba(0,0,255,.5);
+	}
+
+/* ----- EFFECT 06 - BG Shift */
+	.menu.effect-06 ul li a {
+		border: 1px solid rgba(0,0,0,0);
+		overflow: hidden;
+		position: relative;
+	}
+	.menu.effect-06 ul li a:after,
+	.menu.effect-06 ul li a:before {
+		background: rgba(0,170,0,.1);
+		content: ' ';
+		display: block;
+		height: 100%;
+		position: absolute;
+		transform: skewX(-45deg);
+		-webkit-transform: skewX(-45deg);
+		width: 0;
+		z-index: 0;
+	}
+	.menu.effect-06 ul li a:after {
+		bottom: 0;
+		right: -20%;
+	}
+	.menu.effect-06 ul li a:before {
+		top: 0;
+		left: -20%;
+	}
+	.menu.effect-06 ul li a:hover {
+		box-shadow: inset 0 1px 2px rgba(0,0,0,.2);
+	}
+	.menu.effect-06 ul li a:hover:after,
+	.menu.effect-06 ul li a:hover:before {
+		width: 150%;
+	}
+
+/* ----- EFFECT 07 - Hidden Text */
+	.menu.effect-07 ul li a {
+		overflow: hidden;
+		position: relative;
+	}
+	.menu.effect-07 ul li a:before {
+		background: rgba(136,0,136,.1);
+		color: rgba(0,0,0,0);
+		content: 'Hello!';
+		display: block;
+		height: 0;
+		left: 0;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+	}	
+	.menu.effect-07 ul li a:hover {
+		box-shadow: 0 1px 2px rgba(0,0,0,.2);
+		color: rgba(0,0,0,.0);
+	}
+	.menu.effect-07 ul li a:hover:before {
+		color: #555;
+		height: 50px;
+	}
+
+/* ----- EFFECT 08 - Old TV Effect */
+	.menu.effect-08 ul li a {
+		border-radius: 3px;
+		overflow: hidden;
+		position: relative;
+	}
+	.menu.effect-08 ul li a:after,
+	.menu.effect-08 ul li a:before {
+		content: ' ';
+		display: block;
+		height: 0;
+		position: absolute;
+		width: 120%;
+		z-index: 0;
+	}
+	.menu.effect-08 ul li a:after {
+		background: rgba(250,255,250,.9);
+		bottom: 50%;
+		right: 0%;
+		-webkit-transition: all 200ms 250ms ease-in-out;
+		transition: all 200ms 250ms ease-in-out;
+	}
+	.menu.effect-08 ul li a:before {
+		background: rgba(200,200,255,.9);
+		top: 50%;
+		left: 0%;
+		-webkit-transition: all 200ms 125ms ease-in-out;
+		transition: all 200ms 125ms ease-in-out;
+	}
+	.menu.effect-08 ul li a:hover {
+		box-shadow: inset 0 0 80px rgba(0,0,0,.6);
+		color: #fff;
+		text-shadow: 0.05em .05em .05em rgba(0,0,0,.5);
+	}
+	.menu.effect-08 ul li a:hover:after {
+		background: rgba(0,0,0,.1);
+		bottom: -10%;
+		height: 120%;
+		position: relative;
+		right: -10%;
+	}
+	.menu.effect-08 ul li a:hover:before {
+		background: rgba(0,0,0,.1);
+		height: 120%;
+		left: -10%;
+		position: relative;
+		top: -10%;
+	}
+
+/* ----- EFFECT 09 - Hidden Symbol */
+	.menu.effect-09 ul li a {
+		border-top: 1px solid rgba(0,0,0,0);
+		margin: 4px;
+	}
+	.menu.effect-09 ul li a:after {
+		color: #f0a;
+		content: '\00bb'; /* code for &raquo; */
+		display: block;
+		float: right;
+		opacity: 0;
+		overflow: hidden;
+		width: 0;
+	}
+	.menu.effect-09 ul li a:hover {
+		background: rgba(255,255,255,.2);
+		border-radius: 3px;
+		border-top: 1px solid rgba(255,255,255,.1);
+		box-shadow: 0 2px 2px rgba(0,0,0,.2);
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.menu.effect-09 ul li a:hover:after {
+		opacity: 1;
+		width: 20px;
+	}
+
+/* ----- EFFECT 10 - Transform Shape with Border */
+	.menu.effect-10 ul li a {
+		border: 1px solid rgba(0,0,0,0);
+		margin: 0 10px;
+	}
+	.menu.effect-10 ul li a.bdr_btm {
+		border-bottom: 1px solid rgba(0,170,255,.8);
+	}
+	.menu.effect-10 ul li a.bdr_lft {
+		border-left: 1px solid rgba(0,204,68,.8);
+	}
+	.menu.effect-10 ul li a.bdr_rgt {
+		border-right: 1px solid rgba(255,0,170,.8);
+	}
+	.menu.effect-10 ul li a.bdr_top {
+		border-top: 1px solid rgba(170,0,255,.8);
+	}
+	.menu.effect-10 ul li a:hover {
+		border: 1px solid rgba(0,0,0,.2);
+		border-radius: 30px;
+	}
+
+/* ----- EFFECT 11 - Expanding Circle Background */
+	.menu.effect-11 ul li a {
+		border-radius: 3px;
+		margin: 0 10px;
+		overflow: hidden;
+		position: relative;
+	}
+	.menu.effect-11 ul li a:hover {
+		box-shadow: 0 2px 2px rgba(0,0,0,.2);
+	}
+	.menu.effect-11 ul li a:after {
+		background: rgba(0,204,68,.9);
+		border-radius: 50%;
+		content: ' ';
+		display: block;
+		height: 0;
+		left: 50%;
+		opacity: 0;
+		position: absolute;
+		top: 50%;
+		width: 0;
+		z-index: 0;
+	}
+	.menu.effect-11 ul li a:hover:after {
+		background: rgba(0,204,68,.1);
+		height: 400px;
+		left: -140px;
+		opacity: 1;
+		top: -180px;
+		width: 400px;
+	}
+
+/* ----- EFFECT 12 - Hover Reveals Shadow */
+	.menu.effect-12 ul li a {
+		border-radius: 50px;
+	}
+	.menu.effect-12 ul li a:hover {
+		box-shadow: 
+			0 2px 2px rgba(0,0,0,.1),
+			0 4px 4px rgba(0,0,0,.1),
+			0 8px 8px rgba(0,0,0,.1),
+			0 16px 16px rgba(0,0,0,.1);
+	}
+
+/* ----- EFFECT 13 - Down & Out */
+	.menu.effect-13 ul li a {
+		border-radius: 5px;
+		box-shadow: 0 2px 2px rgba(0,0,0,.2) inset, 0 0 0 rgba(0,0,0,0);
+		margin: 0 10px;
+	}
+	.menu.effect-13 ul li a:hover {
+		box-shadow: 0 0 0 rgba(0,0,0,0) inset,
+			0 2px 2px rgba(0,0,0,.1),
+			0 4px 4px rgba(0,0,0,.1),
+			0 8px 8px rgba(0,0,0,.1);
+	}
+	.menu.effect-13 ul li a:active {
+		background: rgba(0,0,0,.02);
+		box-shadow: 0 -2px 2px rgba(0,0,0,.1) inset, 0 0 0 rgba(0,0,0,0);
+	}
+
+/* ----- EFFECT 14 - Fade Trade */
+	.menu.effect-14 ul li a {
+		overflow: hidden;
+		position: relative;
+	}
+	.menu.effect-14 ul li a span {
+		filter: blur(0px);
+		opacity: 1;
+	}
+	.menu.effect-14 ul li a:before {
+		background: rgba(0,170,255,.1);
+		border-radius: 5px;
+		bottom: 0;
+		color: #000;
+		content: 'Hello!';
+		display: block;
+		filter: blur(5px);
+		height: 50px;
+		left: 0;
+		opacity: 0;
+		position: absolute;
+		width: 100%;
+	}
+	.menu.effect-14 ul li a:hover span {
+		filter: blur(5px);
+		opacity: 0;		
+	}
+	.menu.effect-14 ul li a:hover:before {
+		color: #555;
+		filter: blur(0px);
+		opacity: 1;
+	}
+

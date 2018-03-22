@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Incidencias - Ayuntamiento de Foobar</title>
+  <style>
+	  @import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
+	  body {
+		  background: #fafafa;
+		  color: #555;
+		  font-family: 'Raleway', Helvetica, Arial, sans-serif;
+		  font-size: 20px;
+		  font-weight: 300;
+		  margin: 0;
+		  min-height: 100vh;
+		  padding: 0;
+		  text-align: center;
+		  width: 100%;
+	  }
+
+	  body .burger_box .menu-icon_line {
+		  background: #060606;
+	  }
+	  body .side_menu {
+		  background: #fafafa;
+	  }
+	  body .side_menu .list_item a{
+		  color: #000;
+	  }
+	  body .burger_box a.menu-icon.opened {
+		  background-color: #fafafa;
+	  }
+	  body .list_item a:hover {
+		  background: rgba(0,0,0,.2);
+	  }
+	  
+	  body .menu {
+		padding: 0px;
+	  }
+	  
+	  #mapa {
+		max-width: 100%;
+	  }
+  </style>
+  
+  
+      <link rel="stylesheet" href="buttons.css">
+      <link rel="stylesheet" href="side-menu.css">
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+	<script src="side-menu.js"></script>
+
+  
+</head>
+
+<body>
+<div class="side_menu">
+	<div class="burger_box">
+		<div class="menu-icon-container">
+			<a href="#" class="menu-icon js-menu_toggle closed">
+				<span class="menu-icon_box">
+					<span class="menu-icon_line menu-icon_line--1"></span>
+					<span class="menu-icon_line menu-icon_line--2"></span>
+					<span class="menu-icon_line menu-icon_line--3"></span>
+				</span>
+			</a>
+		</div>
+	</div>
+	<div class="container">
+		<h2 class="menu_title">Menu</h2>
+		<ul class="list_load">
+			<li class="list_item"><a href="#">Mapa de incidencias</a></li>
+			<li class="list_item"><a href="#">Incidencias recientes</a></li>
+			<li class="list_item"><a href="#">List Item 03</a></li>
+			<li class="list_item"><a href="#">List Item 04</a></li>
+			<li class="list_item"><a href="#">List Item 05</a></li>
+			<li class="list_item"><a href="#">List Item 06</a></li>
+			<li class="list_item"><a href="#">List Item 07</a></li>
+			<li class="list_item"><a href="#">List Item 08</a></li>
+		</ul>
+		<div class="spacer_box"><p>This is a spacer box.</p></div>
+	</div>
+</div>
+<div class="content">
+
+	<h1 class="page_title">Mapa de incidencias</h1>
+	<h5 class="what_to_do">Por favor, permita la ubicación en el sitio para poder situar el mapa cerca de usted.</h5>
+
+	<img src="mapa.jpg" id="mapa">
+	<div class="menu effect-13">
+		<ul>
+			<li><a href="#mapa">Mi ubicación</a></li>
+			<li><a href="#mapa">Nueva incidencia</a></li>
+			<li><a href="#">Button</a></li>
+			<li><a href="#">Button</a></li>
+		</ul>
+	</div>
+	<h1 class="page_title">Incidencias recientes</h1>
+	<h5 class="what_to_do">Algunos usuarios han reportado incidencias recientemente. Se muestran a continuación:</h5>
+
+</div>
+
+
+</body>
+
+</html>
