@@ -25,6 +25,8 @@
 	  }
 	  body .side_menu {
 		  background: #fafafa;
+		  font-size: 14px;
+		  z-index: 2;
 	  }
 	  body .side_menu .list_item a{
 		  color: #000;
@@ -38,18 +40,101 @@
 	  
 	  body .menu {
 		padding: 0px;
+		font-size: 14px;
 	  }
 	  
 	  #mapa {
 		max-width: 100%;
+		width: 100%;
+        height: 70vh;
+        background-color: grey;
 	  }
   </style>
-  
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC24GO81Fb-gw3SzEpSGxy_d3oV4r3jiew&callback=initMap"></script>	
   
       <link rel="stylesheet" href="buttons.css">
       <link rel="stylesheet" href="side-menu.css">
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 	<script src="side-menu.js"></script>
+	<script>
+	     // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('mapa'), {
+          center: {lat: 39.5687965, lng: 2.6673537},
+          zoom: 16
+        });
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+             var marker1 = new google.maps.Marker({
+          position: pos,
+          map: map,
+                draggable: true,
+               icon: image,
+          animation: google.maps.Animation.DROP,
+          title: 'Tu ubicación'
+               
+        });
+            poly = new google.maps.Polyline({
+          strokeColor: '#000000',
+          strokeOpacity: 1.0,
+          strokeWeight: 3
+        });
+        poly.setMap(map);
+            
+            
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            map.setCenter(pos);
+             map.addListener('click', addLatLng);
+            marker1.addListener('click', function() {
+          map.setZoom(18);
+          map.setCenter(marker1.getPosition());
+        });
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+
+function addLatLng(event) {
+        var path = poly.getPath();
+
+        // Because path is an MVCArray, we can simply append a new coordinate
+        // and it will automatically appear.
+        path.push(event.latLng);
+
+        // Add a new marker at the new plotted point on the polyline.
+        var marker = new google.maps.Marker({
+          position: event.latLng,
+          title: '#' + path.getLength(),
+          map: map
+        });
+      }
+	</script>
 
   
 </head>
@@ -83,11 +168,9 @@
 	</div>
 </div>
 <div class="content">
+	<h5 class="what_to_do">Mapa de incidencias</h5>
 
-	<h1 class="page_title">Mapa de incidencias</h1>
-	<h5 class="what_to_do">Por favor, permita la ubicación en el sitio para poder situar el mapa cerca de usted.</h5>
-
-	<img src="mapa.jpg" id="mapa">
+	<div id="mapa"></div>
 	<div class="menu effect-13">
 		<ul>
 			<li><a href="#mapa">Mi ubicación</a></li>
@@ -96,8 +179,7 @@
 			<li><a href="#">Button</a></li>
 		</ul>
 	</div>
-	<h1 class="page_title">Incidencias recientes</h1>
-	<h5 class="what_to_do">Algunos usuarios han reportado incidencias recientemente. Se muestran a continuación:</h5>
+	<h5 class="what_to_do">Incidencias recientes:</h5>
 
 </div>
 
