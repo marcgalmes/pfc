@@ -28,7 +28,11 @@
 		  font-size: 14px;
 		  z-index: 2;
 	  }
+	  body .side_menu .list_item{
+		  padding: 2px 0;
+	  }
 	  body .side_menu .list_item a{
+		  padding: 6px 0;
 		  color: #000;
 	  }
 	  body .burger_box a.menu-icon.opened {
@@ -43,11 +47,55 @@
 		font-size: 14px;
 	  }
 	  
+	  .listado>ul>li{
+		width:85%;
+	  }
+	  
 	  #mapa {
 		max-width: 100%;
 		width: 100%;
         height: 70vh;
         background-color: grey;
+	  }
+	  
+	  .seccion {
+	    height: 100%;
+	    max-height: 100vh;
+		transition: 0.5s;
+		overflow: hidden;
+	  }
+	  .seccion.hide {
+		height: 0px;
+		max-height: 0vh;
+		opacity:0;
+		transition: 0.5	s;
+	  }
+	  .list {
+		font-size: 80%;
+	  }
+	  .list>.list-item:hover .view-btn {
+		opacity: 1;
+		margin: 0 8px;
+		padding: 4px;
+		transition:0.5s;
+		font-size: 80%;
+	  }
+	  .list-item .view-btn {
+		border-radius: 5px;
+		box-shadow: 0 2px 2px rgba(0,0,0,.2) inset, 0 0 0 rgba(0,0,0,0);
+		transition: 0.5s;
+	    opacity: 0;
+	  }
+	  .list>.list-item:hover {
+		border-top-style: inset;
+		background-color: #d0d0d0;
+		transition: 0.5s;
+	  }
+	  .list>.list-item {
+	    padding: 4px;
+		border: 1px solid;
+		border-top-width:4px;
+		border-top-color: #af0000;
 	  }
   </style>
   <script async defer
@@ -55,7 +103,8 @@
   
       <link rel="stylesheet" href="buttons.css">
       <link rel="stylesheet" href="side-menu.css">
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+	<!--<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>-->
+	<script src="jquery.min.js"></script>
 	<script src="side-menu.js"></script>
 	<script>
 	     // Note: This example requires that you consent to location sharing when
@@ -154,9 +203,28 @@ function addLatLng(event) {
 	</div>
 	<div class="container">
 		<h2 class="menu_title">Menu</h2>
-		<ul class="list_load">
-			<li class="list_item"><a href="#">Mapa de incidencias</a></li>
-			<li class="list_item"><a href="#">Incidencias recientes</a></li>
+		<script>
+			$(function(){
+				loadSection(window.location.hash);
+				$(window).on("hashchange",function(){
+					let hash = window.location.hash;
+					loadSection(hash);
+				});
+			});
+			
+			function loadSection(hash) {
+				let match = hash.match(/seccion:(\w+)/);
+				if (match){
+					//oculta/muestra la seccion
+					$(".seccion").toggleClass("hide",true);
+					$("#"+match[1]).toggleClass("hide",false);
+					closeMenu();//cerrar el menu
+				}
+			}
+		</script>
+		<ul class="list_load menu-lateral">
+			<li class="list_item"><a href="#seccion:mapaIncidencias">Mapa de incidencias</a></li>
+			<li class="list_item"><a href="#seccion:incidenciasRecientes">Incidencias recientes</a></li>
 			<li class="list_item"><a href="#">List Item 03</a></li>
 			<li class="list_item"><a href="#">List Item 04</a></li>
 			<li class="list_item"><a href="#">List Item 05</a></li>
@@ -168,6 +236,8 @@ function addLatLng(event) {
 	</div>
 </div>
 <div class="content">
+<div id="mapaIncidencias" class="seccion">
+	
 	<h5 class="what_to_do">Mapa de incidencias</h5>
 
 	<div id="mapa"></div>
@@ -179,7 +249,19 @@ function addLatLng(event) {
 			<li><a href="#">Button</a></li>
 		</ul>
 	</div>
+</div>
+<div  id="incidenciasRecientes" class="seccion">
 	<h5 class="what_to_do">Incidencias recientes:</h5>
+	<div class="listado">
+		<ul class="list" style="list-style:none;">
+			<li class="list-item">Incidencia en c/ Lo que sea, relacionada con Problema asfalto, Alta prioridad <a class="view-btn button" href="#incidencia:1234">Ver »</a></li>
+			<li class="list-item">Incidencia en c/ Lo que sea, relacionada con Problema iluminación, prioridad normal</li>
+			<li class="list-item">Incidencia en c/ Lo que sea, relacionada con Alcantarilla abierta, Alta prioridad</li>
+			<li class="list-item">Incidencia en c/ Lo que sea, relacionada con No se que mas, Alta prioridad</li>
+		</ul>
+	</div>
+</div>
+	
 
 </div>
 
