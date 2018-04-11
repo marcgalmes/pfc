@@ -82,6 +82,7 @@ Para conectar el mapa a google maps
 
 var map;
   function initMap() {
+	 
 	map = new google.maps.Map(document.getElementById('mapa'), {
 	  center: {lat: 39.5687965, lng: 2.6673537},
 	  zoom: 16

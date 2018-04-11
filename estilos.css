@@ -193,7 +193,8 @@ a,
   }
   
   body .titulo  {
-	margin: 8px;
+	margin: 2vh;
+	text-align: right;
   }
   
   .listado>ul>li{
@@ -212,6 +213,7 @@ a,
 	max-height: 100vh;
 	transition: 0.5s;
 	overflow: hidden;
+	margin: auto 4vw;
   }
   .seccion.hide {
 	height: 0px;
@@ -243,7 +245,7 @@ a,
 	transition: 0.5s;
   }
   .list>.list-item {
-	padding: 4px;
+	padding: 2vh;
 	border: 1px solid;
 	border-top-width:4px;
 	border-top-color: #af0000;
