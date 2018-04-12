@@ -11,7 +11,7 @@
   
       <link rel="stylesheet" href="buttons.css">
       <link rel="stylesheet" href="estilos.css">
-	<!--<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>-->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 	<script src="jquery.min.js"></script>
 	<script src="js.js"></script>
 	<script type="text/javascript">
@@ -19,36 +19,36 @@
 </head>
 
 <body>
-<div class="side_menu">
-	<div class="burger_box">
-		<div class="menu-icon-container">
-			<a href="#" class="menu-icon js-menu_toggle closed">
-				<span class="menu-icon_box">
-					<span class="menu-icon_line menu-icon_line--1"></span>
-					<span class="menu-icon_line menu-icon_line--2"></span>
-					<span class="menu-icon_line menu-icon_line--3"></span>
-				</span>
-			</a>
+	<div class="side_menu">
+		<div class="burger_box">
+			<div class="menu-icon-container">
+				<a href="#" class="menu-icon js-menu_toggle closed">
+					<span class="menu-icon_box">
+						<span class="menu-icon_line menu-icon_line--1"></span>
+						<span class="menu-icon_line menu-icon_line--2"></span>
+						<span class="menu-icon_line menu-icon_line--3"></span>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="container">
+			<h2 class="menu_title">Menu</h2>
+			<script>
+				
+			</script>
+			<ul class="list_load menu-lateral">
+				<li class="list_item"><a href="#seccion:mapaIncidencias">Mapa de incidencias</a></li>
+				<li class="list_item"><a href="#seccion:incidenciasRecientes">Incidencias recientes</a></li>
+				<li class="list_item"><a href="#">List Item 03</a></li>
+				<li class="list_item"><a href="#">List Item 04</a></li>
+				<li class="list_item"><a href="#">List Item 05</a></li>
+				<li class="list_item"><a href="#">List Item 06</a></li>
+				<li class="list_item"><a href="#">List Item 07</a></li>
+				<li class="list_item"><a href="#">List Item 08</a></li>
+			</ul>
+			<div class="spacer_box"><p>This is a spacer box.</p></div>
 		</div>
 	</div>
-	<div class="container">
-		<h2 class="menu_title">Menu</h2>
-		<script>
-			
-		</script>
-		<ul class="list_load menu-lateral">
-			<li class="list_item"><a href="#seccion:mapaIncidencias">Mapa de incidencias</a></li>
-			<li class="list_item"><a href="#seccion:incidenciasRecientes">Incidencias recientes</a></li>
-			<li class="list_item"><a href="#">List Item 03</a></li>
-			<li class="list_item"><a href="#">List Item 04</a></li>
-			<li class="list_item"><a href="#">List Item 05</a></li>
-			<li class="list_item"><a href="#">List Item 06</a></li>
-			<li class="list_item"><a href="#">List Item 07</a></li>
-			<li class="list_item"><a href="#">List Item 08</a></li>
-		</ul>
-		<div class="spacer_box"><p>This is a spacer box.</p></div>
-	</div>
-</div>
 <div class="content">
 <div id="mapaIncidencias" class="seccion hide">
 	
@@ -57,7 +57,7 @@
 	<div id="mapa"></div>
 	<div class="menu effect-13">
 		<ul>
-			<li><a href="#mapa">Mi ubicación</a></li>
+			<li><a href="javascript:getMyLocation()">Mi ubicación</a></li>
 			<li><a href="#mapa">Nueva incidencia</a></li>
 			<li><a href="#">Button</a></li>
 			<li><a href="#">Button</a></li>

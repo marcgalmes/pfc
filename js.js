@@ -87,8 +87,17 @@ var map;
 	  center: {lat: 39.5687965, lng: 2.6673537},
 	  zoom: 16
 	});
-	var infoWindow = new google.maps.InfoWindow({map: map});
-
+	
+	poly = new google.maps.Polyline({
+	  strokeColor: '#000000',
+	  strokeOpacity: 1.0,
+	  strokeWeight: 3
+	});
+	poly.setMap(map);
+	
+  }
+  
+  function getMyLocation() {
 	// Try HTML5 geolocation.
 	if (navigator.geolocation) {
 	  navigator.geolocation.getCurrentPosition(function(position) {
@@ -97,32 +106,26 @@ var map;
 		  lat: position.coords.latitude,
 		  lng: position.coords.longitude
 		};
-
-		 var marker1 = new google.maps.Marker({
-	  position: pos,
-	  map: map,
+		var marker1 = new google.maps.Marker({
+			position: pos,
+			map: map,
 			draggable: true,
-		   icon: image,
-	  animation: google.maps.Animation.DROP,
-	  title: 'Tu ubicación'
-		   
-	});
-		poly = new google.maps.Polyline({
-	  strokeColor: '#000000',
-	  strokeOpacity: 1.0,
-	  strokeWeight: 3
-	});
-	poly.setMap(map);
+			icon: image,
+			animation: google.maps.Animation.DROP,
+			title: 'Tu ubicación'   
+		});
 		
-		
+		marker1.addListener('click', function() {
+			map.setZoom(18);
+			map.setCenter(marker1.getPosition());
+		});
+		//info
+		var infoWindow = new google.maps.InfoWindow({map: map});
 		infoWindow.setPosition(pos);
 		infoWindow.setContent('Location found.');
+		
 		map.setCenter(pos);
-		 map.addListener('click', addLatLng);
-		marker1.addListener('click', function() {
-	  map.setZoom(18);
-	  map.setCenter(marker1.getPosition());
-	});
+		map.addListener('click', addLatLng);
 	  }, function() {
 		handleLocationError(true, infoWindow, map.getCenter());
 	  });
