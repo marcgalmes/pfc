@@ -4,18 +4,14 @@
 <head>
   <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Incidencias - Ayuntamiento de Foobar</title>
-  <style>
-		
-  </style>
-  
+  <title>Incidencias - Ayuntamiento de Foobar</title>  
       <link rel="stylesheet" href="buttons.css">
       <link rel="stylesheet" href="estilos.css">
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 	<script src="jquery.min.js"></script>
 	<script src="js.js"></script>
-	<script type="text/javascript">
-	</script>
+	<script src="clases.js"></script>
 </head>
 
 <body>
@@ -56,10 +52,10 @@
 
 	<div id="mapa"></div>
 	<div class="menu effect-13">
-		<ul>
-			<li><a href="javascript:getMyLocation()">Mi ubicación</a></li>
-			<li><a href="#mapa">Nueva incidencia</a></li>
-			<li><a href="#">Button</a></li>
+		<ul class="buttons">
+			<li><a href="javascript:getMyLocation()"> <i class="fas fa-location-arrow"></i> <span>Mi ubicación</span></a></li>
+			<li><a href="javascript:nuevaIncidencia()"><i class="fas fa-thumbtack"></i> <span>Nueva incidencia</span></a></li>
+			<!-- <li><a href="#"><i class="fas fa-pencil-alt"></i> Editando incidencia</a></li> -->
 			<li><a href="#">Button</a></li>
 		</ul>
 	</div>

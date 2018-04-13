@@ -85,7 +85,7 @@ var map;
 	 
 	map = new google.maps.Map(document.getElementById('mapa'), {
 	  center: {lat: 39.5687965, lng: 2.6673537},
-	  zoom: 16
+	  zoom: 18
 	});
 	
 	poly = new google.maps.Polyline({
@@ -125,6 +125,7 @@ var map;
 		infoWindow.setContent('Location found.');
 		
 		map.setCenter(pos);
+		map.setZoom(18);
 		map.addListener('click', addLatLng);
 	  }, function() {
 		handleLocationError(true, infoWindow, map.getCenter());
@@ -143,16 +144,20 @@ var map;
   }
 
 function addLatLng(event) {
-        var path = poly.getPath();
+	var path = poly.getPath();
 
-        // Because path is an MVCArray, we can simply append a new coordinate
-        // and it will automatically appear.
-        path.push(event.latLng);
+	// Because path is an MVCArray, we can simply append a new coordinate
+	// and it will automatically appear.
+	path.push(event.latLng);
 
-        // Add a new marker at the new plotted point on the polyline.
-        var marker = new google.maps.Marker({
-          position: event.latLng,
-          title: '#' + path.getLength(),
-          map: map
-        });
-      }
+	// Add a new marker at the new plotted point on the polyline.
+	var marker = new google.maps.Marker({
+	  position: event.latLng,
+	  title: '#' + path.getLength(),
+	  map: map
+	});
+}
+
+function nuevaIncidencia() {
+	
+}
