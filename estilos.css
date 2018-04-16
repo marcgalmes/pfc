@@ -276,3 +276,27 @@ a,
 	border-top-width:4px;
 	border-top-color: #af0000;
   }
+  
+ .formulario label {
+	 width: 50%;
+	 float: left;
+	 text-align: left;
+	 font-size: 80%;
+ }
+ 
+ .formulario textarea {
+	 clear: left;
+ }
+ .formulario input ,
+ .formulario select ,
+ .formulario textarea
+ {
+	 display: block;
+	 padding: 0.5em;
+ }
+ 
+ .formulario fieldset {
+	 border: 0;
+	 margin: 0 1em;
+ }
+ 
