@@ -4,14 +4,26 @@
 <head>
   <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Incidencias - Ayuntamiento de Foobar</title>  
-      <link rel="stylesheet" href="buttons.css">
-      <link rel="stylesheet" href="estilos.css">
+	<title>Incidencias - Ayuntamiento de Foobar</title>  
+	
+
+	<!-- jquery -->
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+	
+	<!-- iconos ffa -->
 	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-	<script src="jquery.min.js"></script>
+	
+	  <!-- select 2 -->
+	  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+	<!-- jquery offline -->
+	<!--<script src="jquery.min.js"></script>-->
+	
+	<link rel="stylesheet" href="estilos.css">
 	<script src="js.js"></script>
 	<script src="clases.js"></script>
+      <link rel="stylesheet" href="buttons.css">
 </head>
 
 <body>
@@ -36,13 +48,8 @@
 				<li class="list_item"><a href="#seccion:mapaIncidencias">Mapa de incidencias</a></li>
 				<li class="list_item"><a href="#seccion:incidenciasRecientes">Incidencias recientes</a></li>
 				<li class="list_item"><a href="#">List Item 03</a></li>
-				<li class="list_item"><a href="#">List Item 04</a></li>
-				<li class="list_item"><a href="#">List Item 05</a></li>
-				<li class="list_item"><a href="#">List Item 06</a></li>
-				<li class="list_item"><a href="#">List Item 07</a></li>
-				<li class="list_item"><a href="#">List Item 08</a></li>
 			</ul>
-			<div class="spacer_box"><p>This is a spacer box.</p></div>
+			<div class="spacer_box"><p>Ayuntamiento de Foobar</p></div>
 		</div>
 	</div>
 <div class="content">
@@ -50,7 +57,9 @@
 	
 	<div class="what_to_do titulo">Mapa de incidencias</div>
 
+	<div class="mapContainer">
 	<div id="mapa"></div>
+	</div>
 	<div class="menu effect-13">
 		<ul class="buttons">
 			<li><a href="javascript:getMyLocation()"> <i class="fas fa-location-arrow"></i> <span>Mi ubicación</span></a></li>
@@ -76,26 +85,24 @@
 	<p>
 		<h2>Nueva incidencia</h2>
 		<form class="formulario">
-			<fieldset>
-				<label>Título de la incidencia</label>
-				<input type="text" value="" placeholder="Título de la incidencia">
-			</fieldset>
-			<fieldset>
+			
 				<h5>Localización de la incidencia</h5>
-				<div class="mapa" id="locIncidencia">
-					<!-- insertar el mapa aqui TODO -->
+				<div class="mapContainer">
+				
 				</div>
-			</fieldset>
-			<fieldset>
+				<label>Título de la incidencia</label>
+				<input type="text" value="" placeholder="Título de la incidencia" id="tituloIncidencia">
 			<label>Tipo de la incidencia</label>
-				<select>
+				<select id="tipoIncidencia">
 					<option>Seleccione</option>
 				</select>
-			</fieldset>
-			<fieldset>
 				<h5>Descripción de la incidencia</h5>
 				<textarea placeholder="Descripción de la incidencia"></textarea>
-			</fieldset>
+				<div class="menu effect-13">
+				<ul class="buttons">
+					<li><a href="javascript:$('#modificarIncidencia form.formulario input,select,textarea').val('');"><i class="fas fa-eraser"></i> <span>Borrar</span></a></li>
+					<li><a href="javascript:$('#modificarIncidencia form.formulario').submit();"> <i class="fas fa-check-circle"></i> <span>Enviar incidencia</span></a></li>
+				</ul>
 		</form>
 	</p>
 

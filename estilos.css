@@ -115,6 +115,7 @@ a,
 		display: none;
 		list-style: none;
 		padding: 0;
+		min-width: 10em;
 	}
 	.list_item {
 		margin-left: -20px;
@@ -174,6 +175,13 @@ a,
 		background: rgba(255,255,255,0.7);
 	}
 	
+	body .formulario {
+		margin: 4px;
+	}
+	
+	body #modificarIncidencia .mapContainer #mapa {
+		width: 100%;
+	}
 }
 
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
@@ -217,6 +225,10 @@ a,
 	font-size: 14px;
   }
   
+  .spacer_box {
+	  font-size: 75%;
+  }
+  
   body .titulo  {
 	margin: 2vh;
 	text-align: right;
@@ -237,7 +249,7 @@ a,
 	height: 100%;
 	max-height: 100vh;
 	transition: 0.5s;
-	overflow: hidden;
+	overflow: auto;
 	margin: auto 4vw;
   }
   .seccion.hide {
@@ -277,22 +289,40 @@ a,
 	border-top-color: #af0000;
   }
   
+  .formulario {
+	  text-align: left;
+	  margin: 3em;
+	  font-size: 115%;
+  }
  .formulario label {
-	 width: 50%;
-	 float: left;
-	 text-align: left;
 	 font-size: 80%;
+	 display: block;
+	 margin: 4px;
+ }
+ 
+ #modificarIncidencia .mapContainer #mapa {
+	 height: 12em;
+	 width: 20em;
+	 margin: 1em auto;
  }
  
  .formulario textarea {
-	 clear: left;
+	 height: 8em;
  }
+ 
+ .formulario .select2 {
+	 font-size: 80%;
+ }
+ 
  .formulario input ,
  .formulario select ,
  .formulario textarea
  {
+	 width: 90%;
 	 display: block;
 	 padding: 0.5em;
+	 margin: 4px;
+	 border: 1px solid #111;
  }
  
  .formulario fieldset {

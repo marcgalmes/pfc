@@ -68,9 +68,22 @@ var loadSection = function(hash) {
 		//oculta/muestra la seccion
 		$(".seccion").toggleClass("hide",true);
 		$("#"+match[1]).toggleClass("hide",false);
+		switch (match[1]) {
+			case "mapaIncidencias":
+				$("#mapaIncidencias .mapContainer").append($("#mapa"));
+				break;
+			case "modificarIncidencia":
+				$("#modificarIncidencia .mapContainer").append($("#mapa"));
+				$("#tituloIncidencia").focus();
+				$("#tipoIncidencia").select2();
+				break;
+		}
 		closeMenu();//cerrar el menu
 	}
 };
+
+
+
 
 /**
 
@@ -159,5 +172,5 @@ function addLatLng(event) {
 }
 
 function nuevaIncidencia() {
-	
+	window.location = "#seccion:modificarIncidencia";
 }
