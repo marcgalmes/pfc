@@ -2,7 +2,6 @@ function Incidencia() {
 	//Constructor clase incidencia
 	this.codigo = null;
 	this.titulo = null;
-	this.codigoCoordenadas = null;
 	this.tipoIncidencia = null;
 	this.prioridad = null;
 	this.estado = null;
@@ -33,6 +32,7 @@ function Usuario() {
 
 function RolUsuario() {
 	this.codigo = null;
+	this.nombre = null; 
 }
 
 function Ayuntamiento() {
