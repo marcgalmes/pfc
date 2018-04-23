@@ -95,6 +95,8 @@ Para conectar el mapa a google maps
 
 var map;
   function initMap() {
+	  
+  $(function(){//cargar mapa al haber cargado la página
 	 
 	map = new google.maps.Map(document.getElementById('mapa'), {
 	  center: {lat: 39.5687965, lng: 2.6673537},
@@ -107,7 +109,7 @@ var map;
 	  strokeWeight: 3
 	});
 	poly.setMap(map);
-	
+  });
   }
   
   function getMyLocation() {

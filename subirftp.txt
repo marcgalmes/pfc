@@ -1,0 +1,9 @@
+op marcraftlab.net
+mgalmes
+marcraft
+cd www/pfc
+prompt
+mput index.html
+mput estilos.css
+mput js.js
+dir

@@ -151,7 +151,7 @@ a,
 		position: fixed;
 	}
 	
-	.buttons>li span {
+	#mapaIncidencias .menu .buttons>li span {
 		display: none;
 	}
 	.buttons>li {
@@ -160,7 +160,7 @@ a,
 	body .menu ul.buttons>li>a{
 		margin: 0;
 	}
-	.menu {
+	#mapa + .menu {
 		text-align: left;
 		position: absolute;
 		bottom: 0;
@@ -301,7 +301,7 @@ a,
  }
  
  #modificarIncidencia .mapContainer #mapa {
-	 height: 12em;
+	 height: 10em;
 	 width: 20em;
 	 margin: 1em auto;
  }
@@ -329,4 +329,6 @@ a,
 	 border: 0;
 	 margin: 0 1em;
  }
- 
+ .seccion.hide form.formulario {
+    display: none;
+}
