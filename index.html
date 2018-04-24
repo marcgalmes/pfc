@@ -45,8 +45,8 @@
 				
 			</script>
 			<ul class="list_load menu-lateral">
-				<li class="list_item"><a href="#seccion:mapaIncidencias">Mapa de incidencias</a></li>
-				<li class="list_item"><a href="#seccion:incidenciasRecientes">Incidencias recientes</a></li>
+				<li class="list_item"><a href="#seccion=mapaIncidencias">Mapa de incidencias</a></li>
+				<li class="list_item"><a href="#seccion=incidenciasRecientes">Incidencias recientes</a></li>
 				<li class="list_item"><a href="#">List Item 03</a></li>
 			</ul>
 			<div class="spacer_box"><p>Ayuntamiento de Foobar</p></div>
@@ -81,27 +81,29 @@
 	</div>
 </div>
 <div id="modificarIncidencia" class="seccion hide">
-	<div style="text-align:left"> <a href="#seccion:mapaIncidencias">&lt;&lt; Volver al mapa</a></div>
+	<div style="text-align:left"> <a href="#seccion=mapaIncidencias">&lt;&lt; Volver al mapa</a></div>
 	<p>
 		<h2>Nueva incidencia</h2>
 		<form class="formulario">
 			
 				<label>Título de la incidencia</label>
-				<input type="text" value="" placeholder="Título de la incidencia" id="tituloIncidencia">
+				<input type="text" name="titulo" value="" placeholder="Título de la incidencia" id="tituloIncidencia">
 			<label>Tipo de la incidencia</label>
 				<select id="tipoIncidencia">
 					<option>Seleccione</option>
 				</select>
 				<h5>Descripción de la incidencia</h5>
-				<textarea placeholder="Descripción de la incidencia"></textarea>
+				<textarea name="descripcion" placeholder="Descripción de la incidencia"></textarea>
 				<h5>Localización de la incidencia</h5>
 				<div class="mapContainer">
 				
 				</div>
+				<input type="hidden" name="latitud" id="latitud">
+				<input type="hidden" name="longitud" id="longitud">
 				<div class="menu effect-13">
 				<ul class="buttons">
-					<li><a href="javascript:$('#modificarIncidencia form.formulario input,select,textarea').val('');"><i class="fas fa-eraser"></i> <span>Borrar</span></a></li>
 					<li><a href="javascript:$('#modificarIncidencia form.formulario').submit();"> <i class="fas fa-check-circle"></i> <span>Enviar incidencia</span></a></li>
+					<li class="secundario"><a href="javascript:$('#modificarIncidencia form.formulario input,select,textarea').val('');"><i class="fas fa-eraser"></i> <span>Borrar</span></a></li>
 				</ul>
 		</form>
 	</p>

@@ -314,6 +314,12 @@ a,
 	 font-size: 80%;
  }
  
+ .menu ul li.secundario a {
+    color: #999;
+    line-height: 30px;
+    padding: 0 10px;
+}
+ 
  .formulario input ,
  .formulario select ,
  .formulario textarea
@@ -323,6 +329,10 @@ a,
 	 padding: 0.5em;
 	 margin: 4px;
 	 border: 1px solid #111;
+ }
+ 
+ .select2.select2-container {
+	 width: 90%!important;
  }
  
  .formulario fieldset {
