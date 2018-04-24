@@ -73,6 +73,11 @@ var loadSection = function(hash) {
 				$("#mapaIncidencias .mapContainer").append($("#mapa"));
 				break;
 			case "modificarIncidencia":
+				match = hash.match(/incidencia=(\d+)/);
+				if (match[1]) {
+					var incidencia = match[1];
+					console.log("Abrir incidencia "+incidencia);
+				}
 				$("#modificarIncidencia .mapContainer").append($("#mapa"));
 				$("#tituloIncidencia").focus();
 				$("#tipoIncidencia").select2();
