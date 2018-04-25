@@ -74,7 +74,7 @@ var loadSection = function(hash) {
 				break;
 			case "modificarIncidencia":
 				match = hash.match(/incidencia=(\d+)/);
-				if (match[1]) {
+				if (match && match[1]) {
 					var incidencia = match[1];
 					console.log("Abrir incidencia "+incidencia);
 				}
