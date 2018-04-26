@@ -29,6 +29,7 @@ dir
 cd ..
 cd php
 mput php\incidencias.php
+mput php\guardarIncidencia.php
 
 pwd
 dir
