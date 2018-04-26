@@ -4,6 +4,11 @@ marcraft
 cd www/pfc
 prompt
 mput index.html
-mput estilos.css
-mput js.js
+mput css\buttons.css
+mput css\estilos.css
+mput js\clases.js
+mput js\js.js
+mput js\jquery.min.js
+mput img\miUbicacion.png
+mput php\incidencias.php
 dir

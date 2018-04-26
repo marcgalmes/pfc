@@ -137,7 +137,7 @@ var map;
 		};
 		var myloc = new google.maps.Marker({
 			clickable: false,
-			icon: new google.maps.MarkerImage('miUbicacion.png'),
+			icon: new google.maps.MarkerImage('img/miUbicacion.png'),
 			// shadow: null,
 			// zIndex: 999,
 			position: pos,
