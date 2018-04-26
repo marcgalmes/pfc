@@ -1,14 +1,34 @@
 op marcraftlab.net
 mgalmes
 marcraft
-cd www/pfc
 prompt
 mput index.html
+
+pwd
+dir
+cd css
 mput css\buttons.css
 mput css\estilos.css
+
+pwd
+dir
+cd ..
+cd js
 mput js\clases.js
 mput js\js.js
 mput js\jquery.min.js
+
+pwd
+dir
+cd ..
+cd img
 mput img\miUbicacion.png
+
+pwd
+dir
+cd ..
+cd php
 mput php\incidencias.php
+
+pwd
 dir

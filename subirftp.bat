@@ -1,1 +1,2 @@
 ftp <subirftp.txt
+pause
