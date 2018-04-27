@@ -113,6 +113,29 @@ var map;
 	if (window.myLocation) {
 		showMyLocation(window.myLocation);
 	}
+	
+	//mostrar incidencias
+	$.getJSON('php/buscarIncidencia.php',function(incidencias) {
+		for (var incidencia of incidencias) {
+			(function(incidencia){
+				var marker = new google.maps.Marker({
+				  position: {lat:parseFloat(incidencia.latitud),lng:parseFloat(incidencia.longitud)},
+				  icon: {url:"https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png"},
+				  title: incidencia.titulo,
+				  map: map
+				});
+				marker.addListener("click",function(){
+					if (typeof infoWindow !="undefined") {
+						//borramos cualquier info window que este abierto
+						infoWindow.setMap(null);
+					}
+					infoWindow = new google.maps.InfoWindow({map:map});
+					infoWindow.setPosition(marker.getPosition());
+					infoWindow.setContent(incidencia.titulo);
+				});
+			}(incidencia));
+		}
+	});
   });
   }
   
