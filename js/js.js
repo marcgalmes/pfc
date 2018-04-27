@@ -88,6 +88,36 @@ var loadSection = function(hash) {
 };
 
 
+/*
+
+CARGAR RECURSOS BBDD
+Obtener objetos de la base de datos.
+
+*/
+
+function buscarIncidencia(objFiltro,callback) {
+	var filtro = "?";
+	$.getJSON('php/buscarIncidencia.php'+filtro,function(incidencias) {
+		if (callback) {
+			var result = [];
+			for (var incidencia of incidencias) {
+				var obj = new Incidencia();
+				obj.codigo = incidencia.codigo;
+				obj.titulo = incidencia.titulo;
+				obj.tipoIncidencia = incidencia.tipoIncidencia;
+				obj.prioridad = incidencia.prioridad;
+				obj.estado = incidencia.estado;
+				obj.codigoUsuario = incidencia.codigoUsuario;
+				obj.fecha = incidencia.fecha;
+				obj.fechaResolucion = incidencia.fechaResolucion;
+				obj.latitud = incidencia.latitud;
+				obj.longitud = incidencia.longitud;
+				result.push(obj);
+			}
+			callback(result);
+		}
+	});
+}
 
 
 /**
@@ -120,7 +150,7 @@ var map;
 	map.addListener('click', addLatLng);
 	
 	//mostrar incidencias
-	$.getJSON('php/buscarIncidencia.php',function(incidencias) {
+buscarIncidencia({},function(incidencias) {
 		for (var incidencia of incidencias) {
 			(function(incidencia){
 				var marker = new google.maps.Marker({
@@ -129,6 +159,7 @@ var map;
 				  title: incidencia.titulo,
 				  map: map
 				});
+				
 				marker.addListener("click",function(){
 					if (typeof infoWindow !="undefined") {
 						//borramos cualquier info window que este abierto
@@ -139,6 +170,7 @@ var map;
 					infoWindow.setContent(incidencia.titulo);
 				});
 			}(incidencia));
+			
 		}
 	});
   });
