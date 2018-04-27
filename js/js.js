@@ -114,6 +114,11 @@ var map;
 		showMyLocation(window.myLocation);
 	}
 	
+	
+	
+	map.setZoom(18);
+	map.addListener('click', addLatLng);
+	
 	//mostrar incidencias
 	$.getJSON('php/buscarIncidencia.php',function(incidencias) {
 		for (var incidencia of incidencias) {
@@ -167,14 +172,11 @@ var map;
 			map: map
 		});
 		
+		map.setCenter(pos);
 		myloc.addListener('click', function() {
 			map.setZoom(18);
 			map.setCenter(myloc.getPosition());
 		});
-		
-		map.setCenter(pos);
-		map.setZoom(18);
-		map.addListener('click', addLatLng);
   }
 
 function addLatLng(event) {

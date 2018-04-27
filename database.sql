@@ -123,7 +123,3 @@ insert into incidencia (
 
 
 
-
-
-
-drop database pfc;
