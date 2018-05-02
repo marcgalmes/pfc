@@ -127,6 +127,11 @@ Para conectar el mapa a google maps
 
 */
 
+/*
+TODO: consultar nombre de calles
+$.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon+"&key=AIzaSyC24GO81Fb-gw3SzEpSGxy_d3oV4r3jiew");
+*/
+
 $(function(){//intenta ubicar al cargar la pagina
 	getMyLocation();
 });
