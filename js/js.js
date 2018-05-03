@@ -129,7 +129,7 @@ Para conectar el mapa a google maps
 
 /*
 TODO: consultar nombre de calles
-$.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon+"&key=AIzaSyC24GO81Fb-gw3SzEpSGxy_d3oV4r3jiew");
+
 */
 
 $(function(){//intenta ubicar al cargar la pagina
@@ -226,9 +226,42 @@ function addLatLng(event) {
 	  title: 'Incidencia aqui',
 	  map: map
 	});
+	var lat = event.latLng.lat();
+	var lng = event.latLng.lng();
+	$("#latitud").val(lat);
+	$("#longitud").val(lng);
 	
-	$("#latitud").val(event.latLng.lat);
-	$("#longitud").val(event.latLng.lng);
+	//intentar detectar el nombre de la localización
+	$.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&key=AIzaSyC24GO81Fb-gw3SzEpSGxy_d3oV4r3jiew",function(resp) {
+		if (typeof infoWindow !="undefined") {
+						//borramos cualquier info window que este abierto
+						infoWindow.setMap(null);
+		}
+		var nombre = "Nombre de lugar desconocido...";
+		try {
+			//para cualquier caso
+			nombre = resp.results[0].formatted_address.slice(0,30);
+			//resultados
+			var found = false;
+			for (var result of resp.results) {
+				if (resp.results.indexOf(result)>4) break;//nadie va a la 2a pag de resultados de google, aqui igual
+				var components = result.address_components;
+				for (var comp of components) {
+					if (comp.types.indexOf("route")>-1) {
+						nombre = comp.long_name.slice(0,30);
+						found = true;
+						break;
+					}
+				}
+				if (found) break;
+			}
+		} catch(e) {
+			console.log(e);
+		};
+		infoWindow = new google.maps.InfoWindow({map:map});
+		infoWindow.setPosition(marker.getPosition());
+		infoWindow.setContent("<b>"+nombre+"</b>");
+	});
 }
 
 function nuevaIncidencia() {
