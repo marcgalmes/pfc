@@ -78,6 +78,11 @@ var loadSection = function(hash) {
 					var incidencia = match[1];
 					console.log("Abrir incidencia "+incidencia);
 				}
+				buscarIncidencia({},function(incidencias){
+					
+					var incidencia = incidencias[0];
+					$("#tituloIncidencia").val(incidencia.titulo);
+				});
 				$("#modificarIncidencia .mapContainer").append($("#mapa"));
 				$("#tituloIncidencia").focus();
 				$("#tipoIncidencia").select2();
@@ -155,12 +160,17 @@ var map;
 	map.addListener('click', addLatLng);
 	
 	//mostrar incidencias
-buscarIncidencia({},function(incidencias) {
+	buscarIncidencia({},function(incidencias) {
+		/*
+			por ahora descargamos todas las incidencias y las situamos en el mapa (provisional!!), mas adelante se filtrara por ubicacion
+		*/
 		for (var incidencia of incidencias) {
 			(function(incidencia){
+				var iconUrl = location.origin+location.pathname+"img/info-i_maps.png";
+				console.log(iconUrl);
 				var marker = new google.maps.Marker({
 				  position: {lat:parseFloat(incidencia.latitud),lng:parseFloat(incidencia.longitud)},
-				  icon: {url:"https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png"},
+				  icon: {url:iconUrl},
 				  title: incidencia.titulo,
 				  map: map
 				});
@@ -174,8 +184,16 @@ buscarIncidencia({},function(incidencias) {
 					infoWindow.setPosition(marker.getPosition());
 					infoWindow.setContent(incidencia.titulo);
 				});
-			}(incidencia));
-			
+			}(incidencia));	
+		}
+		for (var incidencia of incidencias.sort(function(a,b) {
+				var a = Date.parse(a.fecha);
+				var b = Date.parse(b.fecha);
+				return a-b;
+				}
+			).reverse()) {
+			//incidencias recientes (provisional!!)
+				$("#incidenciasRecientesList").append("<li class=\"list-item\">"+incidencia.titulo+" <a class=\"view-btn button\" href=\"#seccion=modificarIncidencia#incidencia="+incidencia.codigo+"\">" +incidencia.fecha+"»</a></li>");
 		}
 	});
   });
@@ -238,9 +256,11 @@ function addLatLng(event) {
 						infoWindow.setMap(null);
 		}
 		var nombre = "Nombre de lugar desconocido...";
+		var descr = "-";
 		try {
 			//para cualquier caso
 			nombre = resp.results[0].formatted_address.slice(0,30);
+			descr = nombre;
 			//resultados
 			var found = false;
 			for (var result of resp.results) {
@@ -260,7 +280,10 @@ function addLatLng(event) {
 		};
 		infoWindow = new google.maps.InfoWindow({map:map});
 		infoWindow.setPosition(marker.getPosition());
-		infoWindow.setContent("<b>"+nombre+"</b>");
+		infoWindow.setContent("<h3>"+nombre+"</h3>"+"<p>"+descr+"</p>"+"<div class=\"menu effect-13\">"+
+			"<ul class=\"buttons\">"+
+					(location.hash.indexOf("seccion=modificarIncidencia")==-1?"<li class=\"secundario\"><a href=\"#seccion=modificarIncidencia\">"+" <i class=\"fas fa-check-circle\"></i> Notificar incidencia</a></li>":"")+
+					"</ul>");
 	});
 }
 
