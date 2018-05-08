@@ -15,17 +15,8 @@ if (isset($_POST["codigo"])) {
 } else if (isset($_GET["codigo"])) {
 	$codigo = $_GET["codigo"];
 }
-if (isset($_POST["titulo"])) {
-	$titulo = $_POST["titulo"];
-}
-if (isset($_POST["descripcion"])) {
-	$descripcion = $_POST["descripcion"];
-}
-if (isset($_POST["latitud"])) {
-	$latitud = $_POST["latitud"];
-}
-if (isset($_POST["longitud"])) {
-	$longitud = $_POST["longitud"];
+if (isset($_POST["nombre"])) {
+	$nombre = $_POST["nombre"];
 }
 
 //obtener conexion a la base de datos (en la variable $db)
@@ -39,7 +30,7 @@ if (isset($codigo) && $codigo!=null) {
 }
 
 //devolver la incidencia en formato json
-$resultados = $db->query('select * from incidencia where 1=1'.$params)->fetchAll(PDO::FETCH_ASSOC);
+$resultados = $db->query('select * from tipoIncidencia where 1=1'.$params)->fetchAll(PDO::FETCH_ASSOC);
 if ($resultados) {
 	echo(json_encode($resultados));
 } else {

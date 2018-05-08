@@ -105,6 +105,166 @@ insert into tipoIncidencia (
 	'#general',
 	''
 );
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Cultura',
+	'#cultura',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Educación',
+	'#educacion',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Deportes',
+	'#deportes',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Gestiones municipales',
+	'#gestionesMunicipales',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Hacienda',
+	'#hacienda',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Información y atención al ciudadano',
+	'#informacion #atencion',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Trámites',
+	'#tramites',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Mantenimiento del espacio urbano',
+	'#mantenimiento',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Movilidad',
+	'#movilidad',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Ocio/tiempo libre',
+	'#ocio',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Seguridad/prevención',
+	'#seguridad #prevencion',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Economia/comercio/mercados',
+	'#economia #comercio',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Recogida y limpieza del espacio urbano',
+	'#limpieza',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Sanidad y salud pública',
+	'#sanidad #salud',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Servicios funerarios y cementerios',
+	'#funeraria #cementerios',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Servicios sociales',
+	'#serviciosSociales',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Transportes públicos',
+	'#transporte',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Urbanismo y obras',
+	'#urbanismo #obras',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Agradecimientos',
+	'#agradecimientos',
+	''
+);
+insert into tipoIncidencia (
+	codigo,nombre,etiquetas,tipoDescripcion
+)values(
+	null,
+	'Medio ambiente',
+	'#medioAmbiente',
+	''
+);
 insert into incidencia (
 	codigo,titulo,tipoIncidencia,prioridad,estado,
 	codigoUsuario,fecha,fechaResolucion,latitud,longitud

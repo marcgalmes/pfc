@@ -76,22 +76,43 @@ var loadSection = function(hash) {
 				match = hash.match(/incidencia=(\d+)/);
 				if (match && match[1]) {
 					var incidencia = match[1];
-					console.log("Abrir incidencia "+incidencia);
+					$("#modificarIncidencia .mapContainer").append($("#mapa"));
+					$("#tipoIncidencia").select2();
+					$("#modificarIncidencia h2").text("Incidencia "+incidencia);
+					buscarIncidencia({codigo:incidencia},function(incidencias){
+						
+						var incidencia = incidencias[0];
+						$("#tituloIncidencia").val(incidencia.titulo);
+						$("#codigoIncidencia").val(incidencia.codigo);
+						$("#latitud").val(incidencia.latitud);
+						$("#longitud").val(incidencia.longitud);
+						//setTimeout(function() {
+							$("#tipoIncidencia").val(incidencia.tipoIncidencia);
+							$("#tipoIncidencia").trigger("change");
+						//},1);
+						
+					});
+					$("#tituloIncidencia").focus();
+				} else {
+					$("#modificarIncidencia h2").text("Nueva incidencia");
+					$("#modificarIncidencia").find("input,select,textarea").val("");
 				}
-				buscarIncidencia({},function(incidencias){
-					
-					var incidencia = incidencias[0];
-					$("#tituloIncidencia").val(incidencia.titulo);
-				});
-				$("#modificarIncidencia .mapContainer").append($("#mapa"));
-				$("#tituloIncidencia").focus();
-				$("#tipoIncidencia").select2();
 				break;
 		}
 		closeMenu();//cerrar el menu
 	}
+	clearInfoWindow();
 };
 
+/*
+ Cierra el info window abierto del mapa
+*/
+function clearInfoWindow() {
+	if (typeof infoWindow !="undefined") {
+		//borramos cualquier info window que este abierto
+		infoWindow.setMap(null);
+	}
+}
 
 /*
 
@@ -102,6 +123,7 @@ Obtener objetos de la base de datos.
 
 function buscarIncidencia(objFiltro,callback) {
 	var filtro = "?";
+	filtro += objFiltro.codigo?"codigo="+(objFiltro.codigo):"";
 	$.getJSON('php/buscarIncidencia.php'+filtro,function(incidencias) {
 		if (callback) {
 			var result = [];
@@ -117,6 +139,22 @@ function buscarIncidencia(objFiltro,callback) {
 				obj.fechaResolucion = incidencia.fechaResolucion;
 				obj.latitud = incidencia.latitud;
 				obj.longitud = incidencia.longitud;
+				result.push(obj);
+			}
+			callback(result);
+		}
+	});
+}
+function buscarTipoIncidencia(objFiltro,callback) {
+	var filtro = "?";
+	$.getJSON('php/buscarTipoIncidencia.php'+filtro,function(tiposIncidencia) {
+		if (callback) {
+			var result = [];
+			for (var tipoIncidencia of tiposIncidencia) {
+				var obj = new TipoIncidencia();
+				obj.codigo = tipoIncidencia.codigo;
+				obj.nombre = tipoIncidencia.nombre;
+				obj.etiquetas = tipoIncidencia.etiquetas;
 				result.push(obj);
 			}
 			callback(result);
@@ -159,6 +197,13 @@ var map;
 	map.setZoom(18);
 	map.addListener('click', addLatLng);
 	
+	//cargar tipos de incidencia
+	buscarTipoIncidencia({},function(listTipoIncidencia) {
+		for (var tipoIncidencia of listTipoIncidencia) {
+			$("#tipoIncidencia").append("<option value=\""+tipoIncidencia.codigo+"\">"+tipoIncidencia.nombre+"</option>");
+		}
+	});
+	
 	//mostrar incidencias
 	buscarIncidencia({},function(incidencias) {
 		/*
@@ -176,10 +221,7 @@ var map;
 				});
 				
 				marker.addListener("click",function(){
-					if (typeof infoWindow !="undefined") {
-						//borramos cualquier info window que este abierto
-						infoWindow.setMap(null);
-					}
+					clearInfoWindow();
 					infoWindow = new google.maps.InfoWindow({map:map});
 					infoWindow.setPosition(marker.getPosition());
 					infoWindow.setContent(incidencia.titulo);
@@ -251,10 +293,7 @@ function addLatLng(event) {
 	
 	//intentar detectar el nombre de la localización
 	$.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&key=AIzaSyC24GO81Fb-gw3SzEpSGxy_d3oV4r3jiew",function(resp) {
-		if (typeof infoWindow !="undefined") {
-						//borramos cualquier info window que este abierto
-						infoWindow.setMap(null);
-		}
+		clearInfoWindow();
 		var nombre = "Nombre de lugar desconocido...";
 		var descr = "-";
 		try {

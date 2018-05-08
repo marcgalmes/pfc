@@ -17,12 +17,17 @@ cd js
 mput js\clases.js
 mput js\js.js
 mput js\jquery.min.js
+mput js\fontawesome.js
+mput js\google-maps.js
+mput js\jquery.min.js
+mput js\select2.min.js
 
 pwd
 dir
 cd ..
 cd img
 mput img\miUbicacion.png
+mput img\info-i_maps.png
 
 pwd
 dir
