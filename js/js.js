@@ -73,11 +73,12 @@ var loadSection = function(hash) {
 				$("#mapaIncidencias .mapContainer").append($("#mapa"));
 				break;
 			case "modificarIncidencia":
+				$("#tipoIncidencia").select2();
+				$("#modificarIncidencia .mapContainer").append($("#mapa"));
+				//revisar si hay alguna incidencia en la url, en ese caso rellenar el formulario con sus datos
 				match = hash.match(/incidencia=(\d+)/);
 				if (match && match[1]) {
 					var incidencia = match[1];
-					$("#modificarIncidencia .mapContainer").append($("#mapa"));
-					$("#tipoIncidencia").select2();
 					$("#modificarIncidencia h2").text("Incidencia "+incidencia);
 					buscarIncidencia({codigo:incidencia},function(incidencias){
 						
@@ -224,7 +225,8 @@ var map;
 					clearInfoWindow();
 					infoWindow = new google.maps.InfoWindow({map:map});
 					infoWindow.setPosition(marker.getPosition());
-					infoWindow.setContent(incidencia.titulo);
+					infoWindow.setContent("<b>"+incidencia.titulo+"</b>"+"<div class=\"menu effect-13\">"+
+			"<ul class=\"buttons\"> <li class=\"secundario\">"+"<a href=\"#seccion=modificarIncidencia#incidencia="+incidencia.codigo+"\"> Abrir incidencia »</a></li></ul></div>");
 				});
 			}(incidencia));	
 		}

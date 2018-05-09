@@ -36,6 +36,7 @@ cd php
 mput php\incidencias.php
 mput php\guardarIncidencia.php
 mput php\buscarIncidencia.php
+mput php\buscarTipoIncidencia.php
 
 pwd
 dir
