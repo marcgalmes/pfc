@@ -54,6 +54,8 @@ $(function () {
 	//auto mobile query
 	queryFn(mediaQuery);
 });
+
+var incidenciasCargadas = [];
 $(function(){
 	loadSection(window.location.hash);
 	$(window).on("hashchange",function(){
@@ -85,8 +87,11 @@ var loadSection = function(hash) {
 						var incidencia = incidencias[0];
 						$("#tituloIncidencia").val(incidencia.titulo);
 						$("#codigoIncidencia").val(incidencia.codigo);
-						$("#latitud").val(incidencia.latitud);
-						$("#longitud").val(incidencia.longitud);
+						if (incidencia.latitud!=null && incidencia.longitud!=null) {
+							$("#latitud").val(incidencia.latitud);
+							$("#longitud").val(incidencia.longitud);
+							addMarkerToMap(parseFloat(incidencia.latitud),parseFloat(incidencia.longitud));
+						}
 						//setTimeout(function() {
 							$("#tipoIncidencia").val(incidencia.tipoIncidencia);
 							$("#tipoIncidencia").trigger("change");
@@ -96,7 +101,11 @@ var loadSection = function(hash) {
 					$("#tituloIncidencia").focus();
 				} else {
 					$("#modificarIncidencia h2").text("Nueva incidencia");
-					$("#modificarIncidencia").find("input,select,textarea").val("");
+					var lat = $("#latitud");
+					var lng = $("#longitud");
+					clearIncidenciaForm();
+					$("#latitud").val(lat);
+					$("#longitud").val(lng);
 				}
 				break;
 		}
@@ -104,6 +113,39 @@ var loadSection = function(hash) {
 	}
 	clearInfoWindow();
 };
+
+function submitIncidenciaForm() {
+	var $form = $('#modificarIncidencia form.formulario');
+	$.ajax({
+		type: 'POST',
+		url: $form.attr("action"),
+		data: $form.serialize(),
+		success: function(resp) {
+			alert(resp);
+			console.log(resp);
+			
+			buscarIncidencia({codigo:$("#codigoIncidencia").val()},function(incidencias) {
+				if (incidencias.length==1) {
+					//incidencia con datos actualizados
+					var incidencia = incidencias[0];
+					borrarIncidenciaMapa(getIncidenciaByCodigo(incidencia.codigo));
+					insertarIncidenciaMapa(incidencia);
+				} else {
+					console.log("error",incidencias);
+				}
+			});
+		},
+		error: function(error) {
+			alert("error: "+error);
+			console.log("error",error);
+		}
+	});
+	//$('#modificarIncidencia form.formulario').submit();
+}
+function clearIncidenciaForm() {
+	//$('#modificarIncidencia form.formulario input,select,textarea').val('');
+	$("#modificarIncidencia").find("input,select,textarea").val("");
+}
 
 /*
  Cierra el info window abierto del mapa
@@ -114,6 +156,42 @@ function clearInfoWindow() {
 		infoWindow.setMap(null);
 	}
 }
+
+function getIncidenciaByCodigo(codigo) {
+	for (var incidencia of incidenciasCargadas) {
+		if (incidencia.codigo==codigo) return incidencia;
+	}
+}
+
+function borrarIncidenciaMapa(incidencia) {
+	if (incidencia.marker) {
+		incidencia.marker.setMap(null);
+	}
+}
+
+function insertarIncidenciaMapa(incidencia) {//funcion convertida de una funcion anónima, ya que se usa dentro de un bucle
+
+	var iconUrl = location.origin+location.pathname+"img/info-i_maps.png";
+	var marker = new google.maps.Marker({
+	  position: {lat:parseFloat(incidencia.latitud),lng:parseFloat(incidencia.longitud)},
+	  icon: {url:iconUrl},
+	  title: incidencia.titulo,
+	  map: map
+	});
+	
+	marker.addListener("click",function(){
+		clearInfoWindow();
+		infoWindow = new google.maps.InfoWindow({map:map});
+		infoWindow.setPosition(marker.getPosition());
+		infoWindow.setContent("<b>"+incidencia.titulo+"</b>"+"<div class=\"menu effect-13\">"+
+"<ul class=\"buttons\"> <li class=\"secundario\">"+"<a href=\"#seccion=modificarIncidencia#incidencia="+incidencia.codigo+"\"> Abrir incidencia »</a></li></ul></div>");
+	});
+	
+	//guardamos la instancia del marker para poder modificarlo en caso de modificación de la incidencia
+	incidencia.marker = marker;
+
+}
+
 
 /*
 
@@ -205,30 +283,14 @@ var map;
 		}
 	});
 	
-	//mostrar incidencias
+	//cargar incidencias y mostrar en el mapa
 	buscarIncidencia({},function(incidencias) {
 		/*
 			por ahora descargamos todas las incidencias y las situamos en el mapa (provisional!!), mas adelante se filtrara por ubicacion
 		*/
+		incidenciasCargadas = incidencias;
 		for (var incidencia of incidencias) {
-			(function(incidencia){
-				var iconUrl = location.origin+location.pathname+"img/info-i_maps.png";
-				console.log(iconUrl);
-				var marker = new google.maps.Marker({
-				  position: {lat:parseFloat(incidencia.latitud),lng:parseFloat(incidencia.longitud)},
-				  icon: {url:iconUrl},
-				  title: incidencia.titulo,
-				  map: map
-				});
-				
-				marker.addListener("click",function(){
-					clearInfoWindow();
-					infoWindow = new google.maps.InfoWindow({map:map});
-					infoWindow.setPosition(marker.getPosition());
-					infoWindow.setContent("<b>"+incidencia.titulo+"</b>"+"<div class=\"menu effect-13\">"+
-			"<ul class=\"buttons\"> <li class=\"secundario\">"+"<a href=\"#seccion=modificarIncidencia#incidencia="+incidencia.codigo+"\"> Abrir incidencia »</a></li></ul></div>");
-				});
-			}(incidencia));	
+			insertarIncidenciaMapa(incidencia);	
 		}
 		for (var incidencia of incidencias.sort(function(a,b) {
 				var a = Date.parse(a.fecha);
@@ -278,18 +340,22 @@ var map;
 		});
   }
 
-function addLatLng(event) {
-	// Add a new marker at the new plotted point on the polyline.
+  function addMarkerToMap(lat,lng) {
+	  // Add a new marker at the new plotted point on the polyline.
 	if (typeof marker != "undefined") {
 		marker.setMap(null);//borrar el marker
 	};
 	marker = new google.maps.Marker({
-	  position: event.latLng,
+	  position: {lat:lat,lng:lng},
 	  title: 'Incidencia aqui',
 	  map: map
 	});
+  }
+  
+function addLatLng(event) {
 	var lat = event.latLng.lat();
 	var lng = event.latLng.lng();
+	addMarkerToMap(lat,lng);
 	$("#latitud").val(lat);
 	$("#longitud").val(lng);
 	
@@ -318,7 +384,7 @@ function addLatLng(event) {
 			}
 		} catch(e) {
 			console.log(e);
-		};
+		}
 		infoWindow = new google.maps.InfoWindow({map:map});
 		infoWindow.setPosition(marker.getPosition());
 		infoWindow.setContent("<h3>"+nombre+"</h3>"+"<p>"+descr+"</p>"+"<div class=\"menu effect-13\">"+
