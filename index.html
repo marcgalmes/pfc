@@ -60,7 +60,7 @@
 			<div class="spacer_box"><p>Ayuntamiento de Foobar</p></div>
 		</div>
 	</div>
-<div class="content">
+<div id="mainpage" class="content">
 <div id="mapaIncidencias" class="seccion hide">
 	
 	<div class="what_to_do titulo">Mapa de incidencias</div>
@@ -85,7 +85,7 @@
 	</div>
 </div>
 <div id="modificarIncidencia" class="seccion hide">
-	<div style="text-align:left"> <a href="#seccion=mapaIncidencias">&lt;&lt; Volver al mapa</a></div>
+	<div class="close"> <a href="#seccion=mapaIncidencias"><i class="far fa-times-circle"></i></a></div>
 	<p>
 		<h2>Nueva incidencia</h2>
 		<form class="formulario" method="POST" action="php/guardarIncidencia.php" target="_blank">
@@ -101,9 +101,9 @@
 				<div class="mapContainer">
 				
 				</div>
-				<input type="hidden" name="codigo" id="codigoIncidencia">
-				<input type="hidden" name="latitud" id="latitud">
-				<input type="hidden" name="longitud" id="longitud">
+				<input type="text" placeholder="codigo" name="codigo" id="codigoIncidencia">
+				<input type="text" placeholder="latitud" name="latitud" id="latitud">
+				<input type="text" placeholder="longitud" name="longitud" id="longitud">
 				<div class="menu effect-13">
 				<ul class="buttons">
 					<li><a href="javascript:submitIncidenciaForm();"> <i class="fas fa-check-circle"></i> <span>Enviar incidencia</span></a></li>

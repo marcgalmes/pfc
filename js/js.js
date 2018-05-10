@@ -1,7 +1,9 @@
 // Requires jQuery
 //Declaration of functions
 var queryFn,queryMatches;
+var menuOpen = false;
 var openMenu = function(e){
+	$("#mainpage *").css("pointer-events","none");
     if (e) e.preventDefault(); $('.list_load, .list_item').stop();
     $(".js-menu_toggle").removeClass('closed').addClass('opened');
 
@@ -19,8 +21,10 @@ var openMenu = function(e){
             });
         },100*i);
     });
+	menuOpen = true;
 };
 var closeMenu = function(e){
+	$("#mainpage *").css("pointer-events","all");
 	if (!queryMatches) return;
     if (e)e.preventDefault(); $('.list_load, .list_item').stop();
     $(".js-menu_toggle").removeClass('opened').addClass('closed');
@@ -33,6 +37,7 @@ var closeMenu = function(e){
         'margin-left':'-20px'
     });
     $('.side_menu .list_load').slideUp(300);
+	menuOpen = false;
 };
 queryFn = function (query) {
 	queryMatches = query.matches;
@@ -61,6 +66,11 @@ $(function(){
 	$(window).on("hashchange",function(){
 		var hash = window.location.hash;
 		loadSection(hash);
+	});
+	$("#mainpage").on("click",function(ev) {
+		if (menuOpen) {
+			closeMenu();
+		}
 	});
 });
 
@@ -101,8 +111,8 @@ var loadSection = function(hash) {
 					$("#tituloIncidencia").focus();
 				} else {
 					$("#modificarIncidencia h2").text("Nueva incidencia");
-					var lat = $("#latitud");
-					var lng = $("#longitud");
+					var lat = $("#latitud").val();
+					var lng = $("#longitud").val();
 					clearIncidenciaForm();
 					$("#latitud").val(lat);
 					$("#longitud").val(lng);

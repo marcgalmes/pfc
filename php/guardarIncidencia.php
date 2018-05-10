@@ -37,6 +37,10 @@ if (isset($_POST["longitud"])) {
 	$longitud = $_POST["longitud"];
 }
 
+if ($codigo=="") $codigo=null;
+if ($latitud=="") $latitud=null;
+if ($longitud=="") $longitud=null;
+
 
 include("database.php");
 
