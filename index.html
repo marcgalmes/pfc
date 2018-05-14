@@ -13,7 +13,6 @@
 	<!-- jquery offline -->
 	<script src="js/jquery.min.js"></script>
 	
-	
 	<!-- iconos ffa -->
 	<!-- <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script> -->
 	
@@ -32,6 +31,11 @@
 	<script src="js/js.js"></script>
 	<script src="js/clases.js"></script>
       <link rel="stylesheet" href="css/buttons.css">
+	  
+	  <!-- google maps -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC24GO81Fb-gw3SzEpSGxy_d3oV4r3jiew&callback=initMap"></script>
+  <!-- google maps offline-->
+  <!-- <script async src="js/google-maps.js?key=AIzaSyC24GO81Fb-gw3SzEpSGxy_d3oV4r3jiew&callback=initMap"></script> -->
 </head>
 
 <body>
@@ -60,7 +64,7 @@
 			<div class="spacer_box"><p>Ayuntamiento de Foobar</p></div>
 		</div>
 	</div>
-<div id="mainpage" class="content">
+	<div id="mainpage" class="content">
 <div id="mapaIncidencias" class="seccion hide">
 	
 	<div class="what_to_do titulo">Mapa de incidencias</div>
@@ -86,7 +90,6 @@
 </div>
 <div id="modificarIncidencia" class="seccion hide">
 	<div class="close"> <a href="#seccion=mapaIncidencias"><i class="far fa-times-circle"></i></a></div>
-	<p>
 		<h2>Nueva incidencia</h2>
 		<form class="formulario" method="POST" action="php/guardarIncidencia.php" target="_blank">
 			
@@ -105,22 +108,17 @@
 				<input type="text" placeholder="latitud" name="latitud" id="latitud">
 				<input type="text" placeholder="longitud" name="longitud" id="longitud">
 				<div class="menu effect-13">
-				<ul class="buttons">
-					<li><a href="javascript:submitIncidenciaForm();"> <i class="fas fa-check-circle"></i> <span>Enviar incidencia</span></a></li>
-					<li class="secundario"><a href="javascript:clearIncidenciaForm();"><i class="fas fa-eraser"></i> <span>Borrar</span></a></li>
-				</ul>
+					<ul class="buttons">
+						<li><a href="javascript:submitIncidenciaForm();"> <i class="fas fa-check-circle"></i> <span>Enviar incidencia</span></a></li>
+						<li class="secundario"><a href="javascript:clearIncidenciaForm();"><i class="fas fa-eraser"></i> <span>Borrar</span></a></li>
+					</ul>
+				</div>
 		</form>
-	</p>
 
 </div>
 	
 
 </div>
 
-
 </body>
-<!-- google maps -->
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC24GO81Fb-gw3SzEpSGxy_d3oV4r3jiew&callback=initMap"></script>
-  <!-- google maps offline-->
-  <!-- <script async src="js/google-maps.js?key=AIzaSyC24GO81Fb-gw3SzEpSGxy_d3oV4r3jiew&callback=initMap"></script> -->
 </html>
