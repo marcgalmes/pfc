@@ -78,6 +78,8 @@ var loadSection = function(hash) {
 	var match = hash.match(/seccion=(\w+)/);
 	if (match){
 		//oculta/muestra la seccion
+		$(".main").hide();
+		$(".seccion").show();
 		$(".seccion").toggleClass("hide",true);
 		$("#"+match[1]).toggleClass("hide",false);
 		switch (match[1]) {
@@ -120,7 +122,10 @@ var loadSection = function(hash) {
 				break;
 		}
 		closeMenu();//cerrar el menu
-	}
+	} else {
+			$(".seccion").hide();
+			$(".main").show();
+		}
 	clearInfoWindow();
 };
 

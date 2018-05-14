@@ -147,6 +147,44 @@ a,
 	font-size: 120%;
 }
 
+.main {
+	height: 100%;
+	width: 100%;
+}
+
+.main .texto {
+	text-shadow: 2px 2px 4px black;
+	color: white;
+	width: auto;
+	text-align: center;
+	font-size: 30px;
+	position: absolute;
+	top: 30vh;
+	/* right: 4vh; */
+}
+
+.main .imagenFondo {
+	top:0;
+	left:0;
+	z-index: -10;
+	position: fixed;
+	height: 100%;
+	width:100%;
+	background-image: url(../img/foto1.jpg);
+	filter: blur(2px);
+	animation-name: imagenFondo;
+	animation-duration: 18s;
+	transition: 2s;
+}
+@keyframes imagenFondo {
+	from: {
+		left:0px;
+		top:0px;
+	} to {
+		left: 50px;
+		top: -10px;
+	}
+}
 @media only screen and (max-width: 768px) {
 	/* For mobile phones: */
 	.burger_box {
