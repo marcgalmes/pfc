@@ -57,9 +57,10 @@
 				
 			</script>
 			<ul class="list_load menu-lateral">
+				<li class="list_item"><a href="#seccion=login"> <i class="fas fa-user-circle"></i> Identifícate (@)</a></li>
+				<br>
 				<li class="list_item"><a href="#seccion=mapaIncidencias">Mapa de incidencias</a></li>
 				<li class="list_item"><a href="#seccion=incidenciasRecientes">Incidencias recientes</a></li>
-				<li class="list_item"><a href="#">List Item 03</a></li>
 			</ul>
 			<div class="spacer_box"><p>Ayuntamiento de Foobar</p></div>
 		</div>
@@ -128,7 +129,47 @@
 		</form>
 
 </div>
-	
+<div id="login" class="seccion hide">
+	<div class="content-form">
+		<h1>Inicia Sesión</h1>
+		<h4>¿Usuario nuevo? <a href="#seccion=registro">Regístrate</a></h4>
+		<form class="formulario">
+			<label for="email">Email</label>
+			<input type="text" id="email">
+			<label for="clave">Contraseña</label>
+			<input type="password" id="clave">
+			<div class="content-check">
+			<label for="checkbox"><input type="checkbox" id="checkbox">Recuérdame</label>
+			<input type="button" value="Inicia Sesión">
+			<a href="#seccion=recuperarContraseña">¿Olvidaste tu contraseña?</a>
+			</div>
+		</form>
+	</div>
+</div>
+<div id="registro" class="seccion hide">
+	<div class="content-form">
+		<h1>Regístrate</h1>
+		<h4>¿Usuario reincidente? <a href="#seccion=login">Inicia sesión</a></h4>
+		<form class="formulario">
+			<label for="nombre">Nombre y apellido(s) *</label>
+			<div class="nombreApellidos">
+				<input type="text" id="nombre" placeholder="Nombre"><input type="text" id="apellidos" placeholder="Apellido(s)">
+			</div>
+			<label for="email">Email *</label>
+			<input type="text" id="emailReg" placeholder="Correo electrónico">
+			<label for="telefono">Nº Teléfono</label>
+			<input type="text" id="telefono" placeholder="Nº Teléfono (opcional)">
+			<label for="clave">Contraseña *</label>
+			<input type="password" id="claveReg">
+			<label for="clave">Repite la contraseña *</label>
+			<input type="password" id="clave2">
+			<div class="content-check">
+			<label for="checkbox"><input type="checkbox" class="aceptarTerminos"> Acepto los términos y la política de privacidad</label>
+			<input type="button" value="Regístrate">
+			</div>
+		</form>
+	</div>
+</div>
 
 </div>
 

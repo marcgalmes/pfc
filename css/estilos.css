@@ -369,7 +369,7 @@ a,
     padding: 0 10px;
 }
  
- .formulario input ,
+ .formulario input,
  .formulario select ,
  .formulario textarea
  {
@@ -378,6 +378,23 @@ a,
 	 padding: 0.5em;
 	 margin: 4px;
 	 border: 1px solid #111;
+ }
+ 
+ .formulario input[type="checkbox"]{
+	 width: auto;
+	 display: inline;
+	 padding: 4px;
+	 margin: 0;
+ }
+ 
+ .formulario .nombreApellidos {
+	 overflow: auto;
+ }
+ .formulario .nombreApellidos input	{
+	 width:40%;
+	 margin-left: 2%;
+	 margin-right: 2%;
+	 float:left;
  }
  
  .select2.select2-container {
