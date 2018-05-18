@@ -131,7 +131,7 @@
 </div>
 <div id="login" class="seccion hide">
 	<div class="content-form">
-		<h1>Inicia Sesión</h1>
+		<h5 class="what_to_do titulo">Inicia Sesión</h5>
 		<h4>¿Usuario nuevo? <a href="#seccion=registro">Regístrate</a></h4>
 		<form class="formulario">
 			<label for="email">Email</label>
@@ -141,14 +141,16 @@
 			<div class="content-check">
 			<label for="checkbox"><input type="checkbox" id="checkbox">Recuérdame</label>
 			<input type="button" value="Inicia Sesión">
-			<a href="#seccion=recuperarContraseña">¿Olvidaste tu contraseña?</a>
+			<p style="font-size: 80%;">
+				<a href="#seccion=recuperarContraseña" style="pointer-events: all;">¿Olvidaste tu contraseña?</a>
+			</p>
 			</div>
 		</form>
 	</div>
 </div>
 <div id="registro" class="seccion hide">
 	<div class="content-form">
-		<h1>Regístrate</h1>
+		<h5 class="what_to_do titulo">Regístrate</h5>
 		<h4>¿Usuario reincidente? <a href="#seccion=login">Inicia sesión</a></h4>
 		<form class="formulario">
 			<label for="nombre">Nombre y apellido(s) *</label>
@@ -164,7 +166,7 @@
 			<label for="clave">Repite la contraseña *</label>
 			<input type="password" id="clave2">
 			<div class="content-check">
-			<label for="checkbox"><input type="checkbox" class="aceptarTerminos"> Acepto los términos y la política de privacidad</label>
+			<label for="aceptarTerminos"><input type="checkbox" id="aceptarTerminos"> Acepto los términos y la política de privacidad</label>
 			<input type="button" value="Regístrate">
 			</div>
 		</form>
