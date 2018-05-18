@@ -22,6 +22,7 @@ create table rolUsuario (
 create table usuario (
 	codigo int not null auto_increment,
 	email varchar(300),
+	password varchar(300),
 	tipoDocumento varchar(10),
 	ayuntamiento int,
 	telefono varchar(30),
@@ -35,6 +36,7 @@ create table usuario (
 create table incidencia(
 	codigo int not null auto_increment,
 	titulo varchar(300),
+	descripcion varchar(99999),
 	tipoIncidencia int,
 	prioridad varchar(300),
 	estado varchar(300),
