@@ -115,7 +115,7 @@ header("access-control-allow-origin: *");
 				<select id="tipoIncidencia" name="tipoIncidencia">
 				</select>
 				<h5>Descripción de la incidencia</h5>
-				<textarea name="descripcion" placeholder="Descripción de la incidencia"></textarea>
+				<textarea name="descripcion" id="descripcionIncidencia" placeholder="Descripción de la incidencia"></textarea>
 				<h5>Localización de la incidencia</h5>
 				<div class="mapContainer">
 				

@@ -12,6 +12,8 @@ while (FTP_MOREDATA == $ret)
         $ret = ftp_nb_continue($ftp);
     }
 
+	sleep(0.4);
+	print("Finished uploading ".$dest_file."\n");
 }
 
 function uploadProject($ftp) {

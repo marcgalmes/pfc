@@ -13,6 +13,7 @@
 $codigo = null;
 $tipoIncidencia = 1;
 $titulo = null;
+$descripcion = null;
 $latitud = null;
 $longitud = null;
 
@@ -49,11 +50,11 @@ $stat = $db->prepare('delete from incidencia where codigo=?');
 $resultados=$stat->execute(array($codigo));
 
 $stat = $db->prepare('insert into incidencia (
-	codigo,titulo,tipoIncidencia,prioridad,estado,
-	codigoUsuario,fecha,fechaResolucion,latitud,longitud) values (?,?,?,?,?,?,?,?,?,?);');
+	codigo,titulo,descripcion,tipoIncidencia,prioridad,estado,
+	codigoUsuario,fecha,fechaResolucion,latitud,longitud) values (?,?,?,?,?,?,?,?,?,?,?);');
 	
 	
-$resultados=$stat->execute(array($codigo,$titulo,$tipoIncidencia,'Normal supongo','Como toca',1,date('Y-m-d H:i:s'),null,$latitud,$longitud));
+$resultados=$stat->execute(array($codigo,$titulo,$descripcion,$tipoIncidencia,'Normal supongo','Como toca',1,date('Y-m-d H:i:s'),null,$latitud,$longitud));
 
 if ($resultados) {
 	echo(json_encode($resultados));

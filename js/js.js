@@ -98,6 +98,7 @@ var loadSection = function(hash) {
 						
 						var incidencia = incidencias[0];
 						$("#tituloIncidencia").val(incidencia.titulo);
+						$("#descripcionIncidencia").val(incidencia.descripcion);
 						$("#codigoIncidencia").val(incidencia.codigo);
 						if (incidencia.latitud!=null && incidencia.longitud!=null) {
 							$("#latitud").val(incidencia.latitud);
@@ -225,6 +226,7 @@ function buscarIncidencia(objFiltro,callback) {
 				var obj = new Incidencia();
 				obj.codigo = incidencia.codigo;
 				obj.titulo = incidencia.titulo;
+				obj.descripcion = incidencia.descripcion;
 				obj.tipoIncidencia = incidencia.tipoIncidencia;
 				obj.prioridad = incidencia.prioridad;
 				obj.estado = incidencia.estado;

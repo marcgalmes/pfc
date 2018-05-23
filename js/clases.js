@@ -2,6 +2,7 @@ function Incidencia() {
 	//Constructor clase incidencia
 	this.codigo = null;
 	this.titulo = null;
+	this.descripcion = null;
 	this.tipoIncidencia = null;
 	this.prioridad = null;
 	this.estado = null;
