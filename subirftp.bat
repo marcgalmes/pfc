@@ -1,2 +1,0 @@
-ftp <subirftp.txt
-pause
