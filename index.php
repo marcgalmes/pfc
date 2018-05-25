@@ -60,7 +60,7 @@ header("access-control-allow-origin: *");
 				
 			</script>
 			<ul class="list_load menu-lateral">
-				<li class="list_item"><a href="#seccion=login"> <i class="fas fa-user-circle"></i> Identifícate (@)</a></li>
+				<li class="list_item"><a href="#seccion=login"> <i class="fas fa-user-circle"></i> <span id="text-login">Identifícate (@)</span></a></li>
 				<br>
 				<li class="list_item"><a href="#seccion=mapaIncidencias">Mapa de incidencias</a></li>
 				<li class="list_item"><a href="#seccion=incidenciasRecientes">Incidencias recientes</a></li>
@@ -138,11 +138,11 @@ header("access-control-allow-origin: *");
 		<h4>¿Usuario nuevo? <a href="#seccion=registro">Regístrate</a></h4>
 		<form class="formulario" onsubmit="login();return false;">
 			<label for="email">Email</label>
-			<input type="text" id="email">
+			<input type="text" id="email" name="email">
 			<label for="clave">Contraseña</label>
-			<input type="password" id="clave">
+			<input type="password" id="clave" name="password">
 			<div class="content-check">
-			<label for="checkbox"><input type="checkbox" id="checkbox">Recuérdame</label>
+			<label for="checkbox"><input type="checkbox" id="checkbox" accesskey="r">Recuérdame</label>
 			<input type="submit" value="Inicia Sesión">
 			<p style="font-size: 80%;">
 				<a href="#seccion=recuperarContraseña" style="pointer-events: all;">¿Olvidaste tu contraseña?</a>
@@ -158,14 +158,14 @@ header("access-control-allow-origin: *");
 		<form class="formulario" onsubmit="registrar();return false;">
 			<label for="nombre">Nombre y apellido(s) *</label>
 			<div class="nombreApellidos">
-				<input type="text" id="nombre" placeholder="Nombre"><input type="text" id="apellidos" placeholder="Apellido(s)">
+				<input type="text" id="nombre" placeholder="Nombre" name="nombre"><input type="text" id="apellidos" placeholder="Apellido(s)" name="apellidos">
 			</div>
 			<label for="email">Email *</label>
-			<input type="text" id="emailReg" placeholder="Correo electrónico">
+			<input type="text" id="emailReg" placeholder="Correo electrónico" name="email">
 			<label for="telefono">Nº Teléfono</label>
-			<input type="text" id="telefono" placeholder="Nº Teléfono (opcional)">
+			<input type="text" id="telefono" placeholder="Nº Teléfono (opcional)" name="telefono">
 			<label for="clave">Contraseña *</label>
-			<input type="password" id="claveReg">
+			<input type="password" id="claveReg" name="password">
 			<label for="clave">Repite la contraseña *</label>
 			<input type="password" id="clave2">
 			<div class="content-check">

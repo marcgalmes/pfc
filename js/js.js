@@ -414,3 +414,59 @@ function addLatLng(event) {
 function nuevaIncidencia() {
 	window.location = "#seccion=modificarIncidencia";
 }
+
+
+function login() {
+	var datos;
+	datos = $("#login .formulario").serialize();
+	$.ajax({
+		url:"php/login.php",
+		"data":datos,
+		"method": "POST",
+		"success": function(data) {
+			var data = JSON.parse(data);
+			if (data["status"]=="OK") {
+				alert("Bienvenido de nuevo.");
+			} else {
+				alert("ERROR: "+data["error"]);
+			}
+		}
+	});
+}
+
+function registrar() {
+	try {
+	var datos, password1, password2,errores,aceptaTerminos;
+	errores=[];
+	datos = $("#registro .formulario").serialize();
+	password1 = $("#claveReg").val();
+	password2 = $("#clave2").val();
+	aceptaTerminos = $("#aceptarTerminos").is(":checked");
+	if (password1!=password2) {
+		errores.push("Las contraseñas no coinciden.");
+	}
+	if (!aceptaTerminos) {
+		errores.push("Debes aceptar los términos para poder registrarte.");
+	}
+	if (errores.length!=0) {
+		alert("Se han encontrado los siguientes errores: \n"+errores);
+	} else {
+		$.ajax({
+		url:"php/registro.php",
+		"data":datos,
+		"method": "POST",
+		"success": function(data) {
+			var data = JSON.parse(data);
+			if (!data["error"]) {
+				alert("Bienvenido "+data);
+			} else {
+				alert("ERROR: "+data["error"]);
+			}
+		}
+	});
+	}
+	
+	}catch(e){
+		alert(e);
+	}
+}
