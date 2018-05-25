@@ -136,14 +136,14 @@ header("access-control-allow-origin: *");
 	<div class="content-form">
 		<h5 class="what_to_do titulo">Inicia Sesión</h5>
 		<h4>¿Usuario nuevo? <a href="#seccion=registro">Regístrate</a></h4>
-		<form class="formulario">
+		<form class="formulario" onsubmit="login();return false;">
 			<label for="email">Email</label>
 			<input type="text" id="email">
 			<label for="clave">Contraseña</label>
 			<input type="password" id="clave">
 			<div class="content-check">
 			<label for="checkbox"><input type="checkbox" id="checkbox">Recuérdame</label>
-			<input type="button" value="Inicia Sesión">
+			<input type="submit" value="Inicia Sesión">
 			<p style="font-size: 80%;">
 				<a href="#seccion=recuperarContraseña" style="pointer-events: all;">¿Olvidaste tu contraseña?</a>
 			</p>
@@ -155,7 +155,7 @@ header("access-control-allow-origin: *");
 	<div class="content-form">
 		<h5 class="what_to_do titulo">Regístrate</h5>
 		<h4>¿Usuario reincidente? <a href="#seccion=login">Inicia sesión</a></h4>
-		<form class="formulario">
+		<form class="formulario" onsubmit="registrar();return false;">
 			<label for="nombre">Nombre y apellido(s) *</label>
 			<div class="nombreApellidos">
 				<input type="text" id="nombre" placeholder="Nombre"><input type="text" id="apellidos" placeholder="Apellido(s)">
@@ -170,7 +170,7 @@ header("access-control-allow-origin: *");
 			<input type="password" id="clave2">
 			<div class="content-check">
 			<label for="aceptarTerminos"><input type="checkbox" id="aceptarTerminos"> Acepto los términos y la política de privacidad</label>
-			<input type="button" value="Regístrate">
+			<input type="submit" value="Regístrate">
 			</div>
 		</form>
 	</div>
