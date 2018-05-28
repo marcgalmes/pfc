@@ -1,0 +1,6 @@
+﻿/*
+  Toast notification popup jQuery plugin Stylesheet
+  (c) 2016 Nupin Mathew <nupindev@gmail.com>
+  License: MIT
+*/
+.toast-popup{background-color:rgba(0,0,0,.8);color:#fff;font-size:12px;font-weight:600;display:none;padding:6px 12px;border-radius:2px;box-shadow:2px 2px 10px #555;position:fixed;top:25%;z-index:500000}.toast-popup.success{background-color:rgba(46,103,46,.8);box-shadow:2px 2px 10px rgba(46,103,46,.8)}.toast-popup.warning{background-color:rgba(189,142,41,.8);box-shadow:2px 2px 10px rgba(189,142,41,.8)}.toast-popup.error{background-color:rgba(189,41,41,.8);box-shadow:2px 2px 10px rgba(189,41,41,.8)}@media screen and (min-width:768px){.toast-popup{top:35%;font-size:13px}}

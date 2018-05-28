@@ -31,7 +31,7 @@ $stat = $db->query('select * from usuario where email=\''.$email.'\'');
 $resultados = $stat->fetch(PDO::FETCH_ASSOC);
 if ($resultados) {
 	if (password_verify($password, $resultados['password'])) {
-		echo '{"status":"OK","email":"'.$email.'"}';
+		echo '{"status":"OK","user":'.json_encode($resultados).'}';
 	} else {
 		echo '{"error":"Contraseña incorrecta."}';
 	}

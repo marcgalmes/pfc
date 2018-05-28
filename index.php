@@ -29,6 +29,9 @@ header("access-control-allow-origin: *");
 	<!-- select 2 offline -->
 	<link async href="css/select2.min.css" rel="stylesheet" />
 	<script src="js/select2.min.js"></script>
+	
+	<link href="css/toastme.css" rel="stylesheet">
+	<script src="js/toastme.js"></script>
 
 	<link rel="stylesheet" href="css/estilos.css">
 	<script src="js/js.js"></script>
@@ -60,7 +63,10 @@ header("access-control-allow-origin: *");
 				
 			</script>
 			<ul class="list_load menu-lateral">
-				<li class="list_item"><a href="#seccion=login"> <i class="fas fa-user-circle"></i> <span id="text-login">Identifícate (@)</span></a></li>
+				<li class="list_item"><a href="#seccion=login"> <i class="fas fa-user-circle"></i> 
+				<span id="text-login">Identifícate (@)</span>
+				<span id="text-login-profile" class="noshow">Mi perfil</span>
+				</a></li>
 				<br>
 				<li class="list_item"><a href="#seccion=mapaIncidencias">Mapa de incidencias</a></li>
 				<li class="list_item"><a href="#seccion=incidenciasRecientes">Incidencias recientes</a></li>
@@ -175,7 +181,7 @@ header("access-control-allow-origin: *");
 		</form>
 	</div>
 </div>
-
+<div id="myToast" class="toast-popup"></div>
 </div>
 
 </body>

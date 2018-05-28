@@ -426,7 +426,11 @@ function login() {
 		"success": function(data) {
 			var data = JSON.parse(data);
 			if (data["status"]=="OK") {
-				alert("Bienvenido de nuevo.");
+				//alert("Bienvenido de nuevo.");
+			    mostrarInfo('Bienvenido de nuevo, '+data.user.nombre + " " + data.user.apellidos);
+				window.location = "#seccion=mapaIncidencias";
+				$("#text-login").toggleClass("noshow",true);
+				$("#text-login-profile").toggleClass("noshow",false);
 			} else {
 				alert("ERROR: "+data["error"]);
 			}
@@ -449,7 +453,8 @@ function registrar() {
 		errores.push("Debes aceptar los términos para poder registrarte.");
 	}
 	if (errores.length!=0) {
-		alert("Se han encontrado los siguientes errores: \n"+errores);
+		//mostrarInfo("Se han encontrado los siguientes errores: \n"+errores);
+		mostrarInfo(errores[0],"error")
 	} else {
 		$.ajax({
 		url:"php/registro.php",
@@ -469,4 +474,13 @@ function registrar() {
 	}catch(e){
 		alert(e);
 	}
+}
+
+function mostrarInfo(message,tipo) {
+	tipo = tipo||"info";
+	$("#myToast").showToast({
+				  message: message,
+				  mode: tipo, // warning, error, success
+				  duration: message.length*50+1000
+				});
 }
