@@ -132,12 +132,26 @@ var loadSection = function(hash) {
 
 function submitIncidenciaForm() {
 	var $form = $('#modificarIncidencia form.formulario');
+	for (var campo of ["tituloIncidencia","tipoIncidencia"]) {
+		if ($("#"+campo).val()=="") {
+			mostrarError("El campo "+campo+" es obligatorio.");
+			$("#"+campo).focus();
+			return;
+		}
+	}
+	if ($("#latitud").val()=="") {
+		mostrarError("Seleccione una ubicación para la incidencia en el mapa.");
+		return;
+	}
 	$.ajax({
 		type: 'POST',
 		url: $form.attr("action"),
 		data: $form.serialize(),
 		success: function(resp) {
-			alert(resp);
+			//alert(resp);
+			if (resp==true) {
+				mostrarInfo("La incidencia ha sido creada. Gracias por su colaboración.");
+			}
 			console.log(resp);
 			
 			buscarIncidencia({codigo:$("#codigoIncidencia").val()},function(incidencias) {
@@ -418,6 +432,13 @@ function nuevaIncidencia() {
 
 function login() {
 	var datos;
+	for (var campo of ["email","clave"]) {
+		if ($("#"+campo).val()=="") {
+			mostrarError("El campo "+campo+" es obligatorio.");
+			$("#"+campo).focus();
+			return;
+		}
+	}
 	datos = $("#login .formulario").serialize();
 	$.ajax({
 		url:"php/login.php",
@@ -432,7 +453,7 @@ function login() {
 				$("#text-login").toggleClass("noshow",true);
 				$("#text-login-profile").toggleClass("noshow",false);
 			} else {
-				alert("ERROR: "+data["error"]);
+				mostrarError("ERROR: "+data["error"]);
 			}
 		}
 	});
@@ -446,6 +467,18 @@ function registrar() {
 	password1 = $("#claveReg").val();
 	password2 = $("#clave2").val();
 	aceptaTerminos = $("#aceptarTerminos").is(":checked");
+	for (var campo of ["nombre","apellidos","emailReg"]) {
+		if ($("#"+campo).val()=="") {
+			errores.push("El campo "+campo.replace("Reg","")+" es obligatorio.");
+			$("#"+campo).focus();
+			break;
+		}
+	}
+	if ($("#claveReg").val()=="") {
+		errores.push("La contraseña no puede estar vacía.");
+	} else if ($("#claveReg").val().length<8) {
+		errores.push("La contraseña debe tener una longitud de 8 caracteres.");
+	}
 	if (password1!=password2) {
 		errores.push("Las contraseñas no coinciden.");
 	}
@@ -454,7 +487,7 @@ function registrar() {
 	}
 	if (errores.length!=0) {
 		//mostrarInfo("Se han encontrado los siguientes errores: \n"+errores);
-		mostrarInfo(errores[0],"error")
+		mostrarError(errores[0])
 	} else {
 		$.ajax({
 		url:"php/registro.php",
@@ -465,7 +498,7 @@ function registrar() {
 			if (!data["error"]) {
 				alert("Bienvenido "+data);
 			} else {
-				alert("ERROR: "+data["error"]);
+				mostrarError("No se ha podido registrar el usuario: "+data["error"]);
 			}
 		}
 	});
@@ -478,9 +511,16 @@ function registrar() {
 
 function mostrarInfo(message,tipo) {
 	tipo = tipo||"info";
+	if (tipo!="info") {
+		message = "   "+message+"   ";
+	}
 	$("#myToast").showToast({
 				  message: message,
 				  mode: tipo, // warning, error, success
 				  duration: message.length*50+1000
 				});
+}
+
+function mostrarError(message) {
+	mostrarInfo(message,"error");
 }
