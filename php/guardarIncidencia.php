@@ -56,8 +56,11 @@ $stat = $db->prepare('insert into incidencia (
 	
 $resultados=$stat->execute(array($codigo,$titulo,$descripcion,$tipoIncidencia,'Normal supongo','Como toca',1,date('Y-m-d H:i:s'),null,$latitud,$longitud));
 
+$stat = $db->query('select codigo from incidencia order by codigo desc');
+$codigo = $stat->fetchAll()[0];
+
 if ($resultados) {
-	echo(json_encode($resultados));
+	echo(json_encode($codigo));
 } else {
 	echo("[]");
 }

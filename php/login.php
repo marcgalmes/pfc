@@ -6,6 +6,14 @@
 	-password
 */
 
+session_start();
+
+
+if (isset($_SESSION['user'])) {
+	echo '{"status":"OK","user":'.json_encode($_SESSION["user"]).',"sessionRestored":"true"}';
+	return;
+}
+
 $email = 
 $password = null;
 if (isset($_POST["email"])) {
@@ -31,7 +39,9 @@ $stat = $db->query('select * from usuario where email=\''.$email.'\'');
 $resultados = $stat->fetch(PDO::FETCH_ASSOC);
 if ($resultados) {
 	if (password_verify($password, $resultados['password'])) {
+		//login OK
 		echo '{"status":"OK","user":'.json_encode($resultados).'}';
+		$_SESSION["user"] = $resultados;
 	} else {
 		echo '{"error":"Contraseña incorrecta."}';
 	}

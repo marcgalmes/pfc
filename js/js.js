@@ -58,6 +58,15 @@ $(document).on('click','.js-menu_toggle.closed',openMenu);
 $(function () {
 	//auto mobile query
 	queryFn(mediaQuery);
+	//automatic login
+	$.ajax({url:"php/login.php",success:function(data) {
+		data = JSON.parse(data);
+		if (data.status=="OK") {
+			loginCallback(data);
+		} else {
+			console.log(data);
+		}
+	}})
 });
 
 var incidenciasCargadas = [];
@@ -447,16 +456,28 @@ function login() {
 		"success": function(data) {
 			var data = JSON.parse(data);
 			if (data["status"]=="OK") {
-				//alert("Bienvenido de nuevo.");
-			    mostrarInfo('Bienvenido de nuevo, '+data.user.nombre + " " + data.user.apellidos);
-				window.location = "#seccion=mapaIncidencias";
-				$("#text-login").toggleClass("noshow",true);
-				$("#text-login-profile").toggleClass("noshow",false);
+				loginCallback(data);
 			} else {
 				mostrarError("ERROR: "+data["error"]);
 			}
 		}
 	});
+}
+
+function loginCallback(data) {
+	var user = data.user;
+	mostrarInfo('Bienvenido de nuevo, '+user.nombre + " " + user.apellidos);
+	window.location = "#seccion=mapaIncidencias";
+	//cambiar boton de login por boton de perfil
+	$("#link-login").attr("href","#seccion=perfil");
+	$("#text-login").toggleClass("noshow",true);
+	$("#text-login-profile").toggleClass("noshow",false);
+	$("#link-logout").toggleClass("noshow",false);
+	$("#logout").show();
+	//rellenar datos en el perfil
+	$("#nombre2").val(user.nombre);
+	$("#apellidos2").val(user.apellidos);
+	$("#telefono2").val(user.telefono);
 }
 
 function registrar() {
@@ -523,4 +544,27 @@ function mostrarInfo(message,tipo) {
 
 function mostrarError(message) {
 	mostrarInfo(message,"error");
+}
+
+function logout() {
+	$("#link-logout").toggleClass("noshow",true);
+	$.ajax({url:"php/logout.php",success: function(data) {
+		data = JSON.parse(data);		
+		if (data["status"]=="OK") {
+			$("#logout").hide();
+			$("#link-login").attr("href","#seccion=login");
+			$("#text-login").toggleClass("noshow",false);
+			$("#text-login-profile").toggleClass("noshow",true);
+			//desrellenar datos en el perfil
+			$("#nombre2").val("");
+			$("#apellidos2").val("");
+			$("#telefono2").val("");
+			mostrarInfo("Se ha cerrado la sesión.");
+		} else {
+			$("#link-logout").toggleClass("noshow",false);
+			mostrarError("Error al cerrar sesión: "+data.error);
+			console.log(data);
+		}
+	}
+	});
 }
