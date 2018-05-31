@@ -99,10 +99,11 @@ header("access-control-allow-origin: *");
 	</div>
 	<div class="menu effect-13">
 		<ul class="buttons">
-			<li><a href="javascript:getMyLocation()"> <i class="fas fa-location-arrow"></i> <span>Mi ubicación</span></a></li>
-			<li><a href="javascript:nuevaIncidencia()"><i class="fas fa-thumbtack"></i> <span>Nueva incidencia</span></a></li>
+			<li rel="tooltip" title="Mi ubicación"><a href="javascript:getMyLocation()"> <i class="fas fa-location-arrow"></i> <span>Mi ubicación</span></a></li>
+			<li rel="tooltip" title="Nueva incidencia"><a href="javascript:nuevaIncidencia()"><i class="fas fa-thumbtack"></i> <span>Nueva incidencia</span></a></li>
 			<!-- <li><a href="#"><i class="fas fa-pencil-alt"></i> Editando incidencia</a></li> -->
-			<li><a href="#">Button</a></li>
+			<li rel="tooltip" title="Mostrar incidencias"><a href="#seccion=mostrarIncidencias"><i class="fas fa-search"></i><span>Mostrar incidencias</span></a></li>
+			<li class="mobile-only"><a href="javascript:mostrarTooltips();"><i class="fas fa-question"></i></a></li>
 		</ul>
 	</div>
 </div>
@@ -113,7 +114,7 @@ header("access-control-allow-origin: *");
 		</ul>
 	</div>
 </div>
-<div id="modificarIncidencia" class="seccion hide">
+<div id="modificarIncidencia" class="seccion hide with-close-btn">
 	<div class="close"> <a href="#seccion=mapaIncidencias"><i class="far fa-times-circle"></i></a></div>
 		<h2>Nueva incidencia</h2>
 		<form class="formulario" method="POST" action="php/guardarIncidencia.php" target="_blank">
@@ -128,6 +129,10 @@ header("access-control-allow-origin: *");
 				<h5>Localización de la incidencia</h5>
 				<div class="mapContainer">
 				
+				</div>
+				<div style="font-size: 70%;">
+				<p>Ubicación seleccionada: <span id="localizacion"></span></p>
+				<p>Zona/barrio: <span id="barrio"></span></p>
 				</div>
 				<input type="text" placeholder="codigo" name="codigo" id="codigoIncidencia">
 				<input type="text" placeholder="latitud" name="latitud" id="latitud">
@@ -197,6 +202,20 @@ header("access-control-allow-origin: *");
 			<input type="text" id="telefono2" placeholder="Nº Teléfono (opcional)" name="telefono">
 			<div class="content-check">
 			<input type="submit" value="Modificar perfil">
+			</div>
+		</form>
+	</div>
+</div>
+<div id="mostrarIncidencias" class="seccion hide with-close-btn">
+	<div class="close"> <a href="#seccion=mapaIncidencias"><i class="far fa-times-circle"></i></a></div>
+	<div class="content-form">
+		<h4>Filtro de incidencias</h4>
+		<form class="formulario" onsubmit="mostrarIncidencias();return false;">
+			<b>Tipos de incidencias</b>
+			<div id="tiposIncidencias">
+			<!--<label><input type="checkbox" value="val"> Nombre Tipo</label>-->
+			</div>
+			<div class="content-check">
 			</div>
 		</form>
 	</div>

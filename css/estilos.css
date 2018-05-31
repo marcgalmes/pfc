@@ -29,6 +29,7 @@ a,
 		height: 100vh;
 		top: 0;
 		width: 250px;
+		max-width: 80vw;
 	}
 	.side_menu .container {
 		padding: 0 1em;
@@ -230,6 +231,10 @@ a,
 	body #modificarIncidencia .mapContainer #mapa {
 		width: 80%;
 	}
+	
+	body .seccion {
+		margin: 0;
+	}
 }
 
 /* @import url(https://fonts.googleapis.com/css?family=Raleway:300,700); */
@@ -414,4 +419,56 @@ a,
 .noshow {
 	font-size: 0px;
 	transition: 0.5s;
+}
+
+.seccion.with-close-btn {
+	background: #ddd;
+	margin: 0 2%;
+}
+
+
+#tooltip {
+  text-align: center;
+  color: #fff;
+  background: #333;
+  position: absolute;
+  z-index: 10000;
+  padding: 10px;
+  border-radius: 5px;
+  -webkit-transition: 400ms ease;
+  -moz-transition: 400ms ease;
+  -o-transition: 400ms ease;
+  -ms-transition: 400ms ease;
+  transition: 400ms ease;
+}
+
+#tooltip:after /* triangle decoration */ {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #333;
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  margin-left: -10px;
+}
+
+#tooltip.top:after {
+  border-top-color: transparent;
+  border-bottom: 10px solid #111;
+  top: -20px;
+  bottom: auto;
+}
+
+#tooltip.left:after {
+  left: 10px;
+  margin: 0;
+}
+
+#tooltip.right:after {
+  right: 10px;
+  left: auto;
+  margin: 0;
 }
