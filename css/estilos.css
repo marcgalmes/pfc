@@ -417,7 +417,7 @@ a,
 }
 
 .noshow {
-	font-size: 0px;
+	font-size: 0px!important;
 	transition: 0.5s;
 }
 

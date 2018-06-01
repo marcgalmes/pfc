@@ -154,31 +154,46 @@ function submitIncidenciaForm() {
 		mostrarError("Seleccione una ubicación para la incidencia en el mapa.");
 		return;
 	}
+	//bloquear el boton de enviar incidencia mientras se esta guardando
+	$("#enviarIncidencia").toggleClass("noshow",true);
+	mostrarInfo("Guardando incidencia...");
 	$.ajax({
 		type: 'POST',
 		url: $form.attr("action"),
 		data: $form.serialize(),
 		success: function(resp) {
-			//alert(resp);
-			if (resp==true) {
-				mostrarInfo("La incidencia ha sido creada. Gracias por su colaboración.");
+			resp = JSON.parse(resp);
+			$("#enviarIncidencia").toggleClass("noshow",false);
+			if (resp) {
+				mostrarInfo("La incidencia ha sido guardada. Gracias por su colaboración.");
 			}
-			console.log(resp);
+			$("#codigoIncidencia").val(resp.codigo);
 			
+			//obtener los detalles de la nueva incidencia
 			buscarIncidencia({codigo:$("#codigoIncidencia").val()},function(incidencias) {
 				if (incidencias.length==1) {
 					//incidencia con datos actualizados
 					var incidencia = incidencias[0];
-					borrarIncidenciaMapa(getIncidenciaByCodigo(incidencia.codigo));
+					console.log(incidencia);
+					//si existia ya ese codigo de incidencia se borra y se inserta la nueva
+					var antiguaIncidencia = getIncidenciaByCodigo(incidencia.codigo);
+					if (antiguaIncidencia) {
+						borrarIncidenciaMapa(antiguaIncidencia);
+						incidenciasCargadas.splice(incidenciasCargadas.indexOf(antiguaIncidencia));
+					}
+					incidenciasCargadas.push(incidencia);
 					insertarIncidenciaMapa(incidencia);
+					
+					mostrarInfoWindowIncidencia(incidencia);
 				} else {
-					console.log("error",incidencias);
+					console.log("error >1 incidencias",incidencias);
 				}
 			});
 		},
 		error: function(error) {
-			alert("error: "+error);
+			$("#enviarIncidencia").toggleClass("noshow",false);
 			console.log("error",error);
+			mostrarError("Error al guardar la incidencia.");
 		}
 	});
 	//$('#modificarIncidencia form.formulario').submit();
@@ -299,6 +314,17 @@ function clearInfoWindow() {
 	}
 }
 
+function mostrarInfoWindowIncidencia(incidencia) {
+		clearInfoWindow();
+		infoWindow = new google.maps.InfoWindow({map:map});
+		infoWindow.setPosition(marker.getPosition());
+		infoWindow.setContent("<b>"+incidencia.titulo+"</b>"+
+		"<div class=\"menu effect-13\">"+
+		"<ul class=\"buttons\"> <li class=\"secundario\">"+
+		"<a href=\"#seccion=modificarIncidencia#incidencia="+
+		incidencia.codigo+"\"> Abrir incidencia »</a></li></ul></div>");
+}
+
 function getIncidenciaByCodigo(codigo) {
 	for (var incidencia of incidenciasCargadas) {
 		if (incidencia.codigo==codigo) return incidencia;
@@ -322,11 +348,7 @@ function insertarIncidenciaMapa(incidencia) {//funcion convertida de una funcion
 	});
 	
 	marker.addListener("click",function(){
-		clearInfoWindow();
-		infoWindow = new google.maps.InfoWindow({map:map});
-		infoWindow.setPosition(marker.getPosition());
-		infoWindow.setContent("<b>"+incidencia.titulo+"</b>"+"<div class=\"menu effect-13\">"+
-"<ul class=\"buttons\"> <li class=\"secundario\">"+"<a href=\"#seccion=modificarIncidencia#incidencia="+incidencia.codigo+"\"> Abrir incidencia »</a></li></ul></div>");
+		mostrarInfoWindowIncidencia(incidencia);
 	});
 	
 	//guardamos la instancia del marker para poder modificarlo en caso de modificación de la incidencia

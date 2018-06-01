@@ -139,7 +139,7 @@ header("access-control-allow-origin: *");
 				<input type="text" placeholder="longitud" name="longitud" id="longitud">
 				<div class="menu effect-13">
 					<ul class="buttons">
-						<li><a href="javascript:submitIncidenciaForm();"> <i class="fas fa-check-circle"></i> <span>Enviar incidencia</span></a></li>
+						<li id="enviarIncidencia"><a href="javascript:submitIncidenciaForm();"> <i class="fas fa-check-circle"></i> <span>Enviar incidencia</span></a></li>
 						<li class="secundario"><a href="javascript:clearIncidenciaForm();"><i class="fas fa-eraser"></i> <span>Borrar</span></a></li>
 					</ul>
 				</div>
