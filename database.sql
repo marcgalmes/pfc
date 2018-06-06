@@ -88,15 +88,16 @@ insert into rolUsuario (
 	'Empleado'
 );
 insert into usuario (
-	codigo,email,tipoDocumento,ayuntamiento,telefono,nombre,apellidos,rolUsuario
+	codigo,email,password,tipoDocumento,ayuntamiento,telefono,nombre,apellidos,rolUsuario
 ) values (
 	null,
 	"admin@example.com",
+	'$2y$10$AVwNTqmyT4Wpv34.FGRM7u.P660cEVgbUjsHIzd3MHAdFx8S00pXm',-- "administracion"
 	"DNI",
 	1,
 	'+34 890 123 456',
 	'Admin',
-	null,
+	'',
 	1
 );
 insert into tipoIncidencia (

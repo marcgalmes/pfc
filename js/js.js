@@ -2,6 +2,7 @@
 //Declaration of functions
 var queryFn,queryMatches;
 var menuOpen = false;
+var usuario = null;
 var openMenu = function(e){
 	$("#mainpage *").css("pointer-events","none");
     if (e) e.preventDefault(); $('.list_load, .list_item').stop();
@@ -184,7 +185,7 @@ function submitIncidenciaForm() {
 					incidenciasCargadas.push(incidencia);
 					insertarIncidenciaMapa(incidencia);
 					
-					mostrarInfoWindowIncidencia(incidencia);
+					mostrarInfoWindowIncidencia(incidencia,marker);
 				} else {
 					console.log("error >1 incidencias",incidencias);
 				}
@@ -314,7 +315,7 @@ function clearInfoWindow() {
 	}
 }
 
-function mostrarInfoWindowIncidencia(incidencia) {
+function mostrarInfoWindowIncidencia(incidencia,marker) {
 		clearInfoWindow();
 		infoWindow = new google.maps.InfoWindow({map:map});
 		infoWindow.setPosition(marker.getPosition());
@@ -339,7 +340,7 @@ function borrarIncidenciaMapa(incidencia) {
 
 function insertarIncidenciaMapa(incidencia) {//funcion convertida de una funcion anónima, ya que se usa dentro de un bucle
 
-	var iconUrl = location.origin+location.pathname+"img/info-i_maps.png";
+	var iconUrl = "img/info-i_maps.png";
 	var marker = new google.maps.Marker({
 	  position: {lat:parseFloat(incidencia.latitud),lng:parseFloat(incidencia.longitud)},
 	  icon: {url:iconUrl},
@@ -348,7 +349,7 @@ function insertarIncidenciaMapa(incidencia) {//funcion convertida de una funcion
 	});
 	
 	marker.addListener("click",function(){
-		mostrarInfoWindowIncidencia(incidencia);
+		mostrarInfoWindowIncidencia(incidencia,marker);
 	});
 	
 	//guardamos la instancia del marker para poder modificarlo en caso de modificación de la incidencia
@@ -446,7 +447,9 @@ var map;
 		for (var tipoIncidencia of listTipoIncidencia) {
 			$("#tipoIncidencia").append("<option value=\""+tipoIncidencia.codigo+"\">"+tipoIncidencia.nombre+"</option>");
 			$("#tiposIncidencias").append("<label><input type =\"checkbox\" value=\""+tipoIncidencia.codigo+"\">"+tipoIncidencia.nombre+"</label>");
+			$("#tiposIncidencias2").append("<option value=\""+tipoIncidencia.codigo+"\">"+tipoIncidencia.nombre+"</option>");
 		}
+		$("#tiposIncidencias2").select2();
 	});
 	
 	//cargar incidencias y mostrar en el mapa
@@ -465,7 +468,10 @@ var map;
 				}
 			).reverse()) {
 			//incidencias recientes (provisional!!)
-				$("#incidenciasRecientesList").append("<li class=\"list-item\">"+incidencia.titulo+" <a class=\"view-btn button\" href=\"#seccion=modificarIncidencia#incidencia="+incidencia.codigo+"\">" +incidencia.fecha+"»</a></li>");
+				$("#incidenciasRecientesList").append("<li class=\"list-item\">"+
+				incidencia.titulo+" <a class=\"view-btn button\" href=\"#seccion=modificarIncidencia#incidencia="+
+				incidencia.codigo+"\">" +
+				incidencia.fecha+"»</a></li>");
 		}
 	});
   });
@@ -572,9 +578,13 @@ function addLatLng(event) {
 		}
 		infoWindow = new google.maps.InfoWindow({map:map});
 		infoWindow.setPosition(marker.getPosition());
-		infoWindow.setContent("<h3>"+nombre+"</h3>"+"<p>"+descr+"</p>"+"<div class=\"menu effect-13\">"+
+		infoWindow.setContent("<h3>"+nombre+"</h3>"+
+		"<p>"+descr+"</p>"+"<div class=\"menu effect-13\">"+
 			"<ul class=\"buttons\">"+
-					(location.hash.indexOf("seccion=modificarIncidencia")==-1?"<li class=\"secundario\"><a href=\"#seccion=modificarIncidencia\">"+" <i class=\"fas fa-check-circle\"></i> Notificar incidencia</a></li>":"")+
+			(location.hash.indexOf("seccion=modificarIncidencia")==-1?
+			"<li class=\"secundario\"><a href=\"#seccion=modificarIncidencia\">"+
+			" <i class=\"fas fa-check-circle\"></i> Notificar incidencia</a></li>"
+			:"")+
 					"</ul>");
 	});
 }
@@ -611,6 +621,7 @@ function login() {
 
 function loginCallback(data) {
 	var user = data.user;
+	usuario = user;
 	mostrarInfo('Bienvenido de nuevo, '+user.nombre + " " + user.apellidos);
 	window.location = "#seccion=mapaIncidencias";
 	//cambiar boton de login por boton de perfil
@@ -623,6 +634,9 @@ function loginCallback(data) {
 	$("#nombre2").val(user.nombre);
 	$("#apellidos2").val(user.apellidos);
 	$("#telefono2").val(user.telefono);
+	if (user.rolUsuario==1) {
+		$("#gestionInterna").show();
+	}
 }
 
 function registrar() {
@@ -704,6 +718,7 @@ function logout() {
 			$("#nombre2").val("");
 			$("#apellidos2").val("");
 			$("#telefono2").val("");
+			$("#gestionInterna").hide();
 			mostrarInfo("Se ha cerrado la sesión.");
 		} else {
 			$("#link-logout").toggleClass("noshow",false);

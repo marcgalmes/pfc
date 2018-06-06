@@ -7,7 +7,7 @@ header("access-control-allow-origin: *");
 <head>
   <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Incidencias - Ayuntamiento de Foobar</title>  
+	<title>Gestión de Ayuntamiento de Foobar</title>  
 	
 
 	<!-- jquery -->
@@ -34,8 +34,9 @@ header("access-control-allow-origin: *");
 	<script src="js/toastme.js"></script>
 
 	<link rel="stylesheet" href="css/estilos.css">
-	<script src="js/js.js"></script>
 	<script src="js/clases.js"></script>
+	<script src="js/js.js"></script>
+	<script src="jsadmin.js"></script>
       <link rel="stylesheet" href="css/buttons.css">
 	  
 	  <!-- google maps -->
@@ -63,16 +64,13 @@ header("access-control-allow-origin: *");
 				
 			</script>
 			<ul class="list_load menu-lateral">
+				<li class="list_item" id="logout"><a href="index.php" id="link-logout" class="noshow"> <i class="fas fa-sign-out-alt"></i> Volver al mapa </li>
+				<br>
+				<li class="list_item"><a href="#seccion=ayuntamiento">Gestionar ayuntamiento</a></li>
+				<li class="list_item"><a href="#seccion=mapaIncidencias">Gestionar usuarios</a></li>
 				<li class="list_item"><a href="#seccion=mapaIncidencias">Mapa de incidencias</a></li>
 				<li class="list_item"><a href="#seccion=incidenciasRecientes">Incidencias recientes</a></li>
-				<li class="list_item" style="display: none;" id="gestionInterna"><a href="admin.php">Gestión interna</a></li>
 				<br>
-				<li class="list_item"><a href="#seccion=login" id="link-login"> <i class="fas fa-user-circle"></i> 
-				<span id="text-login">Identifícate (@)</span>
-				<span id="text-login-profile" class="noshow">Mi perfil</span>
-				</a>
-				</li>
-				<li class="list_item" id="logout" style="display:none;"><a href="javascript:logout();" id="link-logout" class="noshow"> <i class="fas fa-sign-out-alt"></i> Cerrar sesión</li>
 				
 			</ul>
 			<div class="spacer_box"><p>Ayuntamiento de Foobar</p></div>
@@ -190,19 +188,16 @@ header("access-control-allow-origin: *");
 		</form>
 	</div>
 </div>
-<div id="perfil" class="seccion hide">
+<div id="ayuntamiento" class="seccion hide">
 	<div class="content-form">
 		<h5 class="what_to_do titulo">Mi perfil</h5>
-		<h4>Modificar mis datos</h4>
+		<h4>Modificar ayuntamiento</h4>
 		<form class="formulario" onsubmit="registrar();return false;">
-			<label for="nombre">Nombre y apellido(s) </label>
-			<div class="nombreApellidos">
-				<input type="text" id="nombre2" placeholder="Nombre" name="nombre"><input type="text" id="apellidos2" placeholder="Apellido(s)" name="apellidos">
-			</div>
-			<label for="telefono">Nº Teléfono</label>
-			<input type="text" id="telefono2" placeholder="Nº Teléfono (opcional)" name="telefono">
+			<label for="nombre">Nombre</label>
+			<input type="text" id="nombre" placeholder="Nombre" name="nombre">
+			
 			<div class="content-check">
-			<input type="submit" value="Modificar perfil">
+				<input type="submit" value="Modificar datos">
 			</div>
 		</form>
 	</div>
