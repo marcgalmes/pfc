@@ -189,10 +189,18 @@ header("access-control-allow-origin: *");
 	<div class="content-form">
 		<h5 class="what_to_do titulo">Datos del ayuntamiento</h5>
 		<h4>Modificar ayuntamiento</h4>
-		<form class="formulario" onsubmit="registrar();return false;">
-			<label for="nombre">Nombre</label>
-			<input type="text" id="nombre" placeholder="Nombre" name="nombre">
-			
+		<form class="formulario" onsubmit=";return false;">
+			<label>Ayuntamiento: 
+			<select id="selectAyuntamiento" disabled>
+				<option>Cargando datos...</option>
+			</select>
+			</label>
+			<label>Codigo: <span id="codigo_ayuntamiento"></span></label>
+			<label for="nombre_ayuntamiento">Nombre</label>
+			<input type="text" id="nombre_ayuntamiento" placeholder="Nombre" name="nombre">
+			<label for="imagen_ayuntamiento">Imágen del ayuntamiento</label>
+			<input type="file" id="imagen_ayuntamiento" name="imagen" style="border:0;">
+			<img class="logo">
 			<div class="content-check">
 				<input type="submit" value="Modificar datos">
 			</div>
