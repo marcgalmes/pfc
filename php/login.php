@@ -6,11 +6,18 @@
 	-password
 */
 
+
+if (isset($_GET['session_id'])) {
+	session_id($_GET['session_id']);
+}
+else if (isset($_POST['session_id'])) {
+	session_id($_POST['session_id']);
+}
+
 session_start();
 
-
 if (isset($_SESSION['user'])) {
-	echo '{"status":"OK","user":'.json_encode($_SESSION["user"]).',"sessionRestored":"true"}';
+	echo '{"status":"OK","user":'.json_encode($_SESSION["user"]).',"sessionRestored":"true","session_id":"'.session_id().'"}';
 	return;
 }
 

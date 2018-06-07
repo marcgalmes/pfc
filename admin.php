@@ -36,7 +36,7 @@ header("access-control-allow-origin: *");
 	<link rel="stylesheet" href="css/estilos.css">
 	<script src="js/clases.js"></script>
 	<script src="js/js.js"></script>
-	<script src="jsadmin.js"></script>
+	<script src="js/admin.js"></script>
       <link rel="stylesheet" href="css/buttons.css">
 	  
 	  <!-- google maps -->
@@ -60,11 +60,8 @@ header("access-control-allow-origin: *");
 		</div>
 		<div class="container">
 			<h2 class="menu_title">Menu</h2>
-			<script>
-				
-			</script>
 			<ul class="list_load menu-lateral">
-				<li class="list_item" id="logout"><a href="index.php" id="link-logout" class="noshow"> <i class="fas fa-sign-out-alt"></i> Volver al mapa </li>
+				<li class="list_item" id="logout"><a href="index.php" id="link-logout" class="noshow"> <i class="fas fa-sign-out-alt"></i> Volver al mapa </a></li>
 				<br>
 				<li class="list_item"><a href="#seccion=ayuntamiento">Gestionar ayuntamiento</a></li>
 				<li class="list_item"><a href="#seccion=mapaIncidencias">Gestionar usuarios</a></li>
@@ -78,9 +75,9 @@ header("access-control-allow-origin: *");
 	</div>
 	<div id="mainpage" class="content">
 	<div class="main">
-		<div class="imagenFondo"></div>
+	<div class="what_to_do titulo">Dashboard del sistema</div>
 		<div class="texto">
-		<b>Notificación de incidencias del Ayuntamiento de Palma</b>
+		<b>Administración interna del ayuntamiento</b>
 		<br><br>
 		<div class="menu effect-13" style="opacity: 0.8;background:#fff;">
 			<ul class="buttons">
@@ -190,7 +187,7 @@ header("access-control-allow-origin: *");
 </div>
 <div id="ayuntamiento" class="seccion hide">
 	<div class="content-form">
-		<h5 class="what_to_do titulo">Mi perfil</h5>
+		<h5 class="what_to_do titulo">Datos del ayuntamiento</h5>
 		<h4>Modificar ayuntamiento</h4>
 		<form class="formulario" onsubmit="registrar();return false;">
 			<label for="nombre">Nombre</label>
@@ -213,7 +210,7 @@ header("access-control-allow-origin: *");
 			<select multiple id="zonas"></select>
 			<!--<div id="tiposIncidencias">
 			<!--<label><input type="checkbox" value="val"> Nombre Tipo</label>-->
-			<!--</div>-->x
+			<!--</div>-->
 			<div class="content-check">
 			</div>
 		</form>

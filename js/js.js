@@ -3,6 +3,7 @@
 var queryFn,queryMatches;
 var menuOpen = false;
 var usuario = null;
+var pagina = 0;
 var openMenu = function(e){
 	$("#mainpage *").css("pointer-events","none");
     if (e) e.preventDefault(); $('.list_load, .list_item').stop();
@@ -623,7 +624,6 @@ function loginCallback(data) {
 	var user = data.user;
 	usuario = user;
 	mostrarInfo('Bienvenido de nuevo, '+user.nombre + " " + user.apellidos);
-	window.location = "#seccion=mapaIncidencias";
 	//cambiar boton de login por boton de perfil
 	$("#link-login").attr("href","#seccion=perfil");
 	$("#text-login").toggleClass("noshow",true);
@@ -637,6 +637,7 @@ function loginCallback(data) {
 	if (user.rolUsuario==1) {
 		$("#gestionInterna").show();
 	}
+	if (pagina==0) window.location = "#seccion=mapaIncidencias";
 }
 
 function registrar() {
