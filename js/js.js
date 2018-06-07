@@ -4,6 +4,7 @@ var queryFn,queryMatches;
 var menuOpen = false;
 var usuario = null;
 var pagina = 0;
+var infoActual = null;
 var openMenu = function(e){
 	$("#mainpage *").css("pointer-events","none");
     if (e) e.preventDefault(); $('.list_load, .list_item').stop();
@@ -96,6 +97,13 @@ var loadSection = function(hash) {
 		$(".seccion").toggleClass("hide",true);
 		$("#"+match[1]).toggleClass("hide",false);
 		switch (match[1]) {
+			case "inicio":
+				match = hash.match(/error=(.+)/);
+				if (match && match[1]) {
+					mostrarError(decodeURIComponent(match[1]));
+				}
+				window.location = "#";
+				break;
 			case "mapaIncidencias":
 				$("#mapaIncidencias .mapContainer").append($("#mapa"));
 				break;
@@ -695,11 +703,20 @@ function mostrarInfo(message,tipo) {
 	if (tipo!="info") {
 		message = "   "+message+"   ";
 	}
+	var time = 0;
+	var dur = message.length*50+1000;
+	if (infoActual) {
+		time = infoActual;
+	}
+	infoActual = dur+600;
+	setTimeout(function() {
 	$("#myToast").showToast({
 				  message: message,
 				  mode: tipo, // warning, error, success
-				  duration: message.length*50+1000
+				  duration: dur
 				});
+				infoActual = 0;
+	},time);
 }
 
 function mostrarError(message) {

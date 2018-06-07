@@ -1,5 +1,13 @@
 <?php
+session_start();
 header("access-control-allow-origin: *");
+if (!isset($_SESSION['user'])) {
+	header("Location: ./#seccion=inicio#error=Sesi%C3%B3n%20no%20iniciada.");
+	die();
+} else if ($_SESSION['user']['rolUsuario']!="1") {
+	header("Location: ./#seccion=inicio#error=No%20tienes%20autorizaci%C3%B3n%20para%20visitar%20este%20sitio.");
+	die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -61,10 +69,10 @@ header("access-control-allow-origin: *");
 		<div class="container">
 			<h2 class="menu_title">Menu</h2>
 			<ul class="list_load menu-lateral">
-				<li class="list_item" id="logout"><a href="index.php" id="link-logout" class="noshow"> <i class="fas fa-sign-out-alt"></i> Volver al mapa </a></li>
+				<li class="list_item"><a href="index.php" id="link-logout"> <i class="fas fa-sign-out-alt"></i> Volver al mapa </a></li>
 				<br>
 				<li class="list_item"><a href="#seccion=ayuntamiento">Gestionar ayuntamiento</a></li>
-				<li class="list_item"><a href="#seccion=mapaIncidencias">Gestionar usuarios</a></li>
+				<li class="list_item"><a href="#seccion=usuariosRecientes">Gestionar usuarios</a></li>
 				<li class="list_item"><a href="#seccion=mapaIncidencias">Mapa de incidencias</a></li>
 				<li class="list_item"><a href="#seccion=incidenciasRecientes">Incidencias recientes</a></li>
 				<br>
@@ -103,10 +111,10 @@ header("access-control-allow-origin: *");
 		</ul>
 	</div>
 </div>
-<div  id="incidenciasRecientes" class="seccion hide">
-	<h5 class="what_to_do titulo">Incidencias recientes</h5>
+<div  id="usuariosRecientes" class="seccion hide">
+	<h5 class="what_to_do titulo">Administrar usuarios</h5>
 	<div class="listado">
-		<ul class="list" style="list-style:none;" id="incidenciasRecientesList">
+		<ul class="list" style="list-style:none;" id="usuariosRecientesList">
 		</ul>
 	</div>
 </div>

@@ -21,3 +21,24 @@ $.ajax(
 		$("#nombre_ayuntamiento").val(ayt.nombre);
 	}
 });
+
+$.ajax(
+{
+	url: "php/buscarUsuario.php",
+	data: {},
+	success: function(data) {
+		var usuarios = JSON.parse(data);
+		for (var usuario of usuarios.sort(function(a,b) {
+				var a = Date.parse(a.fecha);
+				var b = Date.parse(b.fecha);
+				return a-b;
+				}
+			).reverse()) {
+				//usuarios recientes
+				$("#usuariosRecientesList").append("<li class=\"list-item\">"+
+						usuario.nombre +" "+ usuario.apellidos +" - "+usuario.email+ 
+						" <a class=\"view-btn button\" href=\"#seccion=#usuario="+
+						usuario.codigo+"\">" + "Abrir perfil »</a></li>");
+			}
+	}
+});
