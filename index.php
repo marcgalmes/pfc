@@ -1,4 +1,8 @@
 <?php
+if (isset($_GET["ayuntamiento"])) {
+	session_start();
+	$_SESSION["ayuntamiento"] = $_GET["ayuntamiento"];
+}
 header("access-control-allow-origin: *");
 ?>
 <!DOCTYPE html>
@@ -7,7 +11,6 @@ header("access-control-allow-origin: *");
 <head>
   <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Incidencias - Ayuntamiento de Foobar</title>  
 	
 
 	<!-- jquery -->
@@ -34,8 +37,8 @@ header("access-control-allow-origin: *");
 	<script src="js/toastme.js"></script>
 
 	<link rel="stylesheet" href="css/estilos.css">
-	<script src="js/js.js"></script>
 	<script src="js/clases.js"></script>
+	<script src="js/js.js"></script>
       <link rel="stylesheet" href="css/buttons.css">
 	  
 	  <!-- google maps -->
@@ -58,10 +61,8 @@ header("access-control-allow-origin: *");
 			</div>
 		</div>
 		<div class="container">
-			<h2 class="menu_title">Menu</h2>
-			<script>
-				
-			</script>
+			<h2 class="menu_title">Incidencias <br><span style="font-size:80%;" class="nombre_ayuntamiento"></span></h2>
+			<a href="#"><img class="logo_ayuntamiento"></a>
 			<ul class="list_load menu-lateral">
 				<li class="list_item"><a href="#seccion=mapaIncidencias">Mapa de incidencias</a></li>
 				<li class="list_item"><a href="#seccion=incidenciasRecientes">Incidencias recientes</a></li>

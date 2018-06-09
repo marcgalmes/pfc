@@ -68,7 +68,8 @@ if (!isset($_SESSION['user'])) {
 			</div>
 		</div>
 		<div class="container">
-			<h2 class="menu_title">Menu</h2>
+			<h2 class="menu_title">Administración interna</h2>
+			<img class="logo_ayuntamiento">
 			<ul class="list_load menu-lateral">
 				<li class="list_item"><a href="index.php" id="link-logout"> <i class="fas fa-sign-out-alt"></i> Volver al mapa </a></li>
 				<br>
@@ -91,6 +92,7 @@ if (!isset($_SESSION['user'])) {
 			<div class="titulo-panel">Ayuntamiento</div>
 			<div class="propiedad">Nombre</div>
 			<div class="valor nombre_ayuntamiento"> - </div>
+			<img src="" class="logo logo_ayuntamiento">
 			<a href="#seccion=ayuntamiento" style="font-size: 80%;">Cambiar ayuntamiento</a>
 		</div>
 	</div>
@@ -196,13 +198,14 @@ if (!isset($_SESSION['user'])) {
 	<div class="content-form">
 		<h5 class="what_to_do titulo">Datos del ayuntamiento</h5>
 		<h4>Modificar ayuntamiento</h4>
-		<form class="formulario" onsubmit=";return false;">
+		<form class="formulario" method="POST" target="file_frame" action="php/guardarAyuntamiento.php" enctype="multipart/form-data">
 			<label>Ayuntamiento: 
+			<input type="hidden" id="codigo_ayuntamiento" name="codigo">
 			<select id="selectAyuntamiento" disabled>
 				<option>Cargando datos...</option>
 			</select>
 			</label>
-			<label>Codigo: <span id="codigo_ayuntamiento" class="codigo_ayuntamiento"></span></label>
+			<label>Codigo: <span class="codigo_ayuntamiento"></span></label>
 			<h5>Información</h5>
 			<p>
 				Usuarios registrados: <span id="numeroUsuarios"></span><br>
@@ -213,8 +216,10 @@ if (!isset($_SESSION['user'])) {
 			<label for="nombre_ayuntamiento">Nombre</label>
 			<input type="text" id="nombre_ayuntamiento" placeholder="Nombre" name="nombre">
 			<label for="imagen_ayuntamiento">Imágen del ayuntamiento</label>
+			<img src="" title="" class="logo_ayuntamiento">
 			<input type="file" id="imagen_ayuntamiento" name="imagen" style="border:0;">
 			<img class="logo">
+			<iframe name="file_frame" style="display:none;" onload="actualizarAyuntamientos()" ></iframe>
 			<div class="content-check">
 				<input type="submit" value="Modificar datos">
 			</div>

@@ -1,6 +1,8 @@
 .panel {
     float: left;
-    width: 30vw;
+    width: 28vw;
+	margin: 1vw;
+	padding: 4px;
 	min-width: 15em;
     border: 1px solid;
 }
@@ -18,4 +20,11 @@
 
 .titulo-panel {
     padding: 9px;
+}
+
+.panel .logo {
+	margin: auto;
+	display: block;
+	max-height: 10em;
+	max-width: 100%;
 }

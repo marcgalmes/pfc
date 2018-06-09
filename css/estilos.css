@@ -234,6 +234,7 @@ a,
 	
 	body .seccion {
 		margin: 0;
+		margin-left: 2vw;
 	}
 }
 
@@ -471,4 +472,8 @@ a,
   right: 10px;
   left: auto;
   margin: 0;
+}
+
+.logo_ayuntamiento {
+	max-width: 100%;
 }

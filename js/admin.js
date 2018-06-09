@@ -90,13 +90,13 @@ loadSection = function(hash) {
 		}
 		closeMenu();//cerrar el menu
 	} else {
-			$(".seccion").hide();
-			$(".main").show();
+			loadSection2(hash);
 		}
 	clearInfoWindow();
 };
 
-$.ajax(
+function actualizarAyuntamientos() {
+	$.ajax(
 {
 	url: 'php/buscarAyuntamiento.php',
 	data: {nombre:''},
@@ -111,12 +111,25 @@ $.ajax(
 			ayuntamientos[ayt.codigo] =ayt;
 		}
 		var ayt = $e.val();
-		ayt = ayuntamientos[ayt];
-		$(".codigo_ayuntamiento").text(ayt.codigo);
-		$("#nombre_ayuntamiento").val(ayt.nombre);
-		$(".nombre_ayuntamiento").text(ayt.nombre);
+		seleccionarAyuntamiento(ayt);
+		$e.on("change",function() {
+			var ayt = $e.val();
+			seleccionarAyuntamiento(ayt);
+		});
 	}
 });
+}
+actualizarAyuntamientos();
+
+function seleccionarAyuntamiento(ayt) {
+	ayt = ayuntamientos[ayt];
+	$(".codigo_ayuntamiento").text(ayt.codigo);
+		$("#codigo_ayuntamiento").val(ayt.codigo);
+		$("#nombre_ayuntamiento").val(ayt.nombre);
+		$(".nombre_ayuntamiento").text(ayt.nombre);
+		if (ayt.logo!=null)
+		$(".logo_ayuntamiento").attr("src",ayt.logo.slice(1));
+}
 
 $.ajax(
 {

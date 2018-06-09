@@ -1,9 +1,11 @@
 // Requires jQuery
 //Declaration of functions
 var queryFn,queryMatches;
+var ayuntamientoActivo = new Ayuntamiento();
 var menuOpen = false;
 var usuario = null;
 var pagina = 0;
+var cTitle = "Incidencias ";
 var infoActual = null;
 var openMenu = function(e){
 	$("#mainpage *").css("pointer-events","none");
@@ -72,7 +74,22 @@ $(function () {
 			console.log(data);
 		}
 	}})
+	$.getJSON("php/ayuntamientoActivo.php",function(data) {
+		ayuntamientoActivo = data[0];
+		$(".logo_ayuntamiento").attr("src",ayuntamientoActivo.logo.slice(1));
+		$(".nombre_ayuntamiento").text(ayuntamientoActivo.nombre);
+		if (document.title=="") {
+			setTitle(cTitle);
+		}
+	});
 });
+
+function setTitle(title) {
+	cTitle = title;
+	if (ayuntamientoActivo.nombre!=null) {
+		document.title = cTitle + " - "+ayuntamientoActivo.nombre;
+	}
+}
 
 var incidenciasCargadas = [];
 $(function(){
@@ -95,7 +112,9 @@ var loadSection = function(hash) {
 		$(".main").hide();
 		$(".seccion").show();
 		$(".seccion").toggleClass("hide",true);
-		$("#"+match[1]).toggleClass("hide",false);
+		$e=$("#"+match[1]);
+		$e.toggleClass("hide",false);
+		var title = $e.find(".titulo").text();
 		switch (match[1]) {
 			case "inicio":
 				match = hash.match(/error=(.+)/);
@@ -118,6 +137,7 @@ var loadSection = function(hash) {
 					buscarIncidencia({codigo:incidencia},function(incidencias){
 						
 						var incidencia = incidencias[0];
+						title ="Incidencia "+incidencia.codigo;
 						$("#tituloIncidencia").val(incidencia.titulo);
 						$("#descripcionIncidencia").val(incidencia.descripcion);
 						$("#codigoIncidencia").val(incidencia.codigo);
@@ -142,11 +162,15 @@ var loadSection = function(hash) {
 					$("#longitud").val(lng);
 				}
 				break;
+			default:
+				break;
 		}
 	} else {
 		$(".seccion").hide();
 		$(".main").show();
+		title = "Inicio";
 	}
+	setTitle(title);
 	closeMenu();//cerrar el menu
 	clearInfoWindow();
 };
