@@ -46,6 +46,7 @@ if (!isset($_SESSION['user'])) {
 	<script src="js/js.js"></script>
 	<script src="js/admin.js"></script>
       <link rel="stylesheet" href="css/buttons.css">
+	  <link rel="stylesheet" href="css/admin.css">
 	  
 	  <!-- google maps -->
   <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC24GO81Fb-gw3SzEpSGxy_d3oV4r3jiew&callback=initMap"></script>
@@ -71,6 +72,7 @@ if (!isset($_SESSION['user'])) {
 			<ul class="list_load menu-lateral">
 				<li class="list_item"><a href="index.php" id="link-logout"> <i class="fas fa-sign-out-alt"></i> Volver al mapa </a></li>
 				<br>
+				<li class="list_item"><a href="#">Dashboard</a></li>
 				<li class="list_item"><a href="#seccion=ayuntamiento">Gestionar ayuntamiento</a></li>
 				<li class="list_item"><a href="#seccion=usuariosRecientes">Gestionar usuarios</a></li>
 				<li class="list_item"><a href="#seccion=mapaIncidencias">Mapa de incidencias</a></li>
@@ -84,14 +86,12 @@ if (!isset($_SESSION['user'])) {
 	<div id="mainpage" class="content">
 	<div class="main">
 	<div class="what_to_do titulo">Dashboard del sistema</div>
-		<div class="texto">
-		<b>Administración interna del ayuntamiento</b>
-		<br><br>
-		<div class="menu effect-13" style="opacity: 0.8;background:#fff;">
-			<ul class="buttons">
-				<li><a href="#seccion=mapaIncidencias"> <i class="fas fa-check-circle"></i> <span>Comenzar</span></a></li>
-			</ul>
-		</div>
+		<h4>Administración interna del ayuntamiento</h4>
+		<div class="panel">
+			<div class="titulo-panel">Ayuntamiento</div>
+			<div class="propiedad">Nombre</div>
+			<div class="valor nombre_ayuntamiento"> - </div>
+			<a href="#seccion=ayuntamiento" style="font-size: 80%;">Cambiar ayuntamiento</a>
 		</div>
 	</div>
 <div id="mapaIncidencias" class="seccion hide">
@@ -150,25 +150,24 @@ if (!isset($_SESSION['user'])) {
 		</form>
 
 </div>
-<div id="login" class="seccion hide">
-	<div class="content-form">
-		<h5 class="what_to_do titulo">Inicia Sesión</h5>
-		<h4>¿Usuario nuevo? <a href="#seccion=registro">Regístrate</a></h4>
-		<form class="formulario" onsubmit="login();return false;">
-			<label for="email">Email</label>
-			<input type="text" id="email" name="email">
-			<label for="clave">Contraseña</label>
-			<input type="password" id="clave" name="password">
+<div id="modificarUsuario" class="seccion hide with-close-btn">
+	<div class="close"> <a href="#seccion=usuariosRecientes"><i class="far fa-times-circle"></i></a></div>
+		<h2>Nuevo usuario</h2>
+		<form class="formulario" onsubmit="registrar();return false;">
+			<label for="rolUsuario">Modificar rol</label>
+			<select id="rolUsuario"></select>
+			<label for="nombre">Nombre y apellido(s) </label>
+			<div class="nombreApellidos">
+				<input type="text" id="nombre2" placeholder="Nombre" name="nombre"><input type="text" id="apellidos2" placeholder="Apellido(s)" name="apellidos">
+			</div>
+			<label for="telefono">Nº Teléfono</label>
+			<input type="text" id="telefono2" placeholder="Nº Teléfono (opcional)" name="telefono">
 			<div class="content-check">
-			<label for="checkbox"><input type="checkbox" id="checkbox" accesskey="r">Recuérdame</label>
-			<input type="submit" value="Inicia Sesión">
-			<p style="font-size: 80%;">
-				<a href="#seccion=recuperarContraseña" style="pointer-events: all;">¿Olvidaste tu contraseña?</a>
-			</p>
+			<input type="submit" value="Modificar perfil">
 			</div>
 		</form>
-	</div>
 </div>
+
 <div id="registro" class="seccion hide">
 	<div class="content-form">
 		<h5 class="what_to_do titulo">Regístrate</h5>
@@ -203,7 +202,14 @@ if (!isset($_SESSION['user'])) {
 				<option>Cargando datos...</option>
 			</select>
 			</label>
-			<label>Codigo: <span id="codigo_ayuntamiento"></span></label>
+			<label>Codigo: <span id="codigo_ayuntamiento" class="codigo_ayuntamiento"></span></label>
+			<h5>Información</h5>
+			<p>
+				Usuarios registrados: <span id="numeroUsuarios"></span><br>
+				Incidencias totales: <span id="numIncidencias"></span><br>
+			</p>
+			
+			<h5>Modificar datos</h5>
 			<label for="nombre_ayuntamiento">Nombre</label>
 			<input type="text" id="nombre_ayuntamiento" placeholder="Nombre" name="nombre">
 			<label for="imagen_ayuntamiento">Imágen del ayuntamiento</label>

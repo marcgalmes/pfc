@@ -1,0 +1,21 @@
+.panel {
+    float: left;
+    width: 30vw;
+	min-width: 15em;
+    border: 1px solid;
+}
+
+.panel .propiedad {
+    font-size: 80%;
+    float: left;
+	padding-bottom: 4px;
+}
+
+.panel .valor {
+    font-size: 80%;
+	padding-bottom: 4px;
+}
+
+.titulo-panel {
+    padding: 9px;
+}

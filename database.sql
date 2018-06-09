@@ -1,5 +1,10 @@
+-- Crear la base de datos 'pfc'
 create database pfc;
+
+-- Conectar a la base de datos 'pfc'
 use pfc;
+
+-- Crear tablas
 
 create table tipoIncidencia (
 	codigo int not null auto_increment,
@@ -60,7 +65,8 @@ create table notificacion(
 	foreign key (usuario) references usuario(codigo)
 );
 
--- inserts
+
+-- Insertar datos por defecto
 
 insert into ayuntamiento (
 	codigo,nombre,logo
@@ -285,4 +291,4 @@ insert into incidencia (
 );
 
 
-
+-- Fin.

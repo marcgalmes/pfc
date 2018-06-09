@@ -27,7 +27,7 @@ var openMenu = function(e){
 	menuOpen = true;
 };
 var closeMenu = function(e){
-	$("#mainpage *").css("pointer-events","all");
+	$("#mainpage *").css("pointer-events","");
 	if (!queryMatches) return;
     if (e)e.preventDefault(); $('.list_load, .list_item').stop();
     $(".js-menu_toggle").removeClass('opened').addClass('closed');
@@ -143,11 +143,11 @@ var loadSection = function(hash) {
 				}
 				break;
 		}
-		closeMenu();//cerrar el menu
 	} else {
-			$(".seccion").hide();
-			$(".main").show();
-		}
+		$(".seccion").hide();
+		$(".main").show();
+	}
+	closeMenu();//cerrar el menu
 	clearInfoWindow();
 };
 
@@ -439,7 +439,8 @@ var map;
 	 
 	map = new google.maps.Map(document.getElementById('mapa'), {
 	  center: {lat: 39.5687965, lng: 2.6673537},
-	  zoom: 18
+	  zoom: 18,
+	  gestureHandling: 'cooperative'
 	});
 	
 	if (window.myLocation) {
