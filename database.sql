@@ -42,6 +42,8 @@ create table incidencia(
 	codigo int not null auto_increment,
 	titulo varchar(300),
 	descripcion varchar(99999),
+	zona varchar(300),
+	direccion varchar(999),
 	tipoIncidencia int,
 	prioridad varchar(300),
 	estado varchar(300),

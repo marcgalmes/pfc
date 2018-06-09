@@ -76,10 +76,37 @@ $(function () {
 	}})
 	$.getJSON("php/ayuntamientoActivo.php",function(data) {
 		ayuntamientoActivo = data[0];
+		if (ayuntamientoActivo.logo)
 		$(".logo_ayuntamiento").attr("src",ayuntamientoActivo.logo.slice(1));
 		$(".nombre_ayuntamiento").text(ayuntamientoActivo.nombre);
 		if (document.title=="") {
 			setTitle(cTitle);
+		}
+	});
+	$.getJSON("php/getEstados.php",function(estados) {
+		for (var estado of estados) {
+			$("#estadoIncidencia").append("<option>"+estado.estado+"</option>");
+			$("#estadoIncidencia").select2({tags: true,
+			  createTag: function (params) {
+				return {
+				  id: params.term,
+				  text: params.term,
+				  newOption: true
+				}
+			}});
+		}
+	});
+	$.getJSON("php/getPrioridades.php",function(prioridades) {
+		for (var prioridad of prioridades) {
+			$("#prioridadIncidencia").append("<option>"+prioridad.prioridad+"</option>");
+			$("#prioridadIncidencia").select2({tags: true,
+			  createTag: function (params) {
+				return {
+				  id: params.term,
+				  text: params.term,
+				  newOption: true
+				}
+			}});
 		}
 	});
 });
@@ -234,7 +261,7 @@ function submitIncidenciaForm() {
 }
 function clearIncidenciaForm() {
 	//$('#modificarIncidencia form.formulario input,select,textarea').val('');
-	$("#modificarIncidencia").find("input,select,textarea").val("");
+	$("#modificarIncidencia").find("input[type=text],select,textarea").val("");
 }
 
 //tooltips
@@ -409,6 +436,8 @@ function buscarIncidencia(objFiltro,callback) {
 				obj.codigo = incidencia.codigo;
 				obj.titulo = incidencia.titulo;
 				obj.descripcion = incidencia.descripcion;
+				obj.zona = incidencia.zona;
+				obj.direccion = incidencia.direccion;
 				obj.tipoIncidencia = incidencia.tipoIncidencia;
 				obj.prioridad = incidencia.prioridad;
 				obj.estado = incidencia.estado;
@@ -606,7 +635,9 @@ function addLatLng(event) {
 				barrio = posiblesBarrios[1] || posiblesBarrios[2] ||posiblesBarrios[3] || "-";
 			}
 			$("#barrio").text(barrio);
+			$(".zona").val(barrio);
 			$("#localizacion").text(descr);
+			$(".direccion").val(descr);
 		} catch(e) {
 			console.log(e);
 		}
@@ -656,7 +687,7 @@ function login() {
 function loginCallback(data) {
 	var user = data.user;
 	usuario = user;
-	mostrarInfo('Bienvenido de nuevo, '+user.nombre + " " + user.apellidos);
+	mostrarInfo('Bienvenido de nuevo, '+user.nombre + (user.apellidos?" " + user.apellidos:""));
 	//cambiar boton de login por boton de perfil
 	$("#link-login").attr("href","#seccion=perfil");
 	$("#text-login").toggleClass("noshow",true);

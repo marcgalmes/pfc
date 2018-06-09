@@ -73,7 +73,6 @@ loadSection = function(hash) {
 						$("#nombre2").val(usuario.nombre);
 						$("#apellidos2").val(usuario.apellidos);
 						$("#telefono2").val(usuario.telefono);
-						
 					});
 					$("#tituloIncidencia").focus();
 				} else {
@@ -157,6 +156,72 @@ $(function(){
 		for (var rol of roles) {
 			$("#rolUsuario").append("<option value="+'"'+rol.codigo+'">'+rol.nombre+"</option>");
 		}
+	});
+	buscarTipoIncidencia({},function(tiposIncidencia) {
+		tiposIncidencias = {};
+		for (var tipoIncidencia of tiposIncidencia) {
+			tiposIncidencias[tipoIncidencia.codigo] = tipoIncidencia;
+			$("#categoriasList").append("<li class=\"list-item\">"+
+						tipoIncidencia.nombre + 
+						" <a class=\"view-btn button\" href=\"#seccion=modificarCategoria#categoria="+
+						tipoIncidencia.codigo+"\">" + "Editar »</a></li>");
+		}
+	
+	buscarIncidencia({},function(incidencias) {
+		var porZonas = {};
+		var porCategoria = {};
+		var porEstado = {};
+		var porPrioridad = {};
+		for (var incidencia of incidencias) {
+			var zona = incidencia.zona ||"Sin definir";
+			var tipo = incidencia.tipoIncidencia||"Sin definir";
+			var estado = incidencia.estado||"Sin definir";
+			var prioridad = incidencia.prioridad||"Sin definir";
+			tipo = tiposIncidencias[tipo].nombre;
+			porZonas[zona] = porZonas[zona]?(porZonas[zona]+1):1;
+			porCategoria[tipo] = porCategoria[tipo]?(porCategoria[tipo]+1):1;
+			porEstado[estado] = porEstado[estado]?(porEstado[estado]+1):1;
+			porPrioridad[prioridad] = porPrioridad[prioridad]?(porPrioridad[prioridad]+1):1;
+		}
+		var i = 0;
+		var zonas = Object.keys(porZonas).sort(function(a,b){
+			return porZonas[a]-porZonas[b];
+		}).reverse();
+		for (var zona of zonas) {
+			i++;
+			if (i==10) break;
+			$("#incidencias_zona").append('<div class="propiedad">'+zona+'</div>');
+			$("#incidencias_zona").append('<div class="valor">'+porZonas[zona]+'</div>');
+		}
+		i = 0;
+		var tipos= Object.keys(porCategoria).sort(function(a,b){
+			return porCategoria[a]-porCategoria[b];
+		}).reverse();
+		for (var tipo of tipos) {
+			i++;
+			if (i==10) break;
+			$("#incidencias_tipo").append('<div class="propiedad">'+tipo+'</div>');
+			$("#incidencias_tipo").append('<div class="valor">'+porCategoria[tipo]+'</div>');
+		}
+		i = 0;
+		var estados= Object.keys(porEstado).sort(function(a,b){
+			return porCategoria[a]-porCategoria[b];
+		}).reverse();
+		for (var estado of estados) {
+			i++;
+			if (i==10) break;
+			$("#incidencias_estado").append('<div class="propiedad">'+estado+'</div>');
+			$("#incidencias_estado").append('<div class="valor">'+porEstado[estado]+'</div>');
+		}
+		i = 0;
+		var prioridades= Object.keys(porPrioridad);
+		for (var prioridad of prioridades) {
+			i++;
+			if (i==10) break;
+			$("#incidencias_prioridad").append('<div class="propiedad">'+prioridad+'</div>');
+			$("#incidencias_prioridad").append('<div class="valor">'+porPrioridad[prioridad]+'</div>');
+		}
+	});
 	});
 });
 

@@ -76,6 +76,7 @@ if (!isset($_SESSION['user'])) {
 				<li class="list_item"><a href="#">Dashboard</a></li>
 				<li class="list_item"><a href="#seccion=ayuntamiento">Gestionar ayuntamiento</a></li>
 				<li class="list_item"><a href="#seccion=usuariosRecientes">Gestionar usuarios</a></li>
+				<li class="list_item"><a href="#seccion=categorias">Gestionar categorias</a></li>
 				<li class="list_item"><a href="#seccion=mapaIncidencias">Mapa de incidencias</a></li>
 				<li class="list_item"><a href="#seccion=incidenciasRecientes">Incidencias recientes</a></li>
 				<br>
@@ -94,6 +95,26 @@ if (!isset($_SESSION['user'])) {
 			<div class="valor nombre_ayuntamiento"> - </div>
 			<img src="" class="logo logo_ayuntamiento">
 			<a href="#seccion=ayuntamiento" style="font-size: 80%;">Cambiar ayuntamiento</a>
+		</div>
+		<div class="panel" id="incidencias_zona">
+			<div class="titulo-panel">Incidencias por zona</div>
+			<div class="propiedad"><b>Zona</b></div>
+			<div class="valor"> <b>Num. incidencias </b></div>
+		</div>
+		<div class="panel" id="incidencias_tipo">
+			<div class="titulo-panel">Incidencias por tipo</div>
+			<div class="propiedad"><b>Tipo</b></div>
+			<div class="valor"> <b>Num. incidencias </b></div>
+		</div>
+		<div class="panel" id="incidencias_prioridad">
+			<div class="titulo-panel">Incidencias por prioridad</div>
+			<div class="propiedad"><b>Prioridad</b></div>
+			<div class="valor"> <b>Num. incidencias </b></div>
+		</div>
+		<div class="panel" id="incidencias_estado">
+			<div class="titulo-panel">Incidencias por estado</div>
+			<div class="propiedad"><b>Estado</b></div>
+			<div class="valor"> <b>Num. incidencias </b></div>
 		</div>
 	</div>
 <div id="mapaIncidencias" class="seccion hide">
@@ -120,6 +141,19 @@ if (!isset($_SESSION['user'])) {
 		</ul>
 	</div>
 </div>
+<div id="categorias" class="seccion hide">
+	<h5 class="what_to_do titulo">Administrar categorias</h5>
+	<div class="listado">
+		<ul class="list" style="list-style:none;" id="categoriasList">
+		</ul>
+	</div>
+	<div class="menu effect-13">
+		<ul class="buttons">
+			<li><a href="javascript:null"> <i class="fas fa-plus"></i> <span>Nueva categoría</span></a></li>
+		</ul>
+	</div>
+</div>
+
 <div id="modificarIncidencia" class="seccion hide with-close-btn">
 	<div class="close"> <a href="#seccion=mapaIncidencias"><i class="far fa-times-circle"></i></a></div>
 		<h2>Nueva incidencia</h2>
@@ -127,7 +161,11 @@ if (!isset($_SESSION['user'])) {
 			
 				<label>Título de la incidencia</label>
 				<input type="text" name="titulo" value="" placeholder="Título de la incidencia" id="tituloIncidencia">
-			<label>Tipo de la incidencia</label>
+				<label>Estado</label>
+				<select name="estado" value="" placeholder="Estado" id="estadoIncidencia"></select>
+				<label>Prioridad</label>
+				<select name="prioridad" value="" placeholder="Prioridad" id="prioridadIncidencia"></select>
+			<label>Categoria</label>
 				<select id="tipoIncidencia" name="tipoIncidencia">
 				</select>
 				<h5>Descripción de la incidencia</h5>

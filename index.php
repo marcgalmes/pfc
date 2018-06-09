@@ -123,10 +123,14 @@ header("access-control-allow-origin: *");
 			
 				<label>Título de la incidencia</label>
 				<input type="text" name="titulo" value="" placeholder="Título de la incidencia" id="tituloIncidencia">
-			<label>Tipo de la incidencia</label>
+			<label>Categoría</label>
 				<select id="tipoIncidencia" name="tipoIncidencia">
 				</select>
-				<h5>Descripción de la incidencia</h5>
+				<label>Estado</label>
+				<select name="estado" value="" placeholder="Estado" id="estadoIncidencia"></select>
+				<label>Prioridad</label>
+				<select name="prioridad" value="" placeholder="Prioridad" id="prioridadIncidencia"></select>
+				<h5>Descripción</h5>
 				<textarea name="descripcion" id="descripcionIncidencia" placeholder="Descripción de la incidencia"></textarea>
 				<h5>Localización de la incidencia</h5>
 				<div class="mapContainer">
@@ -136,9 +140,11 @@ header("access-control-allow-origin: *");
 				<p>Ubicación seleccionada: <span id="localizacion"></span></p>
 				<p>Zona/barrio: <span id="barrio"></span></p>
 				</div>
-				<input type="text" placeholder="codigo" name="codigo" id="codigoIncidencia">
-				<input type="text" placeholder="latitud" name="latitud" id="latitud">
-				<input type="text" placeholder="longitud" name="longitud" id="longitud">
+				<input type="hidden" name="zona" class="zona">
+				<input type="hidden" name="direccion" class="direccion">
+				<input type="hidden" placeholder="codigo" name="codigo" id="codigoIncidencia">
+				<input type="hidden" placeholder="latitud" name="latitud" id="latitud">
+				<input type="hidden" placeholder="longitud" name="longitud" id="longitud">
 				<div class="menu effect-13">
 					<ul class="buttons">
 						<li id="enviarIncidencia"><a href="javascript:submitIncidenciaForm();"> <i class="fas fa-check-circle"></i> <span>Enviar incidencia</span></a></li>
