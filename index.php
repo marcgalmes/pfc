@@ -101,7 +101,7 @@ header("access-control-allow-origin: *");
 	</div>
 	<div class="menu effect-13">
 		<ul class="buttons">
-			<li rel="tooltip" title="Mi ubicación"><a href="javascript:getMyLocation()"> <i class="fas fa-location-arrow"></i> <span>Mi ubicación</span></a></li>
+			<li rel="tooltip" title="Mi ubicación"><a href="javascript:getMyLocation(1)"> <i class="fas fa-location-arrow"></i> <span>Mi ubicación</span></a></li>
 			<li rel="tooltip" title="Nueva incidencia"><a href="javascript:nuevaIncidencia()"><i class="fas fa-thumbtack"></i> <span>Nueva incidencia</span></a></li>
 			<!-- <li><a href="#"><i class="fas fa-pencil-alt"></i> Editando incidencia</a></li> -->
 			<li rel="tooltip" title="Mostrar incidencias"><a href="#seccion=mostrarIncidencias"><i class="fas fa-search"></i><span>Mostrar incidencias</span></a></li>
@@ -219,15 +219,22 @@ header("access-control-allow-origin: *");
 	<div class="content-form">
 		<h4>Filtro de incidencias</h4>
 		<form class="formulario" onsubmit="mostrarIncidencias();return false;">
-			<b>Filtrar por tipo</b>
+			<b>Filtrar por categoría</b>
 			<select multiple id="tiposIncidencias2"></select>
 			<b>Filtrar por zona</b>
 			<select multiple id="zonas"></select>
+			<b>Filtrar por dirección</b>
+			<input type="text" id="filtroDireccion" placeholder="Ej: Avenidas">
+			<b>Buscar incidencias</b>
+			<input type="text" id="busquedaGeneral" placeholder="Ej: asfalto">
 			<!--<div id="tiposIncidencias">
 			<!--<label><input type="checkbox" value="val"> Nombre Tipo</label>-->
-			<!--</div>-->x
+			<!--</div>-->
 			<div class="content-check">
+				<input type="submit" value="Buscar incidencias">
+				<!--<input type="button" value="Borrar filtros">-->
 			</div>
+			<br>
 		</form>
 	</div>
 </div>

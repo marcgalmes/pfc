@@ -7,6 +7,7 @@ var usuario = null;
 var pagina = 0;
 var cTitle = "Incidencias ";
 var infoActual = null;
+var zonas = [];
 var openMenu = function(e){
 	$("#mainpage *").css("pointer-events","none");
     if (e) e.preventDefault(); $('.list_load, .list_item').stop();
@@ -182,6 +183,7 @@ var loadSection = function(hash) {
 					$("#tituloIncidencia").focus();
 				} else {
 					$("#modificarIncidencia h2").text("Nueva incidencia");
+					$("#codigoIncidencia").val("");
 					var lat = $("#latitud").val();
 					var lng = $("#longitud").val();
 					clearIncidenciaForm();
@@ -200,6 +202,7 @@ var loadSection = function(hash) {
 	setTitle(title);
 	closeMenu();//cerrar el menu
 	clearInfoWindow();
+	$("#zonas").select2();
 };
 
 function submitIncidenciaForm() {
@@ -380,6 +383,8 @@ function mostrarInfoWindowIncidencia(incidencia,marker) {
 		infoWindow = new google.maps.InfoWindow({map:map});
 		infoWindow.setPosition(marker.getPosition());
 		infoWindow.setContent("<b>"+incidencia.titulo+"</b>"+
+		"<p>"+incidencia.direccion+"<br>"+
+		"<em>"+incidencia.zona+"</em></p>"+
 		"<div class=\"menu effect-13\">"+
 		"<ul class=\"buttons\"> <li class=\"secundario\">"+
 		"<a href=\"#seccion=modificarIncidencia#incidencia="+
@@ -395,10 +400,11 @@ function getIncidenciaByCodigo(codigo) {
 function borrarIncidenciaMapa(incidencia) {
 	if (incidencia.marker) {
 		incidencia.marker.setMap(null);
+		incidencia.market = null;
 	}
 }
 
-function insertarIncidenciaMapa(incidencia) {//funcion convertida de una funcion anónima, ya que se usa dentro de un bucle
+function insertarIncidenciaMapa(incidencia) {//Funcion convertida de anónima, ya que se usa dentro de un bucle
 
 	var iconUrl = "img/info-i_maps.png";
 	var marker = new google.maps.Marker({
@@ -407,6 +413,12 @@ function insertarIncidenciaMapa(incidencia) {//funcion convertida de una funcion
 	  title: incidencia.titulo,
 	  map: map
 	});
+	
+	var zona = incidencia.zona || "Sin definir";
+	if (zonas.indexOf(zona)==-1) {
+		zonas.push(zona);
+		$("#zonas").append("<option value="+'"'+(incidencia.zona?incidencia.zona:"")+'"'+">"+zona+"</option>");
+	}
 	
 	marker.addListener("click",function(){
 		mostrarInfoWindowIncidencia(incidencia,marker);
@@ -534,23 +546,26 @@ var map;
 				$("#incidenciasRecientesList").append("<li class=\"list-item\">"+
 				incidencia.titulo+" <a class=\"view-btn button\" href=\"#seccion=modificarIncidencia#incidencia="+
 				incidencia.codigo+"\">" +
-				incidencia.fecha+"»</a></li>");
+				"Abrir »</a></li>");
 		}
 	});
   });
   }
   
-  function getMyLocation() {
+  function getMyLocation(informar) {
 	// Try HTML5 geolocation.
 	if (navigator.geolocation) {
+		if (informar) {
+			mostrarInfo("Obteniendo localización...");
+		}
 	  navigator.geolocation.getCurrentPosition(function(position) {
 		  window.myLocation = position;
 		  showMyLocation(window.myLocation);
 	  }, function() {
-		  console.log("Error location");
+		  console.log("Error geolocalización");
 	  });
 	} else {
-		alert("Location not supported");
+		mostrarError("Geolocalización no soportada");
 	}
   }
   
@@ -644,7 +659,9 @@ function addLatLng(event) {
 		infoWindow = new google.maps.InfoWindow({map:map});
 		infoWindow.setPosition(marker.getPosition());
 		infoWindow.setContent("<h3>"+nombre+"</h3>"+
-		"<p>"+descr+"</p>"+"<div class=\"menu effect-13\">"+
+		"<p>"+descr+"<br>"+
+		"<em>"+(barrio?barrio:"")+"</em></p>"+
+		"<div class=\"menu effect-13\">"+
 			"<ul class=\"buttons\">"+
 			(location.hash.indexOf("seccion=modificarIncidencia")==-1?
 			"<li class=\"secundario\"><a href=\"#seccion=modificarIncidencia\">"+
@@ -801,4 +818,39 @@ function logout() {
 		}
 	}
 	});
+}
+
+function mostrarIncidencias() {
+	var tipos = $("#tiposIncidencias2").val() ||[];
+	var zonas = $("#zonas").val() ||[];
+	var direccion = $("#filtroDireccion").val();
+	var busquedaGral = $("#busquedaGeneral").val();
+	for (var incidencia of incidenciasCargadas) {
+		if (!incidencia.marker ||!incidencia.marker.map) {
+			insertarIncidenciaMapa(incidencia);
+		}
+		if (tipos.length>0) {
+			if (tipos.indexOf(incidencia.tipoIncidencia)==-1 && incidencia.marker) {
+				borrarIncidenciaMapa(incidencia);
+			}
+		}
+		if (zonas.length>0) {
+			if (zonas.indexOf(incidencia.zona ||"")==-1 && incidencia.marker) {
+				borrarIncidenciaMapa(incidencia);
+			}
+		}
+		if (direccion.length>0) {
+			if (incidencia.direccion.toLowerCase().indexOf(direccion.toLowerCase())==-1 && incidencia.marker) {
+				borrarIncidenciaMapa(incidencia);
+			}
+		}
+		if (busquedaGral.length>0) {
+			resultado = incidencia.titulo.toLowerCase().indexOf(busquedaGral.toLowerCase())!=-1
+			|| (incidencia.descripcion||"").toLowerCase().indexOf(busquedaGral.toLowerCase())!=-1;
+			if (!resultado && incidencia.marker) {
+				borrarIncidenciaMapa(incidencia);
+			}
+		}
+	}
+	window.location = "#seccion=mapaIncidencias";
 }

@@ -134,8 +134,17 @@ if (!isset($_SESSION['user'])) {
 		</ul>
 	</div>
 </div>
+<div  id="incidenciasRecientes" class="seccion hide">
+	<h5 class="what_to_do titulo">Incidencias recientes</h5>
+	<h4>Listado de incidencias más recientes</h4>
+	<div class="listado">
+		<ul class="list" style="list-style:none;" id="incidenciasRecientesList">
+		</ul>
+	</div>
+</div>
 <div  id="usuariosRecientes" class="seccion hide">
 	<h5 class="what_to_do titulo">Administrar usuarios</h5>
+	<h4>Listado de usuarios registrados recientemente</h4>
 	<div class="listado">
 		<ul class="list" style="list-style:none;" id="usuariosRecientesList">
 		</ul>
@@ -143,13 +152,14 @@ if (!isset($_SESSION['user'])) {
 </div>
 <div id="categorias" class="seccion hide">
 	<h5 class="what_to_do titulo">Administrar categorias</h5>
-	<div class="listado">
-		<ul class="list" style="list-style:none;" id="categoriasList">
-		</ul>
-	</div>
+	<h4>Listado de categorías de incidencias</h4>
 	<div class="menu effect-13">
 		<ul class="buttons">
-			<li><a href="javascript:null"> <i class="fas fa-plus"></i> <span>Nueva categoría</span></a></li>
+			<li><a href="#seccion=modificarCategoria"> <i class="fas fa-plus"></i> <span>Nueva categoría</span></a></li>
+		</ul>
+	</div>
+	<div class="listado">
+		<ul class="list" style="list-style:none;" id="categoriasList">
 		</ul>
 	</div>
 </div>
@@ -190,12 +200,37 @@ if (!isset($_SESSION['user'])) {
 		</form>
 
 </div>
+
+<div id="modificarCategoria" class="seccion hide with-close-btn">
+	<div class="close"> <a href="#seccion=categorias"><i class="far fa-times-circle"></i></a></div>
+		<h2>Editar categoría</h2>
+		<form class="formulario" onsubmit="guardarCategoria();return false;">
+			<input type="hidden" name="codigo" id="codigoCategoria">
+			<label for="rolUsuario">Nombre de la categoría</label>
+			<input type="text" placeholder="Nombre" name="nombre" id="nombreCategoria">
+			<div class="content-check">
+			<input type="submit" value="Guardar categoría">
+			</div>
+		</form>
+</div>
+<div id="borrarCategoria" class="seccion hide with-close-btn">
+	<div class="close"> <a href="#seccion=categorias"><i class="far fa-times-circle"></i></a></div>
+		<h2>Borrar categoría</h2>
+		<form class="formulario" onsubmit="borrarCategoria();return false;">
+			<p>Confirme que desea eliminar la categoria "<span class="nombreCategoria"></span>"</p>
+			<div class="content-check">
+			<input type="submit" value="Borrar categoría">
+			<input type="button" onclick="location='#seccion=categorias'" value="Cancelar">
+			</div>
+		</form>
+</div>
 <div id="modificarUsuario" class="seccion hide with-close-btn">
 	<div class="close"> <a href="#seccion=usuariosRecientes"><i class="far fa-times-circle"></i></a></div>
-		<h2>Nuevo usuario</h2>
+		<h2>Modificar usuario</h2>
 		<form class="formulario" onsubmit="registrar();return false;">
+			<input type="hidden" name="codigo" id="codigoUsuario">
 			<label for="rolUsuario">Modificar rol</label>
-			<select id="rolUsuario"></select>
+			<select name="rolUsuario" id="rolUsuario"></select>
 			<label for="nombre">Nombre y apellido(s) </label>
 			<div class="nombreApellidos">
 				<input type="text" id="nombre2" placeholder="Nombre" name="nombre"><input type="text" id="apellidos2" placeholder="Apellido(s)" name="apellidos">

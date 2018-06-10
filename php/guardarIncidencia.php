@@ -62,7 +62,7 @@ $stat = $db->prepare('insert into incidencia (
 	codigoUsuario,fecha,fechaResolucion,latitud,longitud) values (?,?,?,?,?,?,?,?,?,?,?,?,?);');
 	
 	
-$resultados=$stat->execute(array($codigo,$titulo,$descripcion,$zona,$direccion,$tipoIncidencia,'Normal supongo','Como toca',1,date('Y-m-d H:i:s'),null,$latitud,$longitud));
+$resultados=$stat->execute(array($codigo,$titulo,$descripcion,$zona,$direccion,$tipoIncidencia,'Alta','Pendiente',1,date('Y-m-d H:i:s'),null,$latitud,$longitud));
 
 $stat = $db->query('select codigo from incidencia order by codigo desc');
 $codigo = $stat->fetchAll()[0];
