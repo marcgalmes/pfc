@@ -63,12 +63,27 @@ $password = password_hash($password, PASSWORD_DEFAULT);
 include("database.php");
 
 
+if ($rolUsuario!=null) {
 $stat = $db->prepare('update usuario set rolUsuario=?,nombre=?,apellidos=?,telefono=? where codigo=?');
-
 $resultados=$stat->execute(array($rolUsuario,$nombre,$apellidos,$telefono,$codigo));
+} else {
+$stat = $db->prepare('update usuario set nombre=?,apellidos=?,telefono=? where codigo=?');
+$resultados=$stat->execute(array($nombre,$apellidos,$telefono,$codigo));
+}
 
 if (!$resultados) {
 	echo('{"error":"Error al guardar usuario en BD: '.var_export($stat->errorInfo()).'"}');
+	return;
+}
+session_start();
+if (isset($_SESSION['user'])) {
+	$user = $_SESSION['user'];
+	if ($user["codigo"]==$codigo) {
+		$user["nombre"] = $nombre;
+		$user["apellidos"] = $apellidos;
+		$user["telefono"] = $telefono;
+	}
+	$_SESSION["user"] = $user;
 	return;
 }
 echo json_encode($resultados);

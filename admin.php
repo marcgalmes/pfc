@@ -304,15 +304,22 @@ if (!isset($_SESSION['user'])) {
 	<div class="content-form">
 		<h4>Filtro de incidencias</h4>
 		<form class="formulario" onsubmit="mostrarIncidencias();return false;">
-			<b>Filtrar por tipo</b>
+			<h5>Filtrar por categoría</h5>
 			<select multiple id="tiposIncidencias2"></select>
-			<b>Filtrar por zona</b>
+			<h5>Filtrar por zona</h5>
 			<select multiple id="zonas"></select>
+			<h5>Filtrar por dirección</h5>
+			<input type="text" id="filtroDireccion" placeholder="Ej: Avenidas">
+			<h5>Buscar incidencias</h5>
+			<input type="text" id="busquedaGeneral" placeholder="Ej: asfalto">
 			<!--<div id="tiposIncidencias">
 			<!--<label><input type="checkbox" value="val"> Nombre Tipo</label>-->
 			<!--</div>-->
 			<div class="content-check">
+				<input type="submit" value="Buscar incidencias">
+				<!--<input type="button" value="Borrar filtros">-->
 			</div>
+			<br>
 		</form>
 	</div>
 </div>

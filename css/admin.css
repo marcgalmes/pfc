@@ -11,9 +11,12 @@
     font-size: 80%;
     float: left;
 	padding-bottom: 4px;
+	width: 50%;
+	background: #0003;
 }
 
 .panel .valor {
+	background: #0001;
     font-size: 80%;
 	padding-bottom: 4px;
 }

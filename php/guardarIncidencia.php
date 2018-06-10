@@ -18,6 +18,13 @@ $latitud = null;
 $longitud = null;
 $zona = null;
 $direccion = null;
+$prioridad = null;
+$estado = null;
+$codigoUsuario = null;
+session_start();
+if (isset($_SESSION["user"])) {
+	$codigoUsuario = $_SESSION["user"]["codigo"];
+}
 
 if (isset($_POST["codigo"])) {
 	$codigo = $_POST["codigo"];
@@ -45,6 +52,12 @@ if (isset($_POST["zona"])) {
 if (isset($_POST["direccion"])) {
 	$direccion= $_POST["direccion"];
 }
+if (isset($_POST["estado"])) {
+	$estado= $_POST["estado"];
+}
+if (isset($_POST["prioridad"])) {
+	$prioridad= $_POST["prioridad"];
+}
 
 if ($codigo=="") $codigo=null;
 if ($latitud=="") $latitud=null;
@@ -62,7 +75,7 @@ $stat = $db->prepare('insert into incidencia (
 	codigoUsuario,fecha,fechaResolucion,latitud,longitud) values (?,?,?,?,?,?,?,?,?,?,?,?,?);');
 	
 	
-$resultados=$stat->execute(array($codigo,$titulo,$descripcion,$zona,$direccion,$tipoIncidencia,'Alta','Pendiente',1,date('Y-m-d H:i:s'),null,$latitud,$longitud));
+$resultados=$stat->execute(array($codigo,$titulo,$descripcion,$zona,$direccion,$tipoIncidencia,$prioridad,$estado,1,date('Y-m-d H:i:s'),null,$latitud,$longitud));
 
 $stat = $db->query('select codigo from incidencia order by codigo desc');
 $codigo = $stat->fetchAll()[0];

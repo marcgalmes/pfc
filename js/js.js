@@ -8,6 +8,7 @@ var pagina = 0;
 var cTitle = "Incidencias ";
 var infoActual = null;
 var zonas = [];
+var seccion = "";
 var openMenu = function(e){
 	$("#mainpage *").css("pointer-events","none");
     if (e) e.preventDefault(); $('.list_load, .list_item').stop();
@@ -140,7 +141,14 @@ var loadSection = function(hash) {
 		$(".main").hide();
 		$(".seccion").show();
 		$(".seccion").toggleClass("hide",true);
+		if (!usuario || pagina==0 && usuario.rolUsuario =="2") {
+			$("#estadosIncidencia").hide();
+		} else {
+			$("#estadosIncidencia").show();
+			
+		}
 		$e=$("#"+match[1]);
+		seccion = match[1];
 		$e.toggleClass("hide",false);
 		var title = $e.find(".titulo").text();
 		switch (match[1]) {
@@ -149,7 +157,7 @@ var loadSection = function(hash) {
 				if (match && match[1]) {
 					mostrarError(decodeURIComponent(match[1]));
 				}
-				window.location = "#";
+				window.location = "#seccion=mapaIncidencias";
 				break;
 			case "mapaIncidencias":
 				$("#mapaIncidencias .mapContainer").append($("#mapa"));
@@ -162,10 +170,18 @@ var loadSection = function(hash) {
 				if (match && match[1]) {
 					var incidencia = match[1];
 					$("#modificarIncidencia h2").text("Incidencia "+incidencia);
+					if (!usuario || (pagina==0 && usuario.rolUsuario=="2")) {
+						$("#modificarIncidencia").find("select,input,textarea").attr("readonly","readonly");
+						$("#modificarIncidencia").find("select").attr("disabled","disabled");
+					} else {
+						$("#modificarIncidencia").find("select,input,textarea").attr("readonly",null);
+						$("#modificarIncidencia").find("select").attr("disabled",null);
+						
+					}
+					title ="Incidencia "+incidencia;
 					buscarIncidencia({codigo:incidencia},function(incidencias){
 						
 						var incidencia = incidencias[0];
-						title ="Incidencia "+incidencia.codigo;
 						$("#tituloIncidencia").val(incidencia.titulo);
 						$("#descripcionIncidencia").val(incidencia.descripcion);
 						$("#codigoIncidencia").val(incidencia.codigo);
@@ -183,6 +199,8 @@ var loadSection = function(hash) {
 					$("#tituloIncidencia").focus();
 				} else {
 					$("#modificarIncidencia h2").text("Nueva incidencia");
+					$("#modificarIncidencia").find("select,input,textarea").attr("readonly",null);
+					$("#modificarIncidencia").find("select").attr("disabled",null);
 					$("#codigoIncidencia").val("");
 					var lat = $("#latitud").val();
 					var lng = $("#longitud").val();
@@ -195,9 +213,7 @@ var loadSection = function(hash) {
 				break;
 		}
 	} else {
-		$(".seccion").hide();
-		$(".main").show();
-		title = "Inicio";
+		window.location = "#seccion=mapaIncidencias";
 	}
 	setTitle(title);
 	closeMenu();//cerrar el menu
@@ -264,7 +280,9 @@ function submitIncidenciaForm() {
 }
 function clearIncidenciaForm() {
 	//$('#modificarIncidencia form.formulario input,select,textarea').val('');
-	$("#modificarIncidencia").find("input[type=text],select,textarea").val("");
+	if (!$("#tituloIncidencia").attr("readonly")) {
+		$("#modificarIncidencia").find("input[type=text],select,textarea").val("");
+	}
 }
 
 //tooltips
@@ -758,7 +776,7 @@ function registrar() {
 		"success": function(data) {
 			var data = JSON.parse(data);
 			if (!data["error"]) {
-				alert("Bienvenido "+data);
+				mostarInfo("Bienvenido "+data.nombre+(data.apellidos?" "+data.apellidos:""));
 			} else {
 				mostrarError("No se ha podido registrar el usuario: "+data["error"]);
 			}
@@ -767,7 +785,7 @@ function registrar() {
 	}
 	
 	}catch(e){
-		alert(e);
+		console.log(e);
 	}
 }
 
@@ -811,6 +829,10 @@ function logout() {
 			$("#telefono2").val("");
 			$("#gestionInterna").hide();
 			mostrarInfo("Se ha cerrado la sesión.");
+			usuario = null;
+			if (seccion=="perfil") {
+				location = "#seccion=login";
+			}
 		} else {
 			$("#link-logout").toggleClass("noshow",false);
 			mostrarError("Error al cerrar sesión: "+data.error);
@@ -840,7 +862,7 @@ function mostrarIncidencias() {
 			}
 		}
 		if (direccion.length>0) {
-			if (incidencia.direccion.toLowerCase().indexOf(direccion.toLowerCase())==-1 && incidencia.marker) {
+			if ((incidencia.direccion||"").toLowerCase().indexOf(direccion.toLowerCase())==-1 && incidencia.marker) {
 				borrarIncidenciaMapa(incidencia);
 			}
 		}
@@ -853,4 +875,22 @@ function mostrarIncidencias() {
 		}
 	}
 	window.location = "#seccion=mapaIncidencias";
+}
+
+function guardarUsuario() {
+	$("#perfil form .codigoUsuario").val(usuario.codigo);
+	var datos = $("#perfil form").serialize();
+	$.ajax({
+		url: "php/guardarUsuario.php",
+		method: 'POST',
+		data: datos,
+		success: function(data) {
+			console.log(data);
+			mostrarInfo("Se ha guardado el perfil.");
+		},
+		error: function(data) {
+			console.log(data);
+			mostrarError("Error al guardar el perfil.");
+		}
+	});
 }

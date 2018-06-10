@@ -157,6 +157,7 @@ $.ajax(
 		data: {},
 		success: function(data) {
 			var usuarios = JSON.parse(data);
+			$("#usuariosRecientesList").html("");
 			for (var usuario of usuarios.sort(function(a,b) {
 					var a = Date.parse(a.fecha);
 					var b = Date.parse(b.fecha);
@@ -164,7 +165,6 @@ $.ajax(
 					}
 				).reverse()) {
 					//usuarios recientes
-					$("#usuariosRecientesList").html("");
 					$("#usuariosRecientesList").append("<li class=\"list-item\">"+
 							usuario.nombre +(usuario.apellidos?" "+ usuario.apellidos:"") +" - "+usuario.email+ 
 							" <a class=\"view-btn button\" href=\"#seccion=modificarUsuario#usuario="+

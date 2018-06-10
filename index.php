@@ -126,10 +126,12 @@ header("access-control-allow-origin: *");
 			<label>Categoría</label>
 				<select id="tipoIncidencia" name="tipoIncidencia">
 				</select>
+				<div id="estadosIncidencia">
 				<label>Estado</label>
 				<select name="estado" value="" placeholder="Estado" id="estadoIncidencia"></select>
 				<label>Prioridad</label>
 				<select name="prioridad" value="" placeholder="Prioridad" id="prioridadIncidencia"></select>
+				</div>
 				<h5>Descripción</h5>
 				<textarea name="descripcion" id="descripcionIncidencia" placeholder="Descripción de la incidencia"></textarea>
 				<h5>Localización de la incidencia</h5>
@@ -201,7 +203,8 @@ header("access-control-allow-origin: *");
 	<div class="content-form">
 		<h5 class="what_to_do titulo">Mi perfil</h5>
 		<h4>Modificar mis datos</h4>
-		<form class="formulario" onsubmit="registrar();return false;">
+		<form class="formulario" onsubmit="guardarUsuario();return false;">
+			<input type="hidden" name="codigo" class="codigoUsuario">
 			<label for="nombre">Nombre y apellido(s) </label>
 			<div class="nombreApellidos">
 				<input type="text" id="nombre2" placeholder="Nombre" name="nombre"><input type="text" id="apellidos2" placeholder="Apellido(s)" name="apellidos">
@@ -219,13 +222,13 @@ header("access-control-allow-origin: *");
 	<div class="content-form">
 		<h4>Filtro de incidencias</h4>
 		<form class="formulario" onsubmit="mostrarIncidencias();return false;">
-			<b>Filtrar por categoría</b>
+			<h5>Filtrar por categoría</h5>
 			<select multiple id="tiposIncidencias2"></select>
-			<b>Filtrar por zona</b>
+			<h5>Filtrar por zona</h5>
 			<select multiple id="zonas"></select>
-			<b>Filtrar por dirección</b>
+			<h5>Filtrar por dirección</h5>
 			<input type="text" id="filtroDireccion" placeholder="Ej: Avenidas">
-			<b>Buscar incidencias</b>
+			<h5>Buscar incidencias</h5>
 			<input type="text" id="busquedaGeneral" placeholder="Ej: asfalto">
 			<!--<div id="tiposIncidencias">
 			<!--<label><input type="checkbox" value="val"> Nombre Tipo</label>-->
