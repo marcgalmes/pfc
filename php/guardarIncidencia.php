@@ -62,6 +62,11 @@ if (isset($_POST["prioridad"])) {
 if ($codigo=="") $codigo=null;
 if ($latitud=="") $latitud=null;
 if ($longitud=="") $longitud=null;
+if ($prioridad=="") $prioridad=null;
+if ($estado=="") $estado=null;
+
+if ($estado==null) $estado = "Pendiente";
+if ($prioridad==null) $prioridad = "Normal";
 
 
 include("database.php");

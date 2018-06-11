@@ -67,6 +67,7 @@ loadSection = function(hash) {
 					$.getJSON("php/buscarTipoIncidencia.php?codigo="+categoria,function(categorias){
 						var categoria= categorias[0];
 						$(".nombreCategoria").text	(categoria.nombre);
+						$(".codigoCategoria").val(categoria.codigo);
 					});
 				}
 				break;
@@ -294,6 +295,25 @@ var guardarCategoria = function() {
 			console.log(data);
 			actualizarIncidencias();
 			mostrarInfo("Se ha guardado la categoría.");
+			window.location = "#seccion=categorias";
+		},
+		error: function(data) {
+			console.log(data);
+			mostrarError("Error al guardar la categoria.");
+		}
+	});
+}
+
+function borrarCategoria () {
+	var datos = $("#borrarCategoria form").serialize();
+	$.ajax({
+		url: "php/borrarTipoIncidencia.php",
+		method: 'POST',
+		data: datos,
+		success: function(data) {
+			console.log(data);
+			actualizarIncidencias();
+			mostrarInfo("Se ha borrado la categoría.");
 			window.location = "#seccion=categorias";
 		},
 		error: function(data) {

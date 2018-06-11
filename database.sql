@@ -276,21 +276,6 @@ insert into tipoIncidencia (
 	'#medioAmbiente',
 	''
 );
-insert into incidencia (
-	codigo,titulo,tipoIncidencia,prioridad,estado,
-	codigoUsuario,fecha,fechaResolucion,latitud,longitud
-)values (
-	null,
-	"Prueba: Incidencia iluminación y electricidad en calle Prueba, 20",
-	1,
-	"Normal",
-	"Revisar",
-	1,
-	'2018-04-16 06:13:21', 
-	'2018-04-30 00:00:00', 
-	'1.23123213', 
-	'22.324324234'
-);
 
 
 -- Fin.

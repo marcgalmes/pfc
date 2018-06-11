@@ -158,6 +158,9 @@ var loadSection = function(hash) {
 					mostrarError(decodeURIComponent(match[1]));
 				}
 				break;
+			case "incidenciasRecientes":
+				actualizarIncidencias();
+				break;
 			case "mapaIncidencias":
 				$("#mapaIncidencias .mapContainer").append($("#mapa"));
 				break;
@@ -172,9 +175,11 @@ var loadSection = function(hash) {
 					if (!usuario || (pagina==0 && usuario.rolUsuario=="2")) {
 						$("#modificarIncidencia").find("select,input,textarea").attr("readonly","readonly");
 						$("#modificarIncidencia").find("select").attr("disabled","disabled");
+						$("#modificarIncidencia .buttons").hide();
 					} else {
 						$("#modificarIncidencia").find("select,input,textarea").attr("readonly",null);
 						$("#modificarIncidencia").find("select").attr("disabled",null);
+						$("#modificarIncidencia .buttons").show();
 						
 					}
 					title ="Incidencia "+incidencia;
@@ -199,6 +204,7 @@ var loadSection = function(hash) {
 				} else {
 					$("#modificarIncidencia h2").text("Nueva incidencia");
 					$("#modificarIncidencia").find("select,input,textarea").attr("readonly",null);
+					$("#modificarIncidencia .buttons").show();
 					$("#modificarIncidencia").find("select").attr("disabled",null);
 					$("#codigoIncidencia").val("");
 					var lat = $("#latitud").val();
@@ -248,6 +254,7 @@ function submitIncidenciaForm() {
 			$("#enviarIncidencia").toggleClass("noshow",false);
 			if (resp) {
 				mostrarInfo("La incidencia ha sido guardada. Gracias por su colaboración.");
+				location = "#seccion=mapaIncidencias";
 			}
 			$("#codigoIncidencia").val(resp.codigo);
 			
@@ -282,9 +289,9 @@ function submitIncidenciaForm() {
 }
 function clearIncidenciaForm() {
 	//$('#modificarIncidencia form.formulario input,select,textarea').val('');
-	if (!$("#tituloIncidencia").attr("readonly")) {
-		$("#modificarIncidencia").find("input[type=text],select,textarea").val("");
-	}
+	
+	$("#modificarIncidencia").find("input[type=text],select,textarea").val("");
+	
 }
 
 //tooltips
@@ -524,8 +531,7 @@ var map;
 	 
 	map = new google.maps.Map(document.getElementById('mapa'), {
 	  center: {lat: 39.5687965, lng: 2.6673537},
-	  zoom: 18,
-	  gestureHandling: 'cooperative'
+	  zoom: 18
 	});
 	
 	if (window.myLocation) {
@@ -546,31 +552,36 @@ var map;
 		}
 		$("#tiposIncidencias2").select2();
 	});
-	
-	//cargar incidencias y mostrar en el mapa
-	buscarIncidencia({},function(incidencias) {
-		/*
-			por ahora descargamos todas las incidencias y las situamos en el mapa (provisional!!), mas adelante se filtrara por ubicacion
-		*/
-		incidenciasCargadas = incidencias;
-		for (var incidencia of incidencias) {
-			insertarIncidenciaMapa(incidencia);	
-		}
-		for (var incidencia of incidencias.sort(function(a,b) {
-				var a = Date.parse(a.fecha);
-				var b = Date.parse(b.fecha);
-				return a-b;
-				}
-			).reverse()) {
-			//incidencias recientes (provisional!!)
-				$("#incidenciasRecientesList").append("<li class=\"list-item\">"+
-				incidencia.titulo+" <a class=\"view-btn button\" href=\"#seccion=modificarIncidencia#incidencia="+
-				incidencia.codigo+"\">" +
-				"Abrir »</a></li>");
-		}
-	});
+	actualizarIncidencias();
   });
   }
+  
+  	function actualizarIncidencias() {
+		//cargar incidencias y mostrar en el mapa
+		buscarIncidencia({},function(incidencias) {
+			/*
+				por ahora descargamos todas las incidencias y las situamos en el mapa (provisional!!), mas adelante se filtrara por ubicacion
+			*/
+			incidenciasCargadas = incidencias;
+			for (var incidencia of incidencias) {
+				if (incidencia.marker) borrarIncidenciaMapa(incidencia);
+				insertarIncidenciaMapa(incidencia);	
+			}
+			$("#incidenciasRecientesList").html("");
+			for (var incidencia of incidencias.sort(function(a,b) {
+					var a = Date.parse(a.fecha);
+					var b = Date.parse(b.fecha);
+					return a-b;
+					}
+				).reverse()) {
+				//incidencias recientes (provisional!!)
+					$("#incidenciasRecientesList").append("<li class=\"list-item\">"+
+					incidencia.titulo+" <a class=\"view-btn button\" href=\"#seccion=modificarIncidencia#incidencia="+
+					incidencia.codigo+"\">" +
+					"Abrir »</a></li>");
+			}
+		});
+	}
   
   function getMyLocation(informar) {
 	// Try HTML5 geolocation.

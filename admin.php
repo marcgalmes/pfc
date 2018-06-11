@@ -71,14 +71,12 @@ if (!isset($_SESSION['user'])) {
 			<h2 class="menu_title">Administración interna</h2>
 			<img class="logo_ayuntamiento">
 			<ul class="list_load menu-lateral">
-				<li class="list_item"><a href="index.php" id="link-logout"> <i class="fas fa-sign-out-alt"></i> Volver al mapa </a></li>
+				<li class="list_item"><a href="index.php" id="link-logout"> <i class="fas fa-sign-out-alt"></i> Volver al mapa de incidencias</a></li>
 				<br>
 				<li class="list_item"><a href="">Dashboard</a></li>
 				<li class="list_item"><a href="#seccion=ayuntamiento">Gestionar ayuntamiento</a></li>
 				<li class="list_item"><a href="#seccion=usuariosRecientes">Gestionar usuarios</a></li>
 				<li class="list_item"><a href="#seccion=categorias">Gestionar categorias</a></li>
-				<li class="list_item"><a href="#seccion=mapaIncidencias">Mapa de incidencias</a></li>
-				<li class="list_item"><a href="#seccion=incidenciasRecientes">Incidencias recientes</a></li>
 				<br>
 				
 			</ul>
@@ -117,31 +115,6 @@ if (!isset($_SESSION['user'])) {
 			<div class="valor"> <b>Num. incidencias </b></div>
 		</div>
 	</div>
-<div id="mapaIncidencias" class="seccion hide">
-	
-	<div class="what_to_do titulo">Mapa de incidencias</div>
-
-	<div class="mapContainer">
-	<div id="mapa"></div>
-	</div>
-	<div class="menu effect-13">
-		<ul class="buttons">
-			<li rel="tooltip" title="Mi ubicación"><a href="javascript:getMyLocation()"> <i class="fas fa-location-arrow"></i> <span>Mi ubicación</span></a></li>
-			<li rel="tooltip" title="Nueva incidencia"><a href="javascript:nuevaIncidencia()"><i class="fas fa-thumbtack"></i> <span>Nueva incidencia</span></a></li>
-			<!-- <li><a href="#"><i class="fas fa-pencil-alt"></i> Editando incidencia</a></li> -->
-			<li rel="tooltip" title="Mostrar incidencias"><a href="#seccion=mostrarIncidencias"><i class="fas fa-search"></i><span>Mostrar incidencias</span></a></li>
-			<li class="mobile-only"><a href="javascript:mostrarTooltips();"><i class="fas fa-question"></i></a></li>
-		</ul>
-	</div>
-</div>
-<div  id="incidenciasRecientes" class="seccion hide">
-	<h5 class="what_to_do titulo">Incidencias recientes</h5>
-	<h4>Listado de incidencias más recientes</h4>
-	<div class="listado">
-		<ul class="list" style="list-style:none;" id="incidenciasRecientesList">
-		</ul>
-	</div>
-</div>
 <div  id="usuariosRecientes" class="seccion hide">
 	<h5 class="what_to_do titulo">Administrar usuarios</h5>
 	<h4>Listado de usuarios registrados recientemente</h4>
@@ -163,44 +136,6 @@ if (!isset($_SESSION['user'])) {
 		</ul>
 	</div>
 </div>
-
-<div id="modificarIncidencia" class="seccion hide with-close-btn">
-	<div class="close"> <a href="#seccion=mapaIncidencias"><i class="far fa-times-circle"></i></a></div>
-		<h2>Nueva incidencia</h2>
-		<form class="formulario" method="POST" action="php/guardarIncidencia.php" target="_blank">
-			
-				<label>Título de la incidencia</label>
-				<input type="text" name="titulo" value="" placeholder="Título de la incidencia" id="tituloIncidencia">
-				<label>Estado</label>
-				<select name="estado" value="" placeholder="Estado" id="estadoIncidencia"></select>
-				<label>Prioridad</label>
-				<select name="prioridad" value="" placeholder="Prioridad" id="prioridadIncidencia"></select>
-			<label>Categoria</label>
-				<select id="tipoIncidencia" name="tipoIncidencia">
-				</select>
-				<h5>Descripción de la incidencia</h5>
-				<textarea name="descripcion" id="descripcionIncidencia" placeholder="Descripción de la incidencia"></textarea>
-				<h5>Localización de la incidencia</h5>
-				<div class="mapContainer">
-				
-				</div>
-				<div style="font-size: 70%;">
-				<p>Ubicación seleccionada: <span id="localizacion"></span></p>
-				<p>Zona/barrio: <span id="barrio"></span></p>
-				</div>
-				<input type="text" placeholder="codigo" name="codigo" id="codigoIncidencia">
-				<input type="text" placeholder="latitud" name="latitud" id="latitud">
-				<input type="text" placeholder="longitud" name="longitud" id="longitud">
-				<div class="menu effect-13">
-					<ul class="buttons">
-						<li id="enviarIncidencia"><a href="javascript:submitIncidenciaForm();"> <i class="fas fa-check-circle"></i> <span>Enviar incidencia</span></a></li>
-						<li class="secundario"><a href="javascript:clearIncidenciaForm();"><i class="fas fa-eraser"></i> <span>Borrar</span></a></li>
-					</ul>
-				</div>
-		</form>
-
-</div>
-
 <div id="modificarCategoria" class="seccion hide with-close-btn">
 	<div class="close"> <a href="#seccion=categorias"><i class="far fa-times-circle"></i></a></div>
 		<h2>Editar categoría</h2>
@@ -219,6 +154,7 @@ if (!isset($_SESSION['user'])) {
 		<form class="formulario" onsubmit="borrarCategoria();return false;">
 			<p>Confirme que desea eliminar la categoria "<span class="nombreCategoria"></span>"</p>
 			<div class="content-check">
+			<input type="hidden" name="codigo" class="codigoCategoria">
 			<input type="submit" value="Borrar categoría">
 			<input type="button" onclick="location='#seccion=categorias'" value="Cancelar">
 			</div>
@@ -241,31 +177,6 @@ if (!isset($_SESSION['user'])) {
 			<input type="submit" value="Modificar perfil">
 			</div>
 		</form>
-</div>
-
-<div id="registro" class="seccion hide">
-	<div class="content-form">
-		<h5 class="what_to_do titulo">Regístrate</h5>
-		<h4>¿Usuario reincidente? <a href="#seccion=login">Inicia sesión</a></h4>
-		<form class="formulario" onsubmit="registrar();return false;">
-			<label for="nombre">Nombre y apellido(s) *</label>
-			<div class="nombreApellidos">
-				<input type="text" id="nombre" placeholder="Nombre" name="nombre"><input type="text" id="apellidos" placeholder="Apellido(s)" name="apellidos">
-			</div>
-			<label for="email">Email *</label>
-			<input type="text" id="emailReg" placeholder="Correo electrónico" name="email">
-			<label for="telefono">Nº Teléfono</label>
-			<input type="text" id="telefono" placeholder="Nº Teléfono (opcional)" name="telefono">
-			<label for="clave">Contraseña *</label>
-			<input type="password" id="claveReg" name="password">
-			<label for="clave">Repite la contraseña *</label>
-			<input type="password" id="clave2">
-			<div class="content-check">
-			<label for="aceptarTerminos"><input type="checkbox" id="aceptarTerminos"> Acepto los términos y la política de privacidad</label>
-			<input type="submit" value="Regístrate">
-			</div>
-		</form>
-	</div>
 </div>
 <div id="ayuntamiento" class="seccion hide">
 	<div class="content-form">
@@ -296,30 +207,6 @@ if (!isset($_SESSION['user'])) {
 			<div class="content-check">
 				<input type="submit" value="Modificar datos">
 			</div>
-		</form>
-	</div>
-</div>
-<div id="mostrarIncidencias" class="seccion hide with-close-btn">
-	<div class="close"> <a href="#seccion=mapaIncidencias"><i class="far fa-times-circle"></i></a></div>
-	<div class="content-form">
-		<h4>Filtro de incidencias</h4>
-		<form class="formulario" onsubmit="mostrarIncidencias();return false;">
-			<h5>Filtrar por categoría</h5>
-			<select multiple id="tiposIncidencias2"></select>
-			<h5>Filtrar por zona</h5>
-			<select multiple id="zonas"></select>
-			<h5>Filtrar por dirección</h5>
-			<input type="text" id="filtroDireccion" placeholder="Ej: Avenidas">
-			<h5>Buscar incidencias</h5>
-			<input type="text" id="busquedaGeneral" placeholder="Ej: asfalto">
-			<!--<div id="tiposIncidencias">
-			<!--<label><input type="checkbox" value="val"> Nombre Tipo</label>-->
-			<!--</div>-->
-			<div class="content-check">
-				<input type="submit" value="Buscar incidencias">
-				<!--<input type="button" value="Borrar filtros">-->
-			</div>
-			<br>
 		</form>
 	</div>
 </div>
