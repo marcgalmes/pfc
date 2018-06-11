@@ -157,7 +157,6 @@ var loadSection = function(hash) {
 				if (match && match[1]) {
 					mostrarError(decodeURIComponent(match[1]));
 				}
-				window.location = "#seccion=mapaIncidencias";
 				break;
 			case "mapaIncidencias":
 				$("#mapaIncidencias .mapContainer").append($("#mapa"));
@@ -212,8 +211,11 @@ var loadSection = function(hash) {
 			default:
 				break;
 		}
-	} else {
+	} else if (pagina==0) {
 		window.location = "#seccion=mapaIncidencias";
+	} else {
+		$(".seccion").hide();
+		$(".main").show();
 	}
 	setTitle(title);
 	closeMenu();//cerrar el menu

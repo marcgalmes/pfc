@@ -73,7 +73,7 @@ if (!isset($_SESSION['user'])) {
 			<ul class="list_load menu-lateral">
 				<li class="list_item"><a href="index.php" id="link-logout"> <i class="fas fa-sign-out-alt"></i> Volver al mapa </a></li>
 				<br>
-				<li class="list_item"><a href="#">Dashboard</a></li>
+				<li class="list_item"><a href="">Dashboard</a></li>
 				<li class="list_item"><a href="#seccion=ayuntamiento">Gestionar ayuntamiento</a></li>
 				<li class="list_item"><a href="#seccion=usuariosRecientes">Gestionar usuarios</a></li>
 				<li class="list_item"><a href="#seccion=categorias">Gestionar categorias</a></li>
