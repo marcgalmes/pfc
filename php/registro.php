@@ -54,6 +54,8 @@ if ($tipoDocumento=="") $tipoDocumento = null;
 if ($ayuntamiento=="") $ayuntamiento = null;
 if ($rolUsuario=="") $rolUsuario = null;
 
+if ($rolUsuario==null) $rolUsuario=2;
+
 
 if ($nombre==null || $password==null || $email==null) {
 	echo('{"error":"Los parametros nombre, email y password son obligatorios"}');

@@ -190,12 +190,6 @@ if (!isset($_SESSION['user'])) {
 			</select>
 			</label>
 			<label>Codigo: <span class="codigo_ayuntamiento"></span></label>
-			<h5>Información</h5>
-			<p>
-				Usuarios registrados: <span id="numeroUsuarios"></span><br>
-				Incidencias totales: <span id="numIncidencias"></span><br>
-			</p>
-			
 			<h5>Modificar datos</h5>
 			<label for="nombre_ayuntamiento">Nombre</label>
 			<input type="text" id="nombre_ayuntamiento" placeholder="Nombre" name="nombre">

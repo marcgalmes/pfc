@@ -788,8 +788,14 @@ function registrar() {
 		"method": "POST",
 		"success": function(data) {
 			var data = JSON.parse(data);
-			if (!data["error"]) {
-				mostarInfo("Bienvenido "+data.nombre+(data.apellidos?" "+data.apellidos:""));
+			if (!data.error) {
+				mostrarInfo("Bienvenido "+data.nombre+(data.apellidos?" "+data.apellidos:"")+", su usuario ha sido dado de alta. ");
+				$("#email").val(data.email);
+				setTimeout(function() {
+					$("#clave").focus();
+				}
+				,200);
+				location = "#seccion=login";
 			} else {
 				mostrarError("No se ha podido registrar el usuario: "+data["error"]);
 			}
